@@ -1,0 +1,36 @@
+body {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+#game {
+  display: inline-grid;
+  grid-template-columns: repeat(8, 40px);
+  grid-template-rows: repeat(8, 40px);
+  gap: 2px;
+}
+
+.cell {
+  width: 40px;
+  height: 40px;
+  background-color: green;
+  border: 1px solid black;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.black, .white {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+}
+
+.black {
+  background-color: black;
+}
+
+.white {
+  background-color: white;
+}
