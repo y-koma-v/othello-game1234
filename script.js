@@ -4,6 +4,7 @@ let currentPlayer = 'black';
 function initBoard() {
   const game = document.getElementById('game');
   game.innerHTML = '';
+  currentPlayer = 'black';
   for (let y = 0; y < 8; y++) {
     board[y] = [];
     for (let x = 0; x < 8; x++) {
@@ -45,6 +46,7 @@ function handleClick(e) {
     makeMove(x, y, currentPlayer);
     currentPlayer = currentPlayer === 'black' ? 'white' : 'black';
     renderBoard();
+    checkGameEnd();
   }
 }
 
@@ -91,6 +93,53 @@ function makeMove(x, y, player) {
       }
     }
   }
+}
+
+function hasValidMoves(player) {
+  for (let y = 0; y < 8; y++) {
+    for (let x = 0; x < 8; x++) {
+      if (isValidMove(x, y, player)) return true;
+    }
+  }
+  return false;
+}
+
+function countPieces() {
+  let black = 0, white = 0;
+  for (let y = 0; y < 8; y++) {
+    for (let x = 0; x < 8; x++) {
+      if (board[y][x] === 'black') black++;
+      if (board[y][x] === 'white') white++;
+    }
+  }
+  return { black, white };
+}
+
+function checkGameEnd() {
+  const hasCurrentPlayerMoves = hasValidMoves(currentPlayer);
+  const hasOpponentMoves = hasValidMoves(currentPlayer === 'black' ? 'white' : 'black');
+  
+  if (!hasCurrentPlayerMoves) {
+    if (!hasOpponentMoves) {
+      showGameResult();
+    } else {
+      currentPlayer = currentPlayer === 'black' ? 'white' : 'black';
+      renderBoard();
+    }
+  }
+}
+
+function showGameResult() {
+  const { black, white } = countPieces();
+  let result;
+  if (black > white) {
+    result = `🎉 黒の勝利！ (黒: ${black}, 白: ${white})`;
+  } else if (white > black) {
+    result = `🎉 白の勝利！ (黒: ${black}, 白: ${white})`;
+  } else {
+    result = `🤝 引き分け！ (黒: ${black}, 白: ${white})`;
+  }
+  document.getElementById('turn').innerHTML = `<strong>${result}</strong>`;
 }
 
 initBoard();

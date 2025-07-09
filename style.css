@@ -34,3 +34,10 @@ body {
 .white {
   background-color: white;
 }
+
+button {
+  margin: 10px;
+  padding: 8px 16px;
+  font-size: 16px;
+  cursor: pointer;
+}
