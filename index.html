@@ -2,14 +2,134 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>オセロゲーム</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ゲームポータル</title>
+  <style>
+    body {
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      color: white;
+    }
+    
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      text-align: center;
+    }
+    
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 2rem;
+      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    }
+    
+    .games-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 2rem;
+      margin-top: 3rem;
+    }
+    
+    .game-card {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      cursor: pointer;
+      text-decoration: none;
+      color: white;
+    }
+    
+    .game-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+    }
+    
+    .game-icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+    }
+    
+    .game-title {
+      font-size: 1.5rem;
+      font-weight: bold;
+      margin-bottom: 0.5rem;
+    }
+    
+    .game-description {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      line-height: 1.4;
+    }
+    
+    .coming-soon {
+      opacity: 0.6;
+      cursor: not-allowed;
+    }
+    
+    .coming-soon:hover {
+      transform: none;
+      box-shadow: none;
+    }
+    
+    @media (max-width: 600px) {
+      h1 {
+        font-size: 2rem;
+      }
+      
+      .games-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
 </head>
 <body>
-  <h1>オセロゲーム</h1>
-  <div id="game"></div>
-  <p id="turn">現在の手番: 黒</p>
-  <button onclick="initBoard()">新しいゲーム</button>
-  <script src="script.js"></script>
+  <div class="container">
+    <h1>🎮 ゲームポータル</h1>
+    <p>お好きなゲームを選んでお楽しみください</p>
+    
+    <div class="games-grid">
+      <a href="othello/" class="game-card">
+        <div class="game-icon">⚫⚪</div>
+        <div class="game-title">オセロ</div>
+        <div class="game-description">
+          クラシックなボードゲーム<br>
+          相手の石を挟んでひっくり返そう！
+        </div>
+      </a>
+      
+      <div class="game-card coming-soon">
+        <div class="game-icon">🧩</div>
+        <div class="game-title">テトリス</div>
+        <div class="game-description">
+          Coming Soon...<br>
+          落ちてくるブロックを組み合わせよう
+        </div>
+      </div>
+      
+      <div class="game-card coming-soon">
+        <div class="game-icon">🐍</div>
+        <div class="game-title">スネークゲーム</div>
+        <div class="game-description">
+          Coming Soon...<br>
+          蛇を操って餌を食べて成長しよう
+        </div>
+      </div>
+      
+      <div class="game-card coming-soon">
+        <div class="game-icon">💣</div>
+        <div class="game-title">マインスイーパー</div>
+        <div class="game-description">
+          Coming Soon...<br>
+          地雷を避けてすべてのマスを開こう
+        </div>
+      </div>
+    </div>
+  </div>
 </body>
 </html>
