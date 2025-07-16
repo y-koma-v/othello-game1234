@@ -1,10 +1,13 @@
 const board = [];
 let currentPlayer = 'black';
+let isCpuMode = false;
+let isGameActive = true;
 
 function initBoard() {
   const game = document.getElementById('game');
   game.innerHTML = '';
   currentPlayer = 'black';
+  isGameActive = true;
   for (let y = 0; y < 8; y++) {
     board[y] = [];
     for (let x = 0; x < 8; x++) {
@@ -40,13 +43,22 @@ function renderBoard() {
 }
 
 function handleClick(e) {
+  if (!isGameActive) return;
+  
   const x = +e.currentTarget.dataset.x;
   const y = +e.currentTarget.dataset.y;
+  
   if (isValidMove(x, y, currentPlayer)) {
     makeMove(x, y, currentPlayer);
     currentPlayer = currentPlayer === 'black' ? 'white' : 'black';
     renderBoard();
-    checkGameEnd();
+    
+    if (checkGameEnd()) return;
+    
+    // CPU対戦モードで白の番になったらCPUが打つ
+    if (isCpuMode && currentPlayer === 'white') {
+      setTimeout(cpuMove, 800); // 少し遅延を入れて自然に見せる
+    }
   }
 }
 
@@ -122,15 +134,23 @@ function checkGameEnd() {
   if (!hasCurrentPlayerMoves) {
     if (!hasOpponentMoves) {
       showGameResult();
+      return true;
     } else {
       currentPlayer = currentPlayer === 'black' ? 'white' : 'black';
       renderBoard();
+      
+      // パス後もCPUの番なら自動で打つ
+      if (isCpuMode && currentPlayer === 'white') {
+        setTimeout(cpuMove, 800);
+      }
     }
   }
+  return false;
 }
 
 function showGameResult() {
   const { black, white } = countPieces();
+  isGameActive = false;
   let result;
   if (black > white) {
     result = `🎉 黒の勝利！ (黒: ${black}, 白: ${white})`;
@@ -140,6 +160,43 @@ function showGameResult() {
     result = `🤝 引き分け！ (黒: ${black}, 白: ${white})`;
   }
   document.getElementById('turn').innerHTML = `<strong>${result}</strong>`;
+}
+
+// CPU機能
+function getValidMoves(player) {
+  const moves = [];
+  for (let y = 0; y < 8; y++) {
+    for (let x = 0; x < 8; x++) {
+      if (isValidMove(x, y, player)) {
+        moves.push([x, y]);
+      }
+    }
+  }
+  return moves;
+}
+
+function cpuMove() {
+  if (!isGameActive || currentPlayer !== 'white') return;
+  
+  const validMoves = getValidMoves('white');
+  if (validMoves.length === 0) return;
+  
+  // ランダムに手を選ぶ
+  const randomIndex = Math.floor(Math.random() * validMoves.length);
+  const [x, y] = validMoves[randomIndex];
+  
+  makeMove(x, y, 'white');
+  currentPlayer = 'black';
+  renderBoard();
+  checkGameEnd();
+}
+
+function toggleCpuMode() {
+  isCpuMode = !isCpuMode;
+  const button = document.getElementById('cpu-toggle');
+  button.textContent = isCpuMode ? 'CPU対戦: ON' : 'CPU対戦: OFF';
+  button.style.backgroundColor = isCpuMode ? '#4CAF50' : '#f44336';
+  initBoard(); // ゲームをリセット
 }
 
 initBoard();

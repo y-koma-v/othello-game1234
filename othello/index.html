@@ -9,8 +9,11 @@
   <h1>オセロゲーム</h1>
   <div id="game"></div>
   <p id="turn">現在の手番: 黒</p>
-  <button onclick="initBoard()">新しいゲーム</button>
-  <button onclick="location.href='../'" style="margin-left: 10px;">ゲーム一覧に戻る</button>
+  <div class="controls">
+    <button onclick="initBoard()">新しいゲーム</button>
+    <button id="cpu-toggle" onclick="toggleCpuMode()" style="margin-left: 10px; background-color: #f44336;">CPU対戦: OFF</button>
+    <button onclick="location.href='../'" style="margin-left: 10px;">ゲーム一覧に戻る</button>
+  </div>
   <script src="script.js"></script>
 </body>
 </html>
