@@ -39,7 +39,8 @@ function renderBoard() {
       cell.appendChild(disc);
     }
   });
-  document.getElementById('turn').textContent = `現在の手番: ${currentPlayer === 'black' ? '黒' : '白'}`;
+  const turnText = currentPlayer === 'black' ? '<span class="black-text">ゾスマン</span>' : '悪の組織';
+  document.getElementById('turn').innerHTML = `現在の手番: ${turnText}`;
 }
 
 function handleClick(e) {
@@ -153,11 +154,11 @@ function showGameResult() {
   isGameActive = false;
   let result;
   if (black > white) {
-    result = `🎉 黒の勝利！ (黒: ${black}, 白: ${white})`;
+    result = `🎉 ゾスマンの勝利！ (ゾスマン: ${black}, 悪の組織: ${white})`;
   } else if (white > black) {
-    result = `🎉 白の勝利！ (黒: ${black}, 白: ${white})`;
+    result = `😈 悪の組織の勝利！ (ゾスマン: ${black}, 悪の組織: ${white})`;
   } else {
-    result = `🤝 引き分け！ (黒: ${black}, 白: ${white})`;
+    result = `🤝 引き分け！ (ゾスマン: ${black}, 悪の組織: ${white})`;
   }
   document.getElementById('turn').innerHTML = `<strong>${result}</strong>`;
 }
@@ -194,8 +195,8 @@ function cpuMove() {
 function toggleCpuMode() {
   isCpuMode = !isCpuMode;
   const button = document.getElementById('cpu-toggle');
-  button.textContent = isCpuMode ? 'CPU対戦: ON' : 'CPU対戦: OFF';
-  button.style.backgroundColor = isCpuMode ? '#4CAF50' : '#f44336';
+  button.textContent = isCpuMode ? '悪の組織と対戦: ON' : '悪の組織と対戦: OFF';
+  button.style.backgroundColor = isCpuMode ? '#4CAF50' : '#333';
   initBoard(); // ゲームをリセット
 }
 

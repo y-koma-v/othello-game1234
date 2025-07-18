@@ -3,83 +3,181 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ゲームポータル</title>
+  <title>ゾスマンのゲームポータル</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap');
+    
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      font-family: 'Noto Sans JP', sans-serif;
       margin: 0;
-      padding: 20px;
-      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      padding: 0;
+      background-color: #121212;
       min-height: 100vh;
       color: white;
+      position: relative;
+    }
+    
+    body::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 5px;
+      background: linear-gradient(90deg, #ff0000, #990000);
+      z-index: 10;
     }
     
     .container {
-      max-width: 800px;
+      max-width: 1000px;
       margin: 0 auto;
       text-align: center;
+      padding: 40px 20px;
+    }
+    
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 3rem;
+    }
+    
+    .logo {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #ff0000 0%, #990000 100%);
+      padding: 15px 30px;
+      border-radius: 8px;
+      box-shadow: 0 10px 20px rgba(255, 0, 0, 0.2);
+      transform: skewX(-10deg);
+      margin-bottom: 1rem;
     }
     
     h1 {
-      font-size: 3rem;
-      margin-bottom: 2rem;
-      text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+      font-size: 2.8rem;
+      margin: 0;
+      text-shadow: 3px 3px 0px rgba(0,0,0,0.5);
+      transform: skewX(10deg);
+      letter-spacing: 1px;
+    }
+    
+    .subtitle {
+      font-size: 1.2rem;
+      margin-top: 1rem;
+      color: #ff3333;
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 2px;
     }
     
     .games-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 2.5rem;
       margin-top: 3rem;
     }
     
     .game-card {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
+      background: #1e1e1e;
+      border-radius: 12px;
       padding: 2rem;
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255, 255, 255, 0.2);
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      border-left: 4px solid #ff0000;
+      transition: all 0.3s ease;
       cursor: pointer;
       text-decoration: none;
       color: white;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .game-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(90deg, #ff0000, #990000);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.3s ease;
     }
     
     .game-card:hover {
-      transform: translateY(-5px);
-      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      transform: translateY(-8px);
+      box-shadow: 0 15px 30px rgba(255, 0, 0, 0.15);
+    }
+    
+    .game-card:hover::after {
+      transform: scaleX(1);
     }
     
     .game-icon {
       font-size: 4rem;
-      margin-bottom: 1rem;
+      margin-bottom: 1.5rem;
+      position: relative;
+      display: inline-block;
+    }
+    
+    .game-icon::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 40px;
+      height: 3px;
+      background-color: #ff0000;
     }
     
     .game-title {
-      font-size: 1.5rem;
+      font-size: 1.6rem;
       font-weight: bold;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.8rem;
     }
     
     .game-description {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      line-height: 1.4;
+      font-size: 0.95rem;
+      color: #cccccc;
+      line-height: 1.5;
     }
     
     .coming-soon {
       opacity: 0.6;
       cursor: not-allowed;
+      border-left: 4px solid #555;
+    }
+    
+    .coming-soon .game-icon::after {
+      background-color: #555;
     }
     
     .coming-soon:hover {
       transform: none;
-      box-shadow: none;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
     
-    @media (max-width: 600px) {
+    .coming-soon:hover::after {
+      transform: scaleX(0);
+    }
+    
+    .footer {
+      margin-top: 5rem;
+      padding-top: 2rem;
+      border-top: 1px solid #333;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    
+    @media (max-width: 768px) {
+      .logo {
+        padding: 10px 20px;
+      }
+      
       h1 {
-        font-size: 2rem;
+        font-size: 2.2rem;
       }
       
       .games-grid {
@@ -90,43 +188,46 @@
 </head>
 <body>
   <div class="container">
-    <h1>🎮 ゲームポータル</h1>
-    <p>お好きなゲームを選んでお楽しみください</p>
+    <div class="logo">
+      <h1>ゾスマン</h1>
+    </div>
+    <div class="subtitle">サラリーマンヒーローのゲームポータル</div>
+    <p>昼はサラリーマン、夜はヒーロー。ゾスマンの世界へようこそ！</p>
     
     <div class="games-grid">
       <a href="othello/index.html" class="game-card">
         <div class="game-icon">⚫⚪</div>
-        <div class="game-title">オセロ</div>
+        <div class="game-title">ゾスマンオセロ</div>
         <div class="game-description">
-          クラシックなボードゲーム<br>
-          相手の石を挟んでひっくり返そう！
+          ゾスマン vs 悪の組織<br>
+          戦略的に石を配置して勝利を掴め！
         </div>
       </a>
       
       <div class="game-card coming-soon">
-        <div class="game-icon">🧩</div>
-        <div class="game-title">テトリス</div>
+        <div class="game-icon">🏢</div>
+        <div class="game-title">オフィスレスキュー</div>
         <div class="game-description">
           Coming Soon...<br>
-          落ちてくるブロックを組み合わせよう
+          サラリーマンからヒーローに変身して会社を救え！
         </div>
       </div>
       
       <div class="game-card coming-soon">
-        <div class="game-icon">🐍</div>
-        <div class="game-title">スネークゲーム</div>
+        <div class="game-icon">⚡</div>
+        <div class="game-title">ゾスマンラン</div>
         <div class="game-description">
           Coming Soon...<br>
-          蛇を操って餌を食べて成長しよう
+          障害物を避けながら悪の組織から逃げ切れ！
         </div>
       </div>
       
       <div class="game-card coming-soon">
-        <div class="game-icon">💣</div>
-        <div class="game-title">マインスイーパー</div>
+        <div class="game-icon">🥷</div>
+        <div class="game-title">シャドウミッション</div>
         <div class="game-description">
           Coming Soon...<br>
-          地雷を避けてすべてのマスを開こう
+          暗闇の中で敵を倒し、機密情報を奪取せよ
         </div>
       </div>
     </div>

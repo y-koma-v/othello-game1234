@@ -2,18 +2,28 @@
 <html lang="ja">
 <head>
   <meta charset="UTF-8">
-  <title>オセロゲーム</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ゾスマンオセロ</title>
   <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>オセロゲーム</h1>
-  <div id="game"></div>
-  <p id="turn">現在の手番: 黒</p>
-  <div class="controls">
-    <button onclick="initBoard()">新しいゲーム</button>
-    <button id="cpu-toggle" onclick="toggleCpuMode()" style="margin-left: 10px; background-color: #f44336;">CPU対戦: OFF</button>
-    <button onclick="location.href='../'" style="margin-left: 10px;">ゲーム一覧に戻る</button>
+  <div class="header">
+    <div class="logo">
+      <h1>ゾスマンオセロ</h1>
+    </div>
+    <p class="subtitle">ゾスマン vs 悪の組織</p>
   </div>
+  
+  <div id="game"></div>
+  <p id="turn">現在の手番: <span class="black-text">ゾスマン</span></p>
+  
+  <div class="controls">
+    <button onclick="initBoard()" class="btn-primary">新しいゲーム</button>
+    <button id="cpu-toggle" onclick="toggleCpuMode()" class="btn-danger">悪の組織と対戦: OFF</button>
+    <button onclick="location.href='../'" class="btn-secondary">ポータルに戻る</button>
+  </div>
+  
   <script src="script.js"></script>
 </body>
 </html>
