@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ゾスマン - オフィスレスキュー</title>
+  <link rel="stylesheet" href="style.css">
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="header">
+    <div class="logo">
+      <h1>オフィスレスキュー</h1>
+    </div>
+    <p class="subtitle">サラリーマンヒーロー・ゾスマンの活躍</p>
+  </div>
+  
+  <div class="game-container">
+    <div id="game-board"></div>
+    <div id="status-panel">
+      <div id="mode-indicator">
+        <span class="mode-label">モード:</span>
+        <span id="current-mode">サラリーマン</span>
+        <button id="transform-btn">変身</button>
+      </div>
+      <div id="mission-info">
+        <h3>ミッション:</h3>
+        <p id="mission-text">閉じ込められた同僚を救出せよ！</p>
+        <p><span style="color: #f1c40f;">●</span> 黄色い円が同僚です</p>
+        <p><span style="color: #9b59b6;">●</span> 紫の円は敵です</p>
+        <p><span style="color: #2ecc71;">■</span> 緑の出口に同僚を連れて行きましょう</p>
+      </div>
+      <div id="controls-info">
+        <h3>操作方法:</h3>
+        <p>矢印キー/方向ボタン: 移動</p>
+        <p>T/変身ボタン: 変身</p>
+        <p>※サラリーマンは敵に触れるとゲームオーバー</p>
+        <p>※ヒーローは敵を倒せます</p>
+      </div>
+    </div>
+  </div>
+  
+  <!-- モバイル用コントロール -->
+  <div id="mobile-controls">
+    <div class="d-pad">
+      <button id="btn-up" class="d-btn up">↑</button>
+      <button id="btn-left" class="d-btn left">←</button>
+      <button id="btn-right" class="d-btn right">→</button>
+      <button id="btn-down" class="d-btn down">↓</button>
+    </div>
+  </div>
+  
+  <div class="controls">
+    <button id="restart-btn" class="btn-primary">リスタート</button>
+    <button onclick="location.href='../'" class="btn-secondary">ポータルに戻る</button>
+  </div>
+  
+  <script src="game.js"></script>
+</body>
+</html>
