@@ -1,0 +1,381 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>HIKAZEITV - 非課税スタック・ラン (Demo)</title>
+    <style>
+        html,
+        body {
+            margin: 0;
+            height: 100%;
+            background: #0b0f14;
+            color: #e8eef6;
+            font-family: -apple-system, system-ui, Segoe UI, Roboto, "Hiragino Kaku Gothic ProN", "Noto Sans JP", sans-serif;
+        }
+
+        #wrap {
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px;
+        }
+
+        canvas {
+            width: min(420px, 100%);
+            height: calc(min(820px, 100vh) - 24px);
+            border-radius: 18px;
+            background: linear-gradient(#0e1621, #0b0f14);
+            box-shadow: 0 20px 60px rgba(0, 0, 0, .45);
+            touch-action: manipulation;
+        }
+
+        .hint {
+            position: fixed;
+            left: 0;
+            right: 0;
+            bottom: 10px;
+            text-align: center;
+            font-size: 12px;
+            opacity: .85;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="wrap">
+        <canvas id="c" width="420" height="820"></canvas>
+    </div>
+    <div class="hint">タップでジャンプ（2段ジャンプ） / スタックが0でゲームオーバー</div>
+
+    <script>
+        (() => {
+            const canvas = document.getElementById("c");
+            const ctx = canvas.getContext("2d");
+
+            const W = canvas.width, H = canvas.height;
+            const GROUND_Y = Math.floor(H * 0.82);
+
+            const state = {
+                t: 0,
+                running: false,
+                gameOver: false,
+                score: 0,
+                best: Number(localStorage.getItem("hikazei_best") || 0),
+                speed: 5.2,
+                spawnTimer: 0,
+                spawnEvery: 48,
+                shake: 0,
+            };
+
+            const player = {
+                x: Math.floor(W * 0.28),
+                y: GROUND_Y,
+                vy: 0,
+                r: 22,
+                jumpsLeft: 2,
+                stack: 6,          // 非課税スタック（HP）
+                stackMax: 12,
+                inv: 0,            // 無敵時間
+                glow: 0,
+            };
+
+            const items = []; // {type:'knowledge'|'tax', x,y,w,h, vx}
+
+            function reset() {
+                state.t = 0;
+                state.running = true;
+                state.gameOver = false;
+                state.score = 0;
+                state.speed = 5.2;
+                state.spawnTimer = 0;
+                state.spawnEvery = 48;
+                items.length = 0;
+
+                player.y = GROUND_Y;
+                player.vy = 0;
+                player.jumpsLeft = 2;
+                player.stack = 6;
+                player.inv = 0;
+                player.glow = 0;
+            }
+
+            function clamp(v, a, b) { return Math.max(a, Math.min(b, v)); }
+
+            function jump() {
+                if (!state.running) return;
+                if (state.gameOver) { reset(); return; }
+
+                if (player.jumpsLeft > 0) {
+                    player.vy = -12.8;
+                    player.jumpsLeft--;
+                    state.shake = 6;
+                }
+            }
+
+            function rectsOverlap(ax, ay, aw, ah, bx, by, bw, bh) {
+                return ax < bx + bw && ax + aw > bx && ay < by + bh && ay + ah > by;
+            }
+
+            function spawn() {
+                // 7:3 で knowledge / tax
+                const isTax = Math.random() < 0.30;
+                const type = isTax ? "tax" : "knowledge";
+
+                // knowledgeは空中/地上ランダム、taxは主に地上のゲート
+                if (type === "knowledge") {
+                    const y = Math.random() < 0.55 ? (GROUND_Y - 110) : (GROUND_Y - 40);
+                    items.push({ type, x: W + 40, y, w: 32, h: 32, vx: state.speed });
+                } else {
+                    // 課税ゲート（地上の壁）
+                    items.push({ type, x: W + 60, y: GROUND_Y - 70, w: 26, h: 92, vx: state.speed });
+                }
+            }
+
+            function update() {
+                state.t++;
+
+                if (!state.running) return;
+
+                // 難易度上昇
+                state.speed += 0.0022;
+                state.spawnEvery = clamp(54 - Math.floor(state.speed * 2.2), 28, 54);
+
+                // プレイヤー物理
+                player.vy += 0.62; // gravity
+                player.y += player.vy;
+                if (player.y >= GROUND_Y) {
+                    player.y = GROUND_Y;
+                    player.vy = 0;
+                    player.jumpsLeft = 2;
+                }
+
+                if (player.inv > 0) player.inv--;
+                if (player.glow > 0) player.glow--;
+
+                // 生成
+                state.spawnTimer++;
+                if (state.spawnTimer >= state.spawnEvery) {
+                    state.spawnTimer = 0;
+                    spawn();
+                }
+
+                // アイテム移動 + 衝突
+                for (let i = items.length - 1; i >= 0; i--) {
+                    const it = items[i];
+                    it.vx = state.speed;
+                    it.x -= it.vx;
+
+                    const px = player.x - player.r;
+                    const py = player.y - player.r;
+                    const pr = player.r * 2;
+
+                    if (rectsOverlap(px, py, pr, pr, it.x - it.w / 2, it.y - it.h / 2, it.w, it.h)) {
+                        if (it.type === "knowledge") {
+                            // 知識 = スコア + スタック回復
+                            state.score += 12;
+                            player.stack = clamp(player.stack + 1, 0, player.stackMax);
+                            player.glow = 14;
+
+                            // MAXでバリア発動（短時間無敵）
+                            if (player.stack === player.stackMax) player.inv = Math.max(player.inv, 120);
+
+                            items.splice(i, 1);
+                            continue;
+                        } else {
+                            // 課税 = ダメージ（無敵中は無効）
+                            if (player.inv === 0) {
+                                player.stack -= 2;
+                                state.shake = 12;
+                                player.inv = 40;
+                            }
+                            items.splice(i, 1);
+                            continue;
+                        }
+                    }
+
+                    if (it.x < -80) items.splice(i, 1);
+                }
+
+                // 自然増点（走るほど積み上がる感）
+                state.score += 1;
+
+                if (player.stack <= 0) {
+                    state.gameOver = true;
+                    state.running = false;
+                    state.best = Math.max(state.best, state.score);
+                    localStorage.setItem("hikazei_best", String(state.best));
+                }
+
+                if (state.shake > 0) state.shake--;
+            }
+
+            function draw() {
+                // 背景
+                ctx.clearRect(0, 0, W, H);
+
+                // camera shake
+                const sx = (Math.random() - 0.5) * state.shake;
+                const sy = (Math.random() - 0.5) * state.shake;
+                ctx.save();
+                ctx.translate(sx, sy);
+
+                // 地面
+                ctx.globalAlpha = 0.9;
+                ctx.fillStyle = "rgba(255,255,255,0.06)";
+                ctx.fillRect(0, GROUND_Y + 24, W, H - (GROUND_Y + 24));
+                ctx.globalAlpha = 1;
+
+                // 遠景ライン
+                ctx.strokeStyle = "rgba(255,255,255,0.07)";
+                ctx.lineWidth = 2;
+                for (let y = 120; y < GROUND_Y; y += 110) {
+                    ctx.beginPath();
+                    ctx.moveTo(0, y);
+                    ctx.lineTo(W, y);
+                    ctx.stroke();
+                }
+
+                // アイテム
+                for (const it of items) {
+                    if (it.type === "knowledge") {
+                        ctx.fillStyle = "rgba(120,190,255,0.95)";
+                        ctx.beginPath();
+                        ctx.roundRect(it.x - it.w / 2, it.y - it.h / 2, it.w, it.h, 8);
+                        ctx.fill();
+                        ctx.fillStyle = "rgba(0,0,0,0.35)";
+                        ctx.font = "700 12px system-ui";
+                        ctx.fillText("知", it.x - 6, it.y + 5);
+                    } else {
+                        ctx.fillStyle = "rgba(255,110,110,0.95)";
+                        ctx.beginPath();
+                        ctx.roundRect(it.x - it.w / 2, it.y - it.h / 2, it.w, it.h, 10);
+                        ctx.fill();
+                        ctx.fillStyle = "rgba(0,0,0,0.35)";
+                        ctx.font = "700 12px system-ui";
+                        ctx.fillText("税", it.x - 6, it.y + 5);
+                    }
+                }
+
+                // プレイヤー（HIKAZEI）
+                const alpha = player.inv > 0 ? (0.35 + 0.65 * (state.t % 10 < 5)) : 1;
+                ctx.globalAlpha = alpha;
+
+                // バリア表示
+                if (player.inv > 0 && player.stack === player.stackMax) {
+                    ctx.strokeStyle = "rgba(120,190,255,0.9)";
+                    ctx.lineWidth = 5;
+                    ctx.beginPath();
+                    ctx.arc(player.x, player.y, player.r + 14, 0, Math.PI * 2);
+                    ctx.stroke();
+                }
+
+                // 体
+                ctx.fillStyle = player.glow > 0 ? "rgba(255,255,255,0.95)" : "rgba(240,245,255,0.92)";
+                ctx.beginPath();
+                ctx.arc(player.x, player.y, player.r, 0, Math.PI * 2);
+                ctx.fill();
+
+                // 胸ロゴっぽいライン
+                ctx.globalAlpha = alpha * 0.9;
+                ctx.fillStyle = "rgba(0,0,0,0.22)";
+                ctx.beginPath();
+                ctx.roundRect(player.x - 18, player.y - 6, 36, 14, 6);
+                ctx.fill();
+                ctx.globalAlpha = alpha;
+                ctx.fillStyle = "rgba(255,255,255,0.9)";
+                ctx.font = "800 9px system-ui";
+                ctx.fillText("HIKAZEI", player.x - 19, player.y + 4);
+
+                ctx.globalAlpha = 1;
+
+                // UI
+                ctx.fillStyle = "rgba(255,255,255,0.92)";
+                ctx.font = "700 18px system-ui";
+                ctx.fillText(`SCORE  ${state.score}`, 18, 36);
+                ctx.font = "600 14px system-ui";
+                ctx.fillStyle = "rgba(255,255,255,0.72)";
+                ctx.fillText(`BEST  ${state.best}`, 18, 58);
+
+                // スタックバー
+                const barX = 18, barY = 78, barW = 210, barH = 12;
+                ctx.fillStyle = "rgba(255,255,255,0.14)";
+                ctx.beginPath(); ctx.roundRect(barX, barY, barW, barH, 8); ctx.fill();
+                ctx.fillStyle = "rgba(120,190,255,0.9)";
+                const fillW = barW * (player.stack / player.stackMax);
+                ctx.beginPath(); ctx.roundRect(barX, barY, fillW, barH, 8); ctx.fill();
+                ctx.fillStyle = "rgba(255,255,255,0.72)";
+                ctx.font = "600 12px system-ui";
+                ctx.fillText(`非課税スタック ${player.stack}/${player.stackMax}`, barX, barY + 28);
+
+                // タイトル/開始
+                if (!state.running && !state.gameOver) {
+                    ctx.fillStyle = "rgba(255,255,255,0.92)";
+                    ctx.font = "800 26px system-ui";
+                    ctx.fillText("非課税スタック・ラン", 80, 240);
+                    ctx.fillStyle = "rgba(255,255,255,0.70)";
+                    ctx.font = "600 14px system-ui";
+                    ctx.fillText("タップで開始 / タップでジャンプ（2段）", 86, 270);
+                }
+
+                // GameOver
+                if (state.gameOver) {
+                    ctx.fillStyle = "rgba(0,0,0,0.55)";
+                    ctx.fillRect(0, 0, W, H);
+
+                    ctx.fillStyle = "rgba(255,255,255,0.95)";
+                    ctx.font = "900 34px system-ui";
+                    ctx.fillText("GAME OVER", 110, 320);
+
+                    ctx.font = "700 18px system-ui";
+                    ctx.fillText(`SCORE  ${state.score}`, 140, 360);
+                    ctx.fillStyle = "rgba(255,255,255,0.80)";
+                    ctx.fillText(`BEST   ${state.best}`, 140, 386);
+
+                    ctx.fillStyle = "rgba(120,190,255,0.95)";
+                    ctx.font = "800 16px system-ui";
+                    ctx.fillText("タップでリトライ", 150, 430);
+
+                    ctx.fillStyle = "rgba(255,255,255,0.70)";
+                    ctx.font = "600 13px system-ui";
+                    ctx.fillText("知識は非課税。積み上げた分だけ強くなる。", 80, 468);
+                }
+
+                ctx.restore();
+            }
+
+            function loop() {
+                update();
+                draw();
+                requestAnimationFrame(loop);
+            }
+
+            // 角丸rect
+            CanvasRenderingContext2D.prototype.roundRect ||= function (x, y, w, h, r) {
+                r = Math.min(r, w / 2, h / 2);
+                this.beginPath();
+                this.moveTo(x + r, y);
+                this.arcTo(x + w, y, x + w, y + h, r);
+                this.arcTo(x + w, y + h, x, y + h, r);
+                this.arcTo(x, y + h, x, y, r);
+                this.arcTo(x, y, x + w, y, r);
+                this.closePath();
+                return this;
+            };
+
+            // 入力
+            const onPress = (e) => { e.preventDefault(); if (!state.running && !state.gameOver) { reset(); } else { jump(); } };
+            canvas.addEventListener("pointerdown", onPress, { passive: false });
+            window.addEventListener("keydown", (e) => { if (e.code === "Space" || e.code === "ArrowUp") { if (!state.running && !state.gameOver) reset(); else jump(); } });
+
+            // 初期画面
+            state.running = false;
+            state.gameOver = false;
+            loop();
+        })();
+    </script>
+</body>
+
+</html>
