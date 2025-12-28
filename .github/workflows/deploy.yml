@@ -15,7 +15,7 @@ jobs:
       - name: Sync files to S3
         uses: jakejarvis/s3-sync-action@master
         with:
-          args: --delete
+          args: --delete --exclude '.git/*' --exclude '.github/*' --exclude '.gitignore' --exclude '.DS_Store' --exclude 'node_modules/*'
         env:
           AWS_S3_BUCKET: ${{ secrets.S3_BUCKET_NAME }}
           AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
