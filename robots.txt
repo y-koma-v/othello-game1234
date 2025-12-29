@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://works.ugounosyu-aiblog.com/sitemap.xml
