@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>トイレ大冒険 3D - スマホ版</title>
+    <style>
+        body { margin: 0; overflow: hidden; background: #87CEEB; font-family: 'Arial', sans-serif; touch-action: none; }
+        #ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; pointer-events: none; }
+        #title-screen { pointer-events: auto; text-align: center; }
+        h1 { color: white; text-shadow: 4px 4px 0px #00aaff; font-size: 3rem; margin-bottom: 20px; }
+        button { padding: 15px 40px; font-size: 1.5rem; cursor: pointer; background: #ffcc00; border: none; border-radius: 50px; color: #fff; font-weight: bold; box-shadow: 0 5px 0 #ccaa00; pointer-events: auto; }
+        button:active { transform: translateY(5px); box-shadow: none; }
+        #hud { position: absolute; top: 20px; width: 100%; text-align: center; color: white; font-size: 1.5rem; display: none; text-shadow: 2px 2px 0 #000; }
+        #goal-screen { display: none; pointer-events: auto; text-align: center; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 20px; }
+    </style>
+</head>
+<body>
+
+    <div id="ui">
+        <!-- タイトル画面 -->
+        <div id="title-screen">
+            <h1>トイレ大冒険</h1>
+            <button id="startBtn">はじめる！</button>
+        </div>
+
+        <!-- プレイ中表示 -->
+        <div id="hud">タップでジャンプ！</div>
+
+        <!-- ゴール画面 -->
+        <div id="goal-screen">
+            <h1 style="color: #ffff00;">クリア！うみにでたぞ！</h1>
+            <button onclick="location.reload()">もういっかい！</button>
+        </div>
+    </div>
+
+    <script type="importmap">
+    {
+        "imports": {
+            "three": "https://unpkg.com/three@0.160.0/build/three.module.js"
+        }
+    }
+    </script>
+
+    <script type="module">
+        import * as THREE from 'three';
+
+        let scene, camera, renderer, player, pipe, ocean, toilet;
+        let gameState = 'TITLE';
+        let speed = 0;
+        let jumpVelocity = 0;
+        let isJumping = false;
+        let score = 0;
+        const obstacles = [];
+
+        init();
+        animate();
+
+        function init() {
+            // シーン設定
+            scene = new THREE.Scene();
+            scene.background = new THREE.Color(0x87CEEB);
+            scene.fog = new THREE.Fog(0x87CEEB, 1, 100);
+
+            camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+            camera.position.set(0, 2, 8);
+
+            renderer = new THREE.WebGLRenderer({ antialias: true });
+            renderer.setSize(window.innerWidth, window.innerHeight);
+            renderer.setPixelRatio(window.devicePixelRatio);
+            document.body.appendChild(renderer.domElement);
+
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.7);
+            scene.add(ambientLight);
+            const sunLight = new THREE.DirectionalLight(0xffffff, 1);
+            sunLight.position.set(5, 10, 5);
+            scene.add(sunLight);
+
+            // トイレの作成（簡易モデル）
+            toilet = new THREE.Group();
+            const bowl = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1, 2, 32), new THREE.MeshStandardMaterial({color: 0xffffff}));
+            const tank = new THREE.Mesh(new THREE.BoxGeometry(2.5, 2, 1), new THREE.MeshStandardMaterial({color: 0xffffff}));
+            tank.position.set(0, 1.5, 1);
+            toilet.add(bowl, tank);
+            scene.add(toilet);
+
+            // キャラクター（水滴くん）
+            const charGeo = new THREE.SphereGeometry(0.4, 32, 32);
+            const charMat = new THREE.MeshStandardMaterial({ color: 0x00ccff, roughness: 0, metalness: 0.5 });
+            player = new THREE.Mesh(charGeo, charMat);
+            player.position.set(0, 0, 0);
+            player.visible = false;
+            scene.add(player);
+
+            // パイプ（コース）
+            const pipeGeo = new THREE.CylinderGeometry(6, 6, 300, 32, 1, true);
+            const pipeMat = new THREE.MeshStandardMaterial({ color: 0x44aaee, side: THREE.BackSide, wireframe: false });
+            pipe = new THREE.Mesh(pipeGeo, pipeMat);
+            pipe.rotation.x = Math.PI / 2;
+            pipe.position.z = -150;
+            pipe.visible = false;
+            scene.add(pipe);
+
+            // 海（ゴール地点）
+            const oceanGeo = new THREE.PlaneGeometry(1000, 1000);
+            const oceanMat = new THREE.MeshStandardMaterial({ color: 0x0077ff, transparent: true, opacity: 0.8 });
+            ocean = new THREE.Mesh(oceanGeo, oceanMat);
+            ocean.rotation.x = -Math.PI / 2;
+            ocean.position.y = -5;
+            ocean.position.z = -350;
+            ocean.visible = false;
+            scene.add(ocean);
+
+            // 障害物（泡など）をランダム配置
+            for(let i=0; i<20; i++) {
+                const obs = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), new THREE.MeshStandardMaterial({color: 0xffffff, transparent: true, opacity: 0.5}));
+                obs.position.set(Math.random()*4-2, -2, -20 - (i * 15));
+                obs.visible = false;
+                obstacles.push(obs);
+                scene.add(obs);
+            }
+        }
+
+        // 開始ボタン処理
+        document.getElementById('startBtn').addEventListener('click', () => {
+            gameState = 'FLUSHING';
+            document.getElementById('title-screen').style.display = 'none';
+        });
+
+        // タップ操作
+        window.addEventListener('pointerdown', () => {
+            if(gameState === 'PLAYING' && !isJumping) {
+                isJumping = true;
+                jumpVelocity = 0.2;
+            }
+        });
+
+        function animate() {
+            requestAnimationFrame(animate);
+
+            if (gameState === 'FLUSHING') {
+                camera.position.z -= 0.15;
+                camera.position.y -= 0.05;
+                camera.lookAt(0,0,0);
+                if (camera.position.z < 0.5) {
+                    gameState = 'PLAYING';
+                    player.visible = true;
+                    pipe.visible = true;
+                    toilet.visible = false;
+                    obstacles.forEach(o => o.visible = true);
+                    document.getElementById('hud').style.display = 'block';
+                }
+            }
+
+            if (gameState === 'PLAYING') {
+                speed = 0.4;
+                player.position.z -= speed;
+                camera.position.z = player.position.z + 5;
+                camera.position.y = 1;
+
+                // ジャンプ
+                if (isJumping) {
+                    player.position.y += jumpVelocity;
+                    jumpVelocity -= 0.01;
+                    if (player.position.y <= -2) {
+                        player.position.y = -2;
+                        isJumping = false;
+                    }
+                } else {
+                    player.position.y = -2; // 地面（パイプの下部）
+                }
+
+                // ゴール判定
+                if (player.position.z < -280) {
+                    gameState = 'GOAL';
+                    pipe.visible = false;
+                    ocean.visible = true;
+                    document.getElementById('hud').style.display = 'none';
+                    document.getElementById('goal-screen').style.display = 'block';
+                }
+            }
+
+            if (gameState === 'GOAL') {
+                player.position.z -= 0.1;
+                player.position.y -= 0.02; // 海に沈んでいく
+                camera.position.y += 0.01;
+                camera.lookAt(player.position);
+            }
+
+            renderer.render(scene, camera);
+        }
+
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+    </script>
+</body>
+</html>
