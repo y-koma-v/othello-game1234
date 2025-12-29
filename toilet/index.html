@@ -1,20 +1,84 @@
 <!DOCTYPE html>
 <html lang="ja">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>トイレ大冒険 3D - スマホ版</title>
     <style>
-        body { margin: 0; overflow: hidden; background: #87CEEB; font-family: 'Arial', sans-serif; touch-action: none; }
-        #ui { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; justify-content: center; align-items: center; pointer-events: none; }
-        #title-screen { pointer-events: auto; text-align: center; }
-        h1 { color: white; text-shadow: 4px 4px 0px #00aaff; font-size: 3rem; margin-bottom: 20px; }
-        button { padding: 15px 40px; font-size: 1.5rem; cursor: pointer; background: #ffcc00; border: none; border-radius: 50px; color: #fff; font-weight: bold; box-shadow: 0 5px 0 #ccaa00; pointer-events: auto; }
-        button:active { transform: translateY(5px); box-shadow: none; }
-        #hud { position: absolute; top: 20px; width: 100%; text-align: center; color: white; font-size: 1.5rem; display: none; text-shadow: 2px 2px 0 #000; }
-        #goal-screen { display: none; pointer-events: auto; text-align: center; background: rgba(0,0,0,0.3); padding: 20px; border-radius: 20px; }
+        body {
+            margin: 0;
+            overflow: hidden;
+            background: #87CEEB;
+            font-family: 'Arial', sans-serif;
+            touch-action: none;
+        }
+
+        #ui {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            pointer-events: none;
+        }
+
+        #title-screen {
+            pointer-events: auto;
+            text-align: center;
+        }
+
+        h1 {
+            color: white;
+            text-shadow: 4px 4px 0px #00aaff;
+            font-size: 3rem;
+            margin-bottom: 20px;
+        }
+
+        button {
+            padding: 15px 40px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            background: #ffcc00;
+            border: none;
+            border-radius: 50px;
+            color: #fff;
+            font-weight: bold;
+            box-shadow: 0 5px 0 #ccaa00;
+            pointer-events: auto;
+        }
+
+        button:active {
+            transform: translateY(5px);
+            box-shadow: none;
+        }
+
+        #hud {
+            position: absolute;
+            top: 20px;
+            width: 100%;
+            text-align: center;
+            color: white;
+            font-size: 1.5rem;
+            display: none;
+            text-shadow: 2px 2px 0 #000;
+        }
+
+        #goal-screen {
+            display: none;
+            pointer-events: auto;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.3);
+            padding: 20px;
+            border-radius: 20px;
+        }
     </style>
 </head>
+
 <body>
 
     <div id="ui">
@@ -78,8 +142,8 @@
 
             // トイレの作成（簡易モデル）
             toilet = new THREE.Group();
-            const bowl = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1, 2, 32), new THREE.MeshStandardMaterial({color: 0xffffff}));
-            const tank = new THREE.Mesh(new THREE.BoxGeometry(2.5, 2, 1), new THREE.MeshStandardMaterial({color: 0xffffff}));
+            const bowl = new THREE.Mesh(new THREE.CylinderGeometry(1.5, 1, 2, 32), new THREE.MeshStandardMaterial({ color: 0xffffff }));
+            const tank = new THREE.Mesh(new THREE.BoxGeometry(2.5, 2, 1), new THREE.MeshStandardMaterial({ color: 0xffffff }));
             tank.position.set(0, 1.5, 1);
             toilet.add(bowl, tank);
             scene.add(toilet);
@@ -112,9 +176,9 @@
             scene.add(ocean);
 
             // 障害物（泡など）をランダム配置
-            for(let i=0; i<20; i++) {
-                const obs = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), new THREE.MeshStandardMaterial({color: 0xffffff, transparent: true, opacity: 0.5}));
-                obs.position.set(Math.random()*4-2, -2, -20 - (i * 15));
+            for (let i = 0; i < 5; i++) {
+                const obs = new THREE.Mesh(new THREE.SphereGeometry(0.5, 16, 16), new THREE.MeshStandardMaterial({ color: 0xffffff, transparent: true, opacity: 0.5 }));
+                obs.position.set(Math.random() * 4 - 2, -2, -20 - (i * 25));
                 obs.visible = false;
                 obstacles.push(obs);
                 scene.add(obs);
@@ -129,9 +193,12 @@
 
         // タップ操作
         window.addEventListener('pointerdown', () => {
-            if(gameState === 'PLAYING' && !isJumping) {
+            if (gameState === 'PLAYING' && !isJumping) {
                 isJumping = true;
                 jumpVelocity = 0.2;
+            }
+            if (gameState === 'GAMEOVER') {
+                location.reload();
             }
         });
 
@@ -141,7 +208,7 @@
             if (gameState === 'FLUSHING') {
                 camera.position.z -= 0.15;
                 camera.position.y -= 0.05;
-                camera.lookAt(0,0,0);
+                camera.lookAt(0, 0, 0);
                 if (camera.position.z < 0.5) {
                     gameState = 'PLAYING';
                     player.visible = true;
@@ -157,11 +224,12 @@
                 player.position.z -= speed;
                 camera.position.z = player.position.z + 5;
                 camera.position.y = 1;
+                camera.lookAt(player.position.x, player.position.y + 1, player.position.z); // Focus slightly above player
 
                 // ジャンプ
                 if (isJumping) {
                     player.position.y += jumpVelocity;
-                    jumpVelocity -= 0.01;
+                    jumpVelocity -= 0.015;
                     if (player.position.y <= -2) {
                         player.position.y = -2;
                         isJumping = false;
@@ -170,14 +238,33 @@
                     player.position.y = -2; // 地面（パイプの下部）
                 }
 
+                // 障害物・ゴール判定
+                obstacles.forEach(obs => {
+                    // Simple AABB / Distance check
+                    if (Math.abs(obs.position.z - player.position.z) < 1 && Math.abs(obs.position.y - player.position.y) < 1) {
+                        // Hit!
+                        gameState = 'GAMEOVER';
+                        document.getElementById('hud').textContent = "GAMEOVER... Tap to Retry";
+                        document.getElementById('hud').style.color = "red";
+                    }
+                });
+
+                if (gameState === 'GAMEOVER') {
+                    // Game Over logic (stop)
+                }
+
                 // ゴール判定
-                if (player.position.z < -280) {
+                if (player.position.z < -160) {
                     gameState = 'GOAL';
                     pipe.visible = false;
                     ocean.visible = true;
                     document.getElementById('hud').style.display = 'none';
                     document.getElementById('goal-screen').style.display = 'block';
                 }
+            } // PLAYING END
+
+            if (gameState === 'GAMEOVER') {
+                // Stop logic or wait for tap to restart
             }
 
             if (gameState === 'GOAL') {
@@ -197,4 +284,5 @@
         });
     </script>
 </body>
+
 </html>
