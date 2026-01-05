@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ポモドーロタイマー | 烏合ワークス</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@600&family=Noto+Sans+JP:wght@300;700&display=swap');
+
+        :root {
+            --bg: #0a0a0a;
+            --card-bg: #161616;
+            --accent: #ffffff;
+            --text-main: #e0e0e0;
+            --text-dim: #888888;
+            --primary: #ff4757;
+            --secondary: #2ed573;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--text-main);
+            font-family: 'Noto Sans JP', sans-serif;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            text-align: center;
+        }
+
+        .container {
+            background: var(--card-bg);
+            padding: 40px;
+            border-radius: 30px;
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        h1 {
+            font-family: 'Noto Serif JP', serif;
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: var(--accent);
+        }
+
+        .timer-display {
+            font-size: 5rem;
+            font-weight: 700;
+            font-feature-settings: "tnum";
+            font-variant-numeric: tabular-nums;
+            margin: 20px 0;
+            line-height: 1;
+        }
+
+        .mode-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .mode-btn {
+            background: transparent;
+            border: 1px solid var(--text-dim);
+            color: var(--text-dim);
+            padding: 5px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.8rem;
+            transition: all 0.3s;
+        }
+
+        .mode-btn.active {
+            border-color: var(--accent);
+            color: var(--accent);
+            background: rgba(255, 255, 255, 0.1);
+        }
+
+        .controls {
+            display: flex;
+            gap: 15px;
+            justify-content: center;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            border-radius: 50px;
+            border: none;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.1s, opacity 0.2s;
+        }
+
+        .btn:active {
+            transform: scale(0.95);
+        }
+
+        .btn-start {
+            background: var(--accent);
+            color: #000;
+            flex: 2;
+        }
+
+        .btn-reset {
+            background: #333;
+            color: #fff;
+            flex: 1;
+        }
+
+        .back-link {
+            margin-top: 30px;
+            display: block;
+            color: var(--text-dim);
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <h1>Pomodoro Timer</h1>
+
+        <div class="mode-indicators">
+            <button class="mode-btn active" onclick="setMode('work')">WORK (25m)</button>
+            <button class="mode-btn" onclick="setMode('short')">SHORT (5m)</button>
+            <button class="mode-btn" onclick="setMode('long')">LONG (15m)</button>
+        </div>
+
+        <div class="timer-display" id="timer">25:00</div>
+
+        <div class="controls">
+            <button class="btn btn-reset" onclick="resetTimer()">RESET</button>
+            <button class="btn btn-start" id="startBtn" onclick="toggleTimer()">START</button>
+        </div>
+
+        <a href="../index.html" class="back-link">← Back to Home</a>
+    </div>
+
+    <audio id="alarm" src="https://actions.google.com/sounds/v1/alarms/beep_short.ogg"></audio>
+
+    <script>
+        let timeLeft = 25 * 60;
+        let timerId = null;
+        let isRunning = false;
+        let currentMode = 'work'; // work, short, long
+
+        const timerEl = document.getElementById('timer');
+        const startBtn = document.getElementById('startBtn');
+        const alarm = document.getElementById('alarm');
+
+        function updateDisplay() {
+            const m = Math.floor(timeLeft / 60).toString().padStart(2, '0');
+            const s = (timeLeft % 60).toString().padStart(2, '0');
+            timerEl.textContent = `${m}:${s}`;
+            document.title = `${m}:${s} - Pomodoro`;
+        }
+
+        function toggleTimer() {
+            if (isRunning) {
+                clearInterval(timerId);
+                isRunning = false;
+                startBtn.textContent = 'START';
+            } else {
+                if (timeLeft === 0) return;
+                timerId = setInterval(() => {
+                    timeLeft--;
+                    updateDisplay();
+                    if (timeLeft <= 0) {
+                        clearInterval(timerId);
+                        isRunning = false;
+                        startBtn.textContent = 'START';
+                        alarm.play();
+                        alert('Time is up!');
+                    }
+                }, 1000);
+                isRunning = true;
+                startBtn.textContent = 'PAUSE';
+            }
+        }
+
+        function resetTimer() {
+            clearInterval(timerId);
+            isRunning = false;
+            startBtn.textContent = 'START';
+
+            switch (currentMode) {
+                case 'work': timeLeft = 25 * 60; break;
+                case 'short': timeLeft = 5 * 60; break;
+                case 'long': timeLeft = 15 * 60; break;
+            }
+            updateDisplay();
+        }
+
+        function setMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
+            event.target.classList.add('active');
+            resetTimer();
+        }
+    </script>
+</body>
+
+</html>
