@@ -28,4 +28,41 @@
     <lastmod>2026-05-24</lastmod>
     <priority>0.8</priority>
   </url>
+
+  <!-- Works Hub -->
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/articles/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/music/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/picture-books/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/videos/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/goods/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/tools/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/games/</loc>
+    <lastmod>2026-06-07</lastmod>
+    <priority>0.8</priority>
+  </url>
 </urlset>
