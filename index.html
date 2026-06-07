@@ -164,17 +164,9 @@
       font-weight: 700;
     }
 
-    /* --- Grid logic to make it perfect --- */
-    .span-2 {
-      grid-column: span 2;
-    }
-
-    /* 思考、絵本、映像記録用 */
-    .span-1 {
-      grid-column: span 1;
-    }
-
-    /* 音楽、販売用 */
+    .span-1 { grid-column: span 1; }
+    .span-2 { grid-column: span 2; }
+    .span-4 { grid-column: span 4; }
 
     /* --- Footer --- */
     footer {
@@ -226,40 +218,6 @@
       /* スマホでは1列ずつ */
     }
 
-    /* --- Section Divider --- */
-    .section-divider {
-      text-align: center;
-      margin: 80px 0 40px;
-    }
-
-    .section-divider h2 {
-      font-family: 'Noto Serif JP', serif;
-      font-size: 1.8rem;
-      letter-spacing: 0.15em;
-      font-weight: 600;
-      color: var(--text-main);
-      display: inline-block;
-      position: relative;
-      padding: 0 20px;
-    }
-
-    .section-divider h2::before,
-    .section-divider h2::after {
-      content: '';
-      position: absolute;
-      top: 50%;
-      width: 40px;
-      height: 1px;
-      background: var(--text-dim);
-    }
-
-    .section-divider h2::before {
-      right: 100%;
-    }
-
-    .section-divider h2::after {
-      left: 100%;
-    }
   </style>
 </head>
 
@@ -282,7 +240,7 @@
     <main class="grid">
 
       <!-- 思考 (note) - 上段左 -->
-      <a href="https://note.com/good_minnow622" target="_blank" class="card span-2">
+      <a href="articles/index.html" class="card span-2">
         <div class="card-img"
           style="background-image: url('https://images.unsplash.com/photo-1516414447565-b14be0adf13e?auto=format&fit=crop&q=80&w=800');">
         </div>
@@ -293,7 +251,7 @@
       </a>
 
       <!-- 絵本 (TikTok) - 上段右 -->
-      <a href="https://www.tiktok.com/@user76234280005218" target="_blank" class="card span-2">
+      <a href="picture-books/index.html" class="card span-2">
         <div class="card-img"
           style="background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=800');">
         </div>
@@ -304,7 +262,7 @@
       </a>
 
       <!-- 音楽 (Suno) - 下段1 -->
-      <a href="https://suno.com/@ugounosyu" target="_blank" class="card span-1">
+      <a href="music/index.html" class="card span-1">
         <div class="card-img"
           style="background-image: url('https://images.unsplash.com/photo-1459749411177-042180ceea72?auto=format&fit=crop&q=80&w=500');">
         </div>
@@ -315,7 +273,7 @@
       </a>
 
       <!-- 販売 (Suzuri) - 下段2 -->
-      <a href="https://suzuri.jp/ugou_nosyu" target="_blank" class="card span-1">
+      <a href="goods/index.html" class="card span-1">
         <div class="card-img"
           style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=500');">
         </div>
@@ -325,8 +283,8 @@
         </div>
       </a>
 
-      <!-- 映像記録 (YouTube) - 下段3-4 -->
-      <a href="https://www.youtube.com/@Sumima2" target="_blank" class="card span-2">
+      <!-- 映像記録 -->
+      <a href="videos/index.html" class="card span-2">
         <div class="card-img"
           style="background-image: url('https://images.unsplash.com/photo-1492691523567-6170f0295da4?auto=format&fit=crop&q=80&w=800');">
         </div>
@@ -336,63 +294,30 @@
         </div>
       </a>
 
-    </main>
-
-    <div class="section-divider">
-      <h2>GAMES</h2>
-    </div>
-
-    <div class="grid">
-      <!-- 非課税スタック・ラン - 2段目 -->
-      <a href="hikazei-stack-run/index.html" class="card span-2">
+      <!-- ゲーム -->
+      <a href="games/index.html" class="card span-2">
         <div class="card-img"
           style="background-image: url('https://images.unsplash.com/photo-1628151016000-88846c430634?auto=format&fit=crop&q=80&w=800');">
         </div>
         <div class="card-content">
-          <div class="card-label">NEW GAME</div>
-          <div class="card-title">非課税スタック</div>
+          <div class="card-label">GAMES</div>
+          <div class="card-title">ゲーム</div>
         </div>
       </a>
 
-      <!-- トイレ - 2段目 -->
-      <a href="toilet/index.html" class="card span-2">
-        <div class="card-img"
-          style="background-image: url('https://images.unsplash.com/photo-1584622650111-993a426fbf0a?auto=format&fit=crop&q=80&w=800');">
-        </div>
-        <div class="card-content">
-          <div class="card-label">NEW GAME</div>
-          <div class="card-title">トイレ</div>
-        </div>
-      </a>
-    </div>
-
-    <div class="section-divider">
-      <h2>TOOLS</h2>
-    </div>
-
-    <div class="grid">
-      <!-- ポモドーロ - 上段左 -->
-      <a href="pomodoro/index.html" class="card span-2">
+      <!-- ツール -->
+      <a href="tools/index.html" class="card span-2">
         <div class="card-img"
           style="background-image: url('https://images.unsplash.com/photo-1495364141860-b0d03eccd065?auto=format&fit=crop&q=80&w=800');">
         </div>
         <div class="card-content">
-          <div class="card-label">UTILITY</div>
-          <div class="card-title">ポモドーロ</div>
+          <div class="card-label">TOOLS</div>
+          <div class="card-title">Webツール</div>
         </div>
       </a>
 
-      <!-- 働く人の立て直し方診断 -->
-      <a href="workstyle-diagnosis/index.html" class="card span-2">
-        <div class="card-img"
-          style="background-image: url('https://images.unsplash.com/photo-1497215842964-222b430dc094?auto=format&fit=crop&q=80&w=800');">
-        </div>
-        <div class="card-content">
-          <div class="card-label">SELF CHECK</div>
-          <div class="card-title">働く人の立て直し方診断</div>
-        </div>
-      </a>
-    </div>
+    </main>
+
 
     <footer>
       <div class="contact-area">
