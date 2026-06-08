@@ -17,6 +17,7 @@
       --accent: #ffffff;
       --text-main: #e0e0e0;
       --text-dim: #888888;
+      --line: #262626;
       --radius: 20px;
       --gap: 16px;
     }
@@ -37,15 +38,13 @@
 
     .container {
       max-width: 1000px;
-      /* 少しタイトにして密度を上げる */
       margin: 0 auto;
       padding: 60px 24px;
     }
 
-    /* --- Hero Message --- */
     .hero-message {
       text-align: center;
-      margin-bottom: 50px;
+      margin-bottom: 56px;
     }
 
     .hero-message h1 {
@@ -66,38 +65,98 @@
       display: block;
     }
 
-    /* --- Vertical Video (YouTube Shorts) --- */
-    .video-section {
+    .section-heading {
       display: flex;
-      justify-content: center;
-      margin-bottom: 60px;
+      align-items: end;
+      justify-content: space-between;
+      gap: 24px;
+      margin: 0 0 18px;
     }
 
-    .video-container {
-      width: 100%;
-      max-width: 320px;
-      /* 縦長動画を少しコンパクトに */
-      aspect-ratio: 9 / 16;
-      background: #000;
-      border-radius: var(--radius);
-      overflow: hidden;
-      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.7);
-      border: 1px solid #222;
+    .section-kicker {
+      display: block;
+      color: var(--text-dim);
+      font-size: 0.68rem;
+      font-weight: 700;
+      letter-spacing: 0.18em;
+      margin-bottom: 4px;
+      text-transform: uppercase;
     }
 
-    .video-container iframe {
-      width: 100%;
-      height: 100%;
-      border: none;
+    .section-heading h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.45rem, 4vw, 2rem);
+      line-height: 1.35;
+      letter-spacing: 0.08em;
+      font-weight: 600;
     }
 
-    /* --- Optimized Grid (4 Columns) --- */
+    .section-intro {
+      max-width: 420px;
+      color: var(--text-dim);
+      font-size: 0.86rem;
+      text-align: right;
+    }
+
+    .section-block {
+      margin-bottom: 64px;
+    }
+
+    .latest-strip {
+      display: grid;
+      grid-template-columns: repeat(7, minmax(0, 1fr));
+      gap: 10px;
+      margin-bottom: 64px;
+    }
+
+    .latest-item {
+      min-height: 104px;
+      padding: 14px 12px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #121212;
+      color: var(--accent);
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: border-color 0.25s ease, transform 0.25s ease, background 0.25s ease;
+    }
+
+    .latest-item:hover {
+      background: #171717;
+      border-color: #666;
+      transform: translateY(-3px);
+    }
+
+    .latest-label {
+      color: var(--text-dim);
+      font-size: 0.58rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .latest-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      line-height: 1.45;
+      overflow-wrap: anywhere;
+    }
+
     .grid {
       display: grid;
       grid-template-columns: repeat(4, 1fr);
       grid-auto-rows: 200px;
-      /* 高さを少し抑えて収まりを改善 */
       gap: var(--gap);
+    }
+
+    .latest-grid {
+      grid-auto-rows: 184px;
+    }
+
+    .category-grid {
+      grid-auto-rows: 180px;
     }
 
     .card {
@@ -112,6 +171,7 @@
       flex-direction: column;
       justify-content: flex-end;
       padding: 24px;
+      min-width: 0;
     }
 
     .card:hover {
@@ -142,13 +202,14 @@
       content: '';
       position: absolute;
       inset: 0;
-      background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, transparent 80%);
+      background: linear-gradient(to top, rgba(0, 0, 0, 0.9) 0%, rgba(0, 0, 0, 0.25) 70%, transparent 100%);
       z-index: 2;
     }
 
     .card-content {
       position: relative;
       z-index: 3;
+      min-width: 0;
     }
 
     .card-label {
@@ -156,19 +217,83 @@
       font-weight: 700;
       letter-spacing: 0.15em;
       margin-bottom: 4px;
-      opacity: 0.6;
+      opacity: 0.68;
+      text-transform: uppercase;
     }
 
     .card-title {
       font-size: 1.25rem;
       font-weight: 700;
+      letter-spacing: 0;
+      overflow-wrap: anywhere;
+    }
+
+    .card-description {
+      margin-top: 8px;
+      color: rgba(255, 255, 255, 0.78);
+      font-size: 0.78rem;
+      line-height: 1.6;
     }
 
     .span-1 { grid-column: span 1; }
     .span-2 { grid-column: span 2; }
     .span-4 { grid-column: span 4; }
+    .row-2 { grid-row: span 2; }
 
-    /* --- Footer --- */
+    .video-feature {
+      display: grid;
+      grid-template-columns: minmax(220px, 320px) 1fr;
+      gap: 28px;
+      align-items: center;
+      padding: 24px;
+      background: #111;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+    }
+
+    .video-container {
+      width: 100%;
+      aspect-ratio: 9 / 16;
+      background: #000;
+      border-radius: 14px;
+      overflow: hidden;
+      box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
+      border: 1px solid #222;
+    }
+
+    .video-container iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .video-copy .section-kicker {
+      margin-bottom: 8px;
+    }
+
+    .video-copy h2 {
+      font-family: 'Noto Serif JP', serif;
+      font-size: clamp(1.45rem, 4vw, 2rem);
+      line-height: 1.45;
+      margin-bottom: 12px;
+      letter-spacing: 0.08em;
+    }
+
+    .video-copy p {
+      color: var(--text-dim);
+      font-size: 0.92rem;
+      max-width: 520px;
+    }
+
+    .text-link {
+      display: inline-block;
+      margin-top: 18px;
+      color: var(--accent);
+      font-weight: 700;
+      text-decoration: none;
+      border-bottom: 1px solid currentColor;
+    }
+
     footer {
       margin-top: 80px;
       text-align: center;
@@ -204,20 +329,63 @@
       font-size: 0.75rem;
     }
 
-    /* Mobile */
     @media (max-width: 800px) {
+      .container {
+        padding: 44px 18px;
+      }
+
+      .hero-message {
+        margin-bottom: 42px;
+      }
+
+      .section-heading {
+        display: block;
+      }
+
+      .section-intro {
+        margin-top: 8px;
+        text-align: left;
+      }
+
       .grid {
+        grid-template-columns: repeat(2, 1fr);
+        grid-auto-rows: 176px;
+      }
+
+      .latest-strip {
         grid-template-columns: repeat(2, 1fr);
       }
 
+      .span-4,
       .span-2,
       .span-1 {
         grid-column: span 1;
       }
 
-      /* スマホでは1列ずつ */
+      .row-2 {
+        grid-row: span 1;
+      }
+
+      .video-feature {
+        grid-template-columns: 1fr;
+      }
+
+      .video-container {
+        max-width: 300px;
+        margin: 0 auto;
+      }
     }
 
+    @media (max-width: 520px) {
+      .grid,
+      .latest-strip {
+        grid-template-columns: 1fr;
+      }
+
+      .grid {
+        grid-auto-rows: 168px;
+      }
+    }
   </style>
 </head>
 
@@ -225,99 +393,144 @@
 
   <div class="container">
     <header class="hero-message">
-
       <span class="tagline">烏合ワークス。考える人の、作業場。</span>
       <h1>今日もまた始めよう。ここが僕らの場所。<br>烏合と呼ばれる僕たちもきっとできる。</h1>
     </header>
 
-    <section class="video-section">
-      <div class="video-container">
-        <!-- VIDEO_ID を書き換えてください -->
-        <iframe src="https://www.youtube.com/embed/hbMzbZ20KCo" title="Ugou Works Short Video" allowfullscreen></iframe>
+    <section class="section-block" aria-labelledby="latest-title">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">Latest Works</span>
+          <h2 id="latest-title">最近作ったもの</h2>
+        </div>
+        <p class="section-intro">公開済みの作品や、今見てほしい入口をここに集めます。</p>
+      </div>
+
+      <nav class="latest-strip" aria-label="最近作ったもの">
+        <a href="workstyle-diagnosis/index.html" class="latest-item">
+          <span class="latest-label">Web Tool</span>
+          <span class="latest-title">働く人の立て直し方診断</span>
+        </a>
+        <a href="hikazei-stack-run/index.html" class="latest-item">
+          <span class="latest-label">Game</span>
+          <span class="latest-title">非課税スタック</span>
+        </a>
+        <a href="articles/index.html" class="latest-item">
+          <span class="latest-label">Article</span>
+          <span class="latest-title">思考・疑問哲学</span>
+        </a>
+        <a href="music/index.html" class="latest-item">
+          <span class="latest-label">Music</span>
+          <span class="latest-title">調律</span>
+        </a>
+        <a href="picture-books/index.html" class="latest-item">
+          <span class="latest-label">Story</span>
+          <span class="latest-title">絵本の世界</span>
+        </a>
+        <a href="videos/index.html" class="latest-item">
+          <span class="latest-label">Video</span>
+          <span class="latest-title">映像記録</span>
+        </a>
+        <a href="goods/index.html" class="latest-item">
+          <span class="latest-label">Goods</span>
+          <span class="latest-title">蒐集</span>
+        </a>
+      </nav>
+    </section>
+
+    <section class="section-block" aria-labelledby="category-title">
+      <div class="section-heading">
+        <div>
+          <span class="section-kicker">Categories</span>
+          <h2 id="category-title">カテゴリから探す</h2>
+        </div>
+        <p class="section-intro">記事、音楽、絵本、動画、グッズ、ツール、ゲームの入口です。</p>
+      </div>
+
+      <div class="grid category-grid">
+        <a href="articles/index.html" class="card span-2">
+          <div class="card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1516414447565-b14be0adf13e?auto=format&fit=crop&q=80&w=800');">
+          </div>
+          <div class="card-content">
+            <div class="card-label">THOUGHT</div>
+            <div class="card-title">思考・疑問哲学</div>
+          </div>
+        </a>
+
+        <a href="picture-books/index.html" class="card span-2">
+          <div class="card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=800');">
+          </div>
+          <div class="card-content">
+            <div class="card-label">STORY</div>
+            <div class="card-title">絵本の世界</div>
+          </div>
+        </a>
+
+        <a href="music/index.html" class="card span-1">
+          <div class="card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1459749411177-042180ceea72?auto=format&fit=crop&q=80&w=500');">
+          </div>
+          <div class="card-content">
+            <div class="card-label">MUSIC</div>
+            <div class="card-title">調律</div>
+          </div>
+        </a>
+
+        <a href="goods/index.html" class="card span-1">
+          <div class="card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=500');">
+          </div>
+          <div class="card-content">
+            <div class="card-label">SHOP</div>
+            <div class="card-title">蒐集</div>
+          </div>
+        </a>
+
+        <a href="videos/index.html" class="card span-2">
+          <div class="card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1492691523567-6170f0295da4?auto=format&fit=crop&q=80&w=800');">
+          </div>
+          <div class="card-content">
+            <div class="card-label">ARCHIVE</div>
+            <div class="card-title">映像記録</div>
+          </div>
+        </a>
+
+        <a href="games/index.html" class="card span-2">
+          <div class="card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1628151016000-88846c430634?auto=format&fit=crop&q=80&w=800');">
+          </div>
+          <div class="card-content">
+            <div class="card-label">GAMES</div>
+            <div class="card-title">ゲーム</div>
+          </div>
+        </a>
+
+        <a href="tools/index.html" class="card span-2">
+          <div class="card-img"
+            style="background-image: url('https://images.unsplash.com/photo-1495364141860-b0d03eccd065?auto=format&fit=crop&q=80&w=800');">
+          </div>
+          <div class="card-content">
+            <div class="card-label">TOOLS</div>
+            <div class="card-title">Webツール</div>
+          </div>
+        </a>
       </div>
     </section>
 
-    <main class="grid">
-
-      <!-- 思考 (note) - 上段左 -->
-      <a href="articles/index.html" class="card span-2">
-        <div class="card-img"
-          style="background-image: url('https://images.unsplash.com/photo-1516414447565-b14be0adf13e?auto=format&fit=crop&q=80&w=800');">
-        </div>
-        <div class="card-content">
-          <div class="card-label">THOUGHT</div>
-          <div class="card-title">思考・疑問哲学</div>
-        </div>
-      </a>
-
-      <!-- 絵本 (TikTok) - 上段右 -->
-      <a href="picture-books/index.html" class="card span-2">
-        <div class="card-img"
-          style="background-image: url('https://images.unsplash.com/photo-1512820790803-83ca734da794?auto=format&fit=crop&q=80&w=800');">
-        </div>
-        <div class="card-content">
-          <div class="card-label">STORY</div>
-          <div class="card-title">絵本の世界</div>
-        </div>
-      </a>
-
-      <!-- 音楽 (Suno) - 下段1 -->
-      <a href="music/index.html" class="card span-1">
-        <div class="card-img"
-          style="background-image: url('https://images.unsplash.com/photo-1459749411177-042180ceea72?auto=format&fit=crop&q=80&w=500');">
-        </div>
-        <div class="card-content">
-          <div class="card-label">MUSIC</div>
-          <div class="card-title">調律</div>
-        </div>
-      </a>
-
-      <!-- 販売 (Suzuri) - 下段2 -->
-      <a href="goods/index.html" class="card span-1">
-        <div class="card-img"
-          style="background-image: url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?auto=format&fit=crop&q=80&w=500');">
-        </div>
-        <div class="card-content">
-          <div class="card-label">SHOP</div>
-          <div class="card-title">蒐集</div>
-        </div>
-      </a>
-
-      <!-- 映像記録 -->
-      <a href="videos/index.html" class="card span-2">
-        <div class="card-img"
-          style="background-image: url('https://images.unsplash.com/photo-1492691523567-6170f0295da4?auto=format&fit=crop&q=80&w=800');">
-        </div>
-        <div class="card-content">
-          <div class="card-label">ARCHIVE</div>
-          <div class="card-title">映像記録</div>
-        </div>
-      </a>
-
-      <!-- ゲーム -->
-      <a href="games/index.html" class="card span-2">
-        <div class="card-img"
-          style="background-image: url('https://images.unsplash.com/photo-1628151016000-88846c430634?auto=format&fit=crop&q=80&w=800');">
-        </div>
-        <div class="card-content">
-          <div class="card-label">GAMES</div>
-          <div class="card-title">ゲーム</div>
-        </div>
-      </a>
-
-      <!-- ツール -->
-      <a href="tools/index.html" class="card span-2">
-        <div class="card-img"
-          style="background-image: url('https://images.unsplash.com/photo-1495364141860-b0d03eccd065?auto=format&fit=crop&q=80&w=800');">
-        </div>
-        <div class="card-content">
-          <div class="card-label">TOOLS</div>
-          <div class="card-title">Webツール</div>
-        </div>
-      </a>
-
-    </main>
-
+    <section class="section-block video-feature" aria-labelledby="video-title">
+      <div class="video-container">
+        <iframe src="https://www.youtube.com/embed/hbMzbZ20KCo" title="Ugou Works Short Video" allowfullscreen></iframe>
+      </div>
+      <div class="video-copy">
+        <span class="section-kicker">Video</span>
+        <h2 id="video-title">映像記録</h2>
+        <p>動画は作品群のひとつとして、少し下の層で見られるようにしました。サイト全体の入口は新着とカテゴリに寄せています。</p>
+        <a class="text-link" href="videos/index.html">動画ページへ</a>
+      </div>
+    </section>
 
     <footer>
       <div class="contact-area">
