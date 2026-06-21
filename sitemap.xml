@@ -7,39 +7,19 @@
     <priority>1.0</priority>
   </url>
 
-  <!-- Games -->
+  <!-- Articles -->
   <url>
-    <loc>https://works.ugounosyu-aiblog.com/hikazei-stack-run/index.html</loc>
-    <lastmod>2025-12-29</lastmod>
+    <loc>https://works.ugounosyu-aiblog.com/articles/index.html</loc>
+    <lastmod>2026-06-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://works.ugounosyu-aiblog.com/toilet/index.html</loc>
-    <lastmod>2026-01-06</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://works.ugounosyu-aiblog.com/pomodoro/index.html</loc>
-    <lastmod>2026-01-06</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://works.ugounosyu-aiblog.com/workstyle-diagnosis/index.html</loc>
-    <lastmod>2026-05-24</lastmod>
+    <loc>https://works.ugounosyu-aiblog.com/articles/3-things-i-noticed-delegating-to-ai/index.html</loc>
+    <lastmod>2026-06-21</lastmod>
     <priority>0.8</priority>
   </url>
 
-  <!-- Works Hub -->
-  <url>
-    <loc>https://works.ugounosyu-aiblog.com/articles/index.html</loc>
-    <lastmod>2026-06-07</lastmod>
-    <priority>0.8</priority>
-  </url>
-  <url>
-    <loc>https://works.ugounosyu-aiblog.com/music/index.html</loc>
-    <lastmod>2026-06-07</lastmod>
-    <priority>0.7</priority>
-  </url>
+  <!-- Picture Books -->
   <url>
     <loc>https://works.ugounosyu-aiblog.com/picture-books/index.html</loc>
     <lastmod>2026-06-21</lastmod>
@@ -50,6 +30,8 @@
     <lastmod>2026-06-21</lastmod>
     <priority>0.8</priority>
   </url>
+
+  <!-- Videos -->
   <url>
     <loc>https://works.ugounosyu-aiblog.com/videos/index.html</loc>
     <lastmod>2026-06-21</lastmod>
@@ -60,24 +42,55 @@
     <lastmod>2026-06-21</lastmod>
     <priority>0.8</priority>
   </url>
-  <url>
-    <loc>https://works.ugounosyu-aiblog.com/goods/index.html</loc>
-    <lastmod>2026-06-07</lastmod>
-    <priority>0.7</priority>
-  </url>
+
+  <!-- Web Tools -->
   <url>
     <loc>https://works.ugounosyu-aiblog.com/tools/index.html</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://works.ugounosyu-aiblog.com/pomodoro/index.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/workstyle-diagnosis/index.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Games -->
+  <url>
     <loc>https://works.ugounosyu-aiblog.com/games/index.html</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
     <loc>https://works.ugounosyu-aiblog.com/orbit-one/index.html</loc>
-    <lastmod>2026-06-10</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/hikazei-stack-run/index.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/toilet/index.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Music / Goods (hub pages) -->
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/music/index.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/goods/index.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <priority>0.7</priority>
   </url>
 </urlset>
