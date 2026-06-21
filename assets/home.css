@@ -733,6 +733,17 @@ h1 span {
   text-decoration: none;
 }
 
+.footer-note {
+  margin: 16px 0 0;
+  color: rgba(255, 255, 255, 0.38);
+  font-size: 0.7rem;
+  line-height: 1.7;
+}
+
+.footer-note a {
+  color: rgba(255, 255, 255, 0.6);
+}
+
 @media (max-width: 900px) {
   .section-heading,
   .about-grid,
