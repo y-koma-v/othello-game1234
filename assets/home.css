@@ -287,8 +287,34 @@ h1 span {
   text-transform: uppercase;
 }
 
-.hero-index span {
-  padding: 15px 10px 0 0;
+.hero-index a {
+  display: flex;
+  min-height: 44px;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 10px;
+  padding: 15px 12px 8px 0;
+  color: inherit;
+  text-decoration: none;
+  transition: color 180ms ease;
+}
+
+.hero-index a::after {
+  content: "↗";
+  opacity: 0;
+  transform: translate(-4px, 3px);
+  transition: opacity 180ms ease, transform 180ms ease;
+}
+
+.hero-index a:hover,
+.hero-index a:focus-visible {
+  color: #fff;
+}
+
+.hero-index a:hover::after,
+.hero-index a:focus-visible::after {
+  opacity: 1;
+  transform: translate(0, 0);
 }
 
 .section {
