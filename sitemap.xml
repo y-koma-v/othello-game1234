@@ -3,7 +3,7 @@
   <!-- Top Page -->
   <url>
     <loc>https://works.ugounosyu-aiblog.com/</loc>
-    <lastmod>2025-12-29</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <priority>1.0</priority>
   </url>
 
@@ -42,13 +42,23 @@
   </url>
   <url>
     <loc>https://works.ugounosyu-aiblog.com/picture-books/index.html</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
+    <loc>https://works.ugounosyu-aiblog.com/picture-books/amenohi-no-kokura/index.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://works.ugounosyu-aiblog.com/videos/index.html</loc>
-    <lastmod>2026-06-07</lastmod>
+    <lastmod>2026-06-21</lastmod>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/videos/token/index.html</loc>
+    <lastmod>2026-06-21</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://works.ugounosyu-aiblog.com/goods/index.html</loc>

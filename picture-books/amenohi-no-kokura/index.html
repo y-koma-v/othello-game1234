@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ja">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>あめのひの コクラ | 烏合ワークス</title>
+  <meta name="description" content="黒い羽を好きになれなかった小さなカラスの子・コクラが、雨の日に自分の力を見つける全12ページのデジタル絵本です。">
+  <link rel="stylesheet" href="style.css">
+  <script src="book-data.js" defer></script>
+</head>
+
+<body>
+  <header class="book-header">
+    <a class="back-link" href="../../index.html">← 烏合ワークス</a>
+    <div>
+      <p class="eyebrow">Digital picture book / 12 pages</p>
+      <h1>あめのひの <span>コクラ</span></h1>
+      <p class="byline">作・画：烏合ワークス</p>
+    </div>
+  </header>
+
+  <main class="reader" aria-label="デジタル絵本ビューア">
+    <section class="page-card" aria-live="polite">
+      <div class="illustration-wrap">
+        <img id="page-image" src="illustrations/page1.jpg" alt="雨の森で、黒い羽を見つめる小さなカラスの子コクラ">
+      </div>
+      <div class="story-panel">
+        <p class="page-label"><span id="current-page">01</span> / <span id="total-pages">12</span></p>
+        <div class="story-text" id="story-text"></div>
+      </div>
+    </section>
+
+    <nav class="reader-controls" aria-label="ページ操作">
+      <button class="nav-button" id="prev-btn" type="button" disabled>← 前のページ</button>
+      <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
+      <button class="nav-button primary" id="next-btn" type="button">次のページ →</button>
+    </nav>
+
+    <div class="page-list" id="page-list" aria-label="ページを選ぶ"></div>
+  </main>
+
+  <footer class="book-footer">
+    <p>© Ugou Works</p>
+    <a href="../../index.html#works">ほかの作品を見る →</a>
+  </footer>
+</body>
+
+</html>
