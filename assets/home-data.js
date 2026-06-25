@@ -24,20 +24,20 @@ window.UGOU_HOME = {
       number: "03",
       kind: "AI VIDEO",
       tone: "violet",
-      title: "15秒でわかるAI用語『トークン』",
-      summary: "AIが文章を扱うときの最小単位「トークン」を、短い縦型動画でやさしく解説します。",
-      href: "videos/token/index.html",
-      action: "15秒動画を見る",
-      date: "2026.06.21"
+      title: "コンテキストウィンドウって何？",
+      summary: "AIが一度に読める文章の範囲を、Ugouちゃんと60秒の縦型動画でやさしく解説します。",
+      href: "videos/context-window/index.html",
+      action: "60秒動画を見る",
+      date: "2026.06.25"
     },
     {
       number: "04",
       kind: "WEB TOOL",
       tone: "mint",
-      title: "働く人の立て直し方診断",
-      summary: "今の状態を振り返り、自分に合う小さな立て直し方を探すツール。",
-      href: "workstyle-diagnosis/index.html",
-      action: "診断してみる",
+      title: "ポモドーロタイマー",
+      summary: "集中と休憩を繰り返し、目の前の作業へ静かに取り組むためのタイマー。",
+      href: "pomodoro/index.html",
+      action: "タイマーを使う",
       date: ""
     },
     {
