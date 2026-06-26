@@ -8,8 +8,6 @@
   <meta name="description" content="黒い羽を好きになれなかった小さなカラスの子・コクラが、雨の日に自分の力を見つける全12ページのデジタル絵本です。">
   <link rel="stylesheet" href="style.css">
   <script src="book-data.js" defer></script>
-  <script src="/assets/analytics.js"></script>
-  <link rel="canonical" href="https://works.ugounosyu-aiblog.com/picture-books/amenohi-no-kokura/index.html">
 </head>
 
 <body>
@@ -28,18 +26,11 @@
         <img id="page-image" src="illustrations/page1.jpg" alt="雨の森で、黒い羽を見つめる小さなカラスの子コクラ">
       </div>
       <div class="story-panel">
-        <p class="page-label"><span id="current-page">01</span> / <span id="total-pages">12</span></p>
         <div class="story-text" id="story-text"></div>
       </div>
+      <button class="flip-zone flip-prev" id="flip-prev" type="button" aria-label="前のページ" disabled></button>
+      <button class="flip-zone flip-next" id="flip-next" type="button" aria-label="次のページ"></button>
     </section>
-
-    <nav class="reader-controls" aria-label="ページ操作">
-      <button class="nav-button" id="prev-btn" type="button" disabled>← 前のページ</button>
-      <div class="progress-track" aria-hidden="true"><span id="progress-bar"></span></div>
-      <button class="nav-button primary" id="next-btn" type="button">次のページ →</button>
-    </nav>
-
-    <div class="page-list" id="page-list" aria-label="ページを選ぶ"></div>
   </main>
 
   <footer class="book-footer">
