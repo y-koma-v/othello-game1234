@@ -4,11 +4,11 @@ window.UGOU_HOME = {
       number: "01",
       kind: "ARTICLE",
       tone: "amber",
-      title: "AIに仕事を任せはじめて、気づいた3つのこと",
-      summary: "AIと仕事を分け合うなかで見えてきた、任せ方と向き合い方の記録。",
-      href: "articles/3-things-i-noticed-delegating-to-ai/index.html",
+      title: "音楽を配信する前に知っておきたい4つのこと",
+      summary: "著作権・JASRAC・配信手数料・AI音楽の権利。曲を出す前に確認したい4つの基本を整理。",
+      href: "articles/music-distribution-basics/index.html",
       action: "記事を読む",
-      date: "2026.06.21"
+      date: "2026.06.27"
     },
     {
       number: "02",
