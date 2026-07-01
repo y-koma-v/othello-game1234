@@ -12,12 +12,12 @@ window.UGOU_HOME = {
     },
     {
       number: "02",
-      kind: "MANGA",
+      kind: "STORIES",
       tone: "rose",
-      title: "JTCで死んだおじさん、異世界でAI推進して無双する",
-      summary: "過労の記憶を持つおじさん社員が、AI的な魔法で理不尽な職場を静かにデバッグする実用ファンタジー漫画。",
-      href: "manga/jtc-ai-isekai/index.html",
-      action: "漫画を読む",
+      title: "漫画と絵本",
+      summary: "大人向けのAI実用ファンタジー漫画と、雨の日の小さな絵本。短い物語をこの棚にまとめています。",
+      href: "manga/index.html",
+      action: "物語を読む",
       date: "2026.07.01"
     },
     {
