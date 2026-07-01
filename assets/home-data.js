@@ -12,13 +12,13 @@ window.UGOU_HOME = {
     },
     {
       number: "02",
-      kind: "PICTURE BOOK",
+      kind: "MANGA",
       tone: "rose",
-      title: "あめのひの コクラ",
-      summary: "黒い羽を好きになれなかった小さなカラスの子が、雨の日に自分の力を見つける物語。",
-      href: "picture-books/amenohi-no-kokura/index.html",
-      action: "絵本を読む",
-      date: "2026.06.21"
+      title: "JTCで死んだおじさん、異世界でAI推進して無双する",
+      summary: "過労の記憶を持つおじさん社員が、AI的な魔法で理不尽な職場を静かにデバッグする実用ファンタジー漫画。",
+      href: "manga/jtc-ai-isekai/index.html",
+      action: "漫画を読む",
+      date: "2026.07.01"
     },
     {
       number: "03",

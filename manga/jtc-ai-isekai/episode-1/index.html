@@ -1,0 +1,520 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="過労の記憶を持つおじさん社員タツヤが、AI的な魔法システムを使い、進捗報告に追われる若手を救う大人向け実用ファンタジー漫画です。">
+  <link rel="canonical" href="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-1/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="烏合ワークス">
+  <meta property="og:title" content="第1話 進捗報告のための進捗報告社内会議 | JTCで死んだおじさん、異世界でAI推進して無双する">
+  <meta property="og:description" content="過労の記憶を持つおじさん社員タツヤが、AI的な魔法システムを使い、進捗報告に追われる若手を救う大人向け実用ファンタジー漫画です。">
+  <meta property="og:url" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-1/index.html">
+  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/cover.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <script src="/assets/analytics.js"></script>
+  <title>第1話 進捗報告のための進捗報告社内会議 | JTCで死んだおじさん、異世界でAI推進して無双する | 烏合ワークス</title>
+  <style>
+    /* 共通デザインシステム（ダークテーマ） */
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      margin: 30px 0 20px 0;
+      text-align: center;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 22px;
+      margin: 0;
+      color: #00d2ff;
+      letter-spacing: 0.05em;
+    }
+
+    header p {
+      font-size: 13px;
+      margin: 8px 0 0 0;
+      color: #888;
+    }
+
+    /* 縦スクロール漫画のコンテナ */
+    .manga-scroll-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 800px;
+      background-color: #000;
+      border-left: 1px solid #333;
+      border-right: 1px solid #333;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+      padding: 20px 0;
+    }
+
+    /* 各ページスライド（縦に並ぶ） */
+    .page-slide {
+      position: relative;
+      width: 800px;
+      height: 1130px;
+      padding: 16px;
+      box-sizing: border-box;
+      background-color: #000;
+      display: grid;
+      gap: 12px;
+      margin-bottom: 60px;
+      border-bottom: 2px dashed #222;
+    }
+
+    /* 最後のページは下線を引かない */
+    .page-slide:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    /* コマ（パネル）のスタイル */
+    .site-back { width: min(800px, calc(100% - 28px)); margin: 18px auto 0; text-align: left; }
+    .site-back a { color: #e0e0e0; text-decoration: none; border-bottom: 1px solid currentColor; font-size: 13px; }
+
+    .episode-nav { width: min(800px, calc(100% - 28px)); margin: 24px auto 48px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .episode-nav a { color: #111; background: #e0e0e0; text-decoration: none; border-radius: 4px; padding: 10px 14px; font-weight: 700; font-size: 13px; }
+
+    .panel {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border: 4px solid #111;
+      border-radius: 4px;
+      overflow: hidden;
+      background-color: #1a1a1a;
+    }
+
+    /* 各ページの固有レイアウト */
+
+    /* 1P: 前世回想 (1コマ) */
+    #page-1 {
+      grid-template-columns: 1fr;
+    }
+    #page-1 .panel-main {
+      background-image: url('../assets/episode-1/page_2.jpg');
+    }
+
+    /* 2P: 前世最期 (上下2コマ) */
+    #page-2 {
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr;
+    }
+    #page-2 .panel-top {
+      background-image: url('../assets/episode-1/page_3_top.jpg');
+    }
+    #page-2 .panel-bottom {
+      background-image: url('../assets/episode-1/page_3_bottom.jpg');
+    }
+
+    /* 3P: 新しい世界の朝 (1コマ) */
+    #page-3 {
+      grid-template-columns: 1fr;
+    }
+    #page-3 .panel-main {
+      background-image: url('../assets/episode-1/page_4.jpg');
+    }
+
+    /* 4P: 出勤 (上下2コマ) */
+    #page-4 {
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr;
+    }
+    #page-4 .panel-top {
+      background-image: url('../assets/episode-1/page_5_top.jpg');
+    }
+    #page-4 .panel-bottom {
+      background-image: url('../assets/episode-1/page_5_bottom.jpg');
+    }
+
+    /* 5P: 疲弊レオン (1コマ) */
+    #page-5 {
+      grid-template-columns: 1fr;
+    }
+    #page-5 .panel-main {
+      background-image: url('../assets/episode-1/page_6.jpg');
+    }
+
+    /* 6P: バルド部長 (上下2コマ) */
+    #page-6 {
+      grid-template-rows: 1fr 1.2fr;
+      grid-template-columns: 1fr;
+    }
+    #page-6 .panel-top {
+      background-image: url('../assets/episode-1/page_7_top.jpg');
+    }
+    #page-6 .panel-bottom {
+      background-image: url('../assets/episode-1/page_7_bottom.jpg');
+    }
+
+    /* 7P: 乱入 (1コマ) */
+    #page-7 {
+      grid-template-columns: 1fr;
+    }
+    #page-7 .panel-main {
+      background-image: url('../assets/episode-1/page_8.jpg');
+    }
+
+    /* 8P: 嘲笑 (1コマ) */
+    #page-8 {
+      grid-template-columns: 1fr;
+    }
+    #page-8 .panel-main {
+      background-image: url('../assets/episode-1/page_9.jpg');
+    }
+
+    /* 9P: アリア分析 (上下2コマ) */
+    #page-9 {
+      grid-template-rows: 1fr 1.2fr;
+      grid-template-columns: 1fr;
+    }
+    #page-9 .panel-top {
+      background-image: url('../assets/episode-1/page_10_top.jpg');
+    }
+    #page-9 .panel-bottom {
+      background-image: url('../assets/episode-1/page_10_bottom.jpg');
+    }
+
+    /* 10P: プロンプト魔法発動 (1コマ) */
+    #page-10 {
+      grid-template-columns: 1fr;
+    }
+    #page-10 .panel-main {
+      background-image: url('../assets/episode-1/tatsuya_magic.jpg');
+    }
+
+    /* 11P: なん、、、だと、、、(上1コマ、下左右2コマ) */
+    #page-11 {
+      grid-template-rows: 1fr 1.3fr;
+      grid-template-columns: 1fr 1fr;
+    }
+    #page-11 .panel-top {
+      grid-column: 1 / span 2;
+      grid-row: 1;
+      background-image: url('../assets/episode-1/page_12_top.jpg');
+    }
+    #page-11 .panel-bottom-left {
+      grid-column: 1;
+      grid-row: 2;
+      background-image: url('../assets/episode-1/leon_relief.jpg');
+    }
+    #page-11 .panel-bottom-right {
+      grid-column: 2;
+      grid-row: 2;
+      background-image: url('../assets/episode-1/bald_shock.jpg');
+    }
+
+    /* 12P: 救済・定時退社 (4コマ) */
+    #page-12 {
+      grid-template-rows: 1fr 1.2fr 1.2fr;
+      grid-template-columns: 1fr 1fr;
+    }
+    #page-12 .panel-1 {
+      grid-column: 1 / span 2;
+      grid-row: 1;
+      background-image: url('../assets/episode-1/page_13_1.jpg');
+    }
+    #page-12 .panel-2 {
+      grid-column: 1;
+      grid-row: 2;
+      background-image: url('../assets/episode-1/page_13_2.jpg');
+    }
+    #page-12 .panel-3 {
+      grid-column: 2;
+      grid-row: 2;
+      background-image: url('../assets/episode-1/page_13_3.jpg');
+    }
+    #page-12 .panel-4 {
+      grid-column: 1 / span 2;
+      grid-row: 3;
+      background-image: url('../assets/episode-1/page_13_4.jpg');
+    }
+
+    /* 吹き出しのスタイリング */
+    .bubble {
+      position: absolute;
+      background-color: #fff;
+      color: #000;
+      border: 3px solid #000;
+      border-radius: 28px; /* 50%から固定pxに変更して角丸長方形にし、文字のはみ出しを防止 */
+      padding: 14px 22px; /* 余白を広げて文字が枠線にぶつからないように調整 */
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      box-sizing: border-box;
+    }
+
+
+
+    /* モノローグ（黒背景・白文字・四角） */
+    .monologue {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.95);
+      color: #fff;
+      border: 2px solid #333;
+      padding: 10px 15px;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: bold;
+      z-index: 10;
+      border-radius: 4px;
+    }
+
+    /* バルドの震える叫び吹き出し */
+    .bubble-shock {
+      font-size: 24px;
+      font-family: 'Hiragino Mincho ProN', Georgia, serif;
+      border-width: 4px;
+      padding: 20px 35px;
+      border-radius: 30px;
+      animation: shake 0.5s infinite;
+    }
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-2px, -2px) rotate(-1deg); }
+      40% { transform: translate(2px, 2px) rotate(1deg); }
+      60% { transform: translate(-1px, -1px) rotate(0deg); }
+      80% { transform: translate(1px, 1px) rotate(-1deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* 操作ガイド・フッター */
+    .footer-guide {
+      width: 800px;
+      max-width: 100%;
+      background: #1e1e1e;
+      border-top: 1px solid #333;
+      padding: 25px 20px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.6;
+      box-sizing: border-box;
+      color: #aaa;
+    }
+
+    /* モバイル・レスポンシブ対応 */
+    @media (max-width: 820px) {
+      .manga-scroll-container {
+        width: 100%;
+        padding: 10px 0;
+      }
+      .page-slide {
+        width: 100%;
+        max-width: 390px;
+        height: 550px;
+        padding: 8px;
+        margin-bottom: 30px;
+        gap: 6px;
+      }
+      .bubble {
+        font-size: 9px;
+        padding: 6px 10px;
+      }
+      .monologue {
+        font-size: 8px;
+        padding: 6px 10px;
+      }
+      .bubble-shock {
+        font-size: 13px;
+        padding: 8px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="site-back"><a href="../index.html">← 作品一覧へ</a></nav>
+
+  <header>
+    <h1>『JTCで死んだおじさん、異世界でAI推進して無双する』</h1>
+    <p>第1話：進捗報告のための進捗報告社内会議</p>
+  </header>
+
+  <!-- 縦スクロール漫画コンテナ -->
+  <div class="manga-scroll-container">
+
+    <!-- 1P: 前世の回想 -->
+    <div class="page-slide" id="page-1">
+      <div class="panel panel-main"></div>
+      <div class="monologue" style="bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%;">
+        あの頃の俺たちは、終わらない無駄な作業と、怒鳴り声のノイズに麻痺していた。
+      </div>
+    </div>
+
+    <!-- 2P: 前世の最期 -->
+    <div class="page-slide" id="page-2">
+      <div class="panel panel-top"></div>
+      <div class="panel panel-bottom"></div>
+      <div class="monologue" style="bottom: 20px; left: 20px; right: 20px;">
+        ごめんな、鈴木。お前を庇ってやりたかった。……もし次の人生があるなら、もっとスマートに、誰かを、あるいは自分を救う仕組みを作りたい。
+      </div>
+    </div>
+
+    <!-- 3P: 新しい世界の朝 -->
+    <div class="page-slide" id="page-3">
+      <div class="panel panel-main"></div>
+      <!-- 異世界転生説明のモノローグ -->
+      <div class="monologue" style="top: 30px; left: 50%; transform: translateX(-50%); width: 85%;">
+        あの激痛の後、目が覚めると俺は――魔法システムがAI的に動作する異世界に転生していた。魔力測定値は最低の『Fランク』。だが、俺にはこの世界の『呪文』が、ただのプロンプトエンジニアリングに見えていた。
+      </div>
+      <div class="bubble" style="top: 160px; left: 60px; border-radius: 20px;">
+        ふぅ……。心臓が痛くない。<br>それだけで、今日も良い一日だな。
+      </div>
+      <div class="bubble" style="bottom: 80px; left: 40px; border-radius: 20px; background-color: #e6f7ff;">
+        おはよう、タツヤ。起きて早々、またサボるための魔導コードですか？ 仕方のない人ですね、手伝いますからサッと定時退社しましょう。
+      </div>
+    </div>
+
+    <!-- 4P: 出勤 -->
+    <div class="page-slide" id="page-4">
+      <div class="panel panel-top"></div>
+      <div class="panel panel-bottom"></div>
+      <div class="monologue" style="bottom: 20px; left: 20px; right: 20px;">
+        さて、今日のタスクは『プロジェクト進捗報告書』の提出だけだな。サクッと終わらせて帰ろう。
+      </div>
+    </div>
+
+    <!-- 5P: 疲弊するレオン -->
+    <div class="page-slide" id="page-5">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="bottom: 120px; right: 40px; border-radius: 25px; max-width: 300px;">
+        はぁ……はぁ……もう、魔力が……<br>文字魔法を紡ぐための、集中力が保てない……
+      </div>
+    </div>
+
+    <!-- 6P: バルド部長 -->
+    <div class="page-slide" id="page-6">
+      <div class="panel panel-top"></div>
+      <div class="panel panel-bottom"></div>
+      <div class="bubble" style="top: 40px; right: 30px; width: 320px;">
+        レオン！ 報告書の『進捗魔法陣』の余白が1ミリ狭い！ 伝統の社内フォーマットを崩すとは何事だ！
+      </div>
+      <div class="bubble" style="bottom: 40px; left: 30px; width: 320px;">
+        嫌なら辞めろ！ お前のような無能の代わりなどいくらでもいるんだ！ 全て最初から書き直し！
+      </div>
+    </div>
+
+    <!-- 7P: おじさんの乱入 -->
+    <div class="page-slide" id="page-7">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="bottom: 80px; left: 50%; transform: translateX(-50%); width: 80%;">
+        そこまでにしておきなさい、バルド部長。その『代わりはいくらでもいる』というセリフ、私の古傷に障るんでね。
+      </div>
+    </div>
+
+    <!-- 8P: 部長の嘲笑 -->
+    <div class="page-slide" id="page-8">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="bottom: 80px; left: 50%; transform: translateX(-50%); width: 80%;">
+        ハッ！ 誰かと思えば、Fランクの平社員タツヤか！ 魔力測定値がゴミのようなお前に何ができる？ 自分の報告書すら書けないくせに！
+      </div>
+    </div>
+
+    <!-- 9P: アリアの分析 -->
+    <div class="page-slide" id="page-9">
+      <div class="panel panel-top"></div>
+      <div class="panel panel-bottom"></div>
+      <div class="bubble" style="top: 40px; right: 40px; width: 250px; border-radius: 20px;">
+        アリア、起動。この公社の監査システムのロジックをスキャンしてくれ。
+      </div>
+      <div class="bubble" style="bottom: 40px; left: 40px; width: 350px; border-radius: 20px; background-color: #e6f7ff;">
+        ……スキャン完了です。本当に非効率極まりないシステムですね……。さぁ、ササッとリファクタリングして定時で帰りましょう。
+      </div>
+    </div>
+
+    <!-- 10P: プロンプト魔法発動 -->
+    <div class="page-slide" id="page-10">
+      <div class="panel panel-main"></div>
+      <!-- プロンプト入力呪文 -->
+      <div class="bubble" style="top: 30px; left: 30px; max-width: 320px; border-radius: 20px; font-size: 12px; text-align: left;">
+        <strong>世界システムへ指示（命令）:</strong><br>
+        ・前提：お前は公社の完璧な報告書作成アシスタントだ。<br>
+        ・制約：入力された音声データから「プロジェクト進捗」と「課題点」の要点のみを抽出し、無駄な挨拶やエフェクト（装飾）はすべて除外せよ。<br>
+        ・出力：公社指定の構造化テンプレート。<br>
+        ・ターゲット：レオン the 羊皮紙（Run）
+      </div>
+      <!-- ぼそっとしたセリフ -->
+      <div class="bubble" style="bottom: 40px; right: 40px; border-radius: 20px;">
+        魔導結界の維持工事は昨日で完了。<br>トラブルは特になし。……これだけだ。
+      </div>
+    </div>
+
+    <!-- 11P: なん、、、だと、、、 -->
+    <div class="page-slide" id="page-11">
+      <div class="panel panel-top"></div>
+      <div class="panel panel-bottom-left"></div>
+      <div class="panel panel-bottom-right"></div>
+      
+      <div class="bubble" style="bottom: 45px; left: 18%; transform: translateX(-50%); max-width: 220px; width: 80%; font-size: 10px; z-index: 12; line-height: 1.3;">
+        え……っ！？ 嘘……、魔力を全く使っていないのに、本部の『受理』が一瞬で……！？
+      </div>
+      <div class="bubble bubble-shock" style="top: 42%; left: 50%; transform: translate(-50%, -50%); white-space: nowrap; width: auto; max-width: 90%; z-index: 12;">
+        な……なん、、、だと、、、！？
+      </div>
+    </div>
+
+    <!-- 12P: 救済・定時退社 -->
+    <div class="page-slide" id="page-12">
+      <div class="panel panel-1"></div>
+      <div class="panel panel-2"></div>
+      <div class="panel panel-3"></div>
+      <div class="panel panel-4"></div>
+      
+      <div class="bubble" style="top: 30px; left: 50%; transform: translateX(-50%); max-width: 500px; border-radius: 20px; font-size: 13px; z-index: 12;">
+        さぁレオン、もう17時だ。定時だから帰ろう。深夜のサーバー監視？ それもさっき自動化した。
+      </div>
+      <div class="bubble" style="top: 36%; left: 20%; transform: translate(-50%, -50%); max-width: 320px; width: 90%; font-size: 11px; padding: 10px 16px; z-index: 12; line-height: 1.3;">
+        な……何ィ！？ タツヤの魔導端末に緊急連絡が送れん！<br>P、Ping（通信確認）が通らない……だと……！？
+      </div>
+      <div class="bubble" style="top: 37%; left: 88%; transform: translate(-50%, -50%); max-width: 140px; width: 85%; font-size: 10px; border-radius: 12px; background-color: #e6f7ff; z-index: 12;">
+        ちょっとタツヤ、緊急魔導Pingが来ていますけれど？
+      </div>
+      <div class="bubble" style="top: 47%; left: 57%; transform: translate(-50%, -50%); max-width: 155px; width: 85%; font-size: 10px; border-radius: 12px; z-index: 12;">
+        定時後のパケットは自動破棄だ。ビールが不味くなる。
+      </div>
+      <div class="bubble" style="top: 61%; left: 88%; transform: translate(-50%, -50%); max-width: 140px; width: 85%; font-size: 10px; border-radius: 12px; background-color: #e6f7ff; z-index: 12;">
+        ……了解です。ファイヤーウォール、常時稼働中。
+      </div>
+      <div class="bubble" style="bottom: 40px; left: 50%; transform: translateX(-50%); border-radius: 20px; font-size: 18px; white-space: nowrap; z-index: 12;">
+        ぷはぁ！ ……よし、デバッグ完了。今日もお疲れ様、俺。
+      </div>
+    </div>
+
+    <!-- フッター・エンド -->
+    <div class="footer-guide">
+      第1話『進捗報告のための進捗報告社内会議』 完<br>
+      <small>烏合ワークスがお届けしました。次回へ続く！</small>
+    </div>
+
+  </div>
+
+  <nav class="episode-nav" aria-label="エピソード移動">
+    <a href="../episode-2/index.html">第2話を読む</a>
+    <a href="../index.html">シリーズ一覧へ</a>
+  </nav>
+
+</body>
+</html>
