@@ -4,11 +4,11 @@ window.UGOU_HOME = {
       number: "01",
       kind: "ARTICLE",
       tone: "amber",
-      title: "音楽を配信する前に知っておきたい4つのこと",
-      summary: "著作権・JASRAC・配信手数料・AI音楽の権利。曲を出す前に確認したい4つの基本を整理。",
-      href: "articles/music-distribution-basics/index.html",
+      title: "副業・個人プロジェクトで「3年続く人」に共通する3つの条件",
+      summary: "完璧主義・固定費・スコープの3つの観点から、副業や個人プロジェクトが続く人と続かない人の差を整理。",
+      href: "articles/fukugyou-tsuzuku-3-conditions/index.html",
       action: "記事を読む",
-      date: "2026.06.27"
+      date: "2026.07.01"
     },
     {
       number: "02",
@@ -24,11 +24,11 @@ window.UGOU_HOME = {
       number: "03",
       kind: "AI VIDEO",
       tone: "violet",
-      title: "コンテキストウィンドウって何？",
-      summary: "AIが一度に読める文章の範囲を、Ugouちゃんと60秒の縦型動画でやさしく解説します。",
-      href: "videos/context-window/index.html",
+      title: "プロンプトって何？",
+      summary: "同じAIでも聞き方で答えの質が変わる理由を、Ugouちゃんと60秒の縦型動画でやさしく解説します。",
+      href: "videos/prompt/index.html",
       action: "60秒動画を見る",
-      date: "2026.06.25"
+      date: "2026.07.01"
     },
     {
       number: "04",
