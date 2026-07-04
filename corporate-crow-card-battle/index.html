@@ -803,6 +803,84 @@
       display: none;
     }
 
+    .mobile-card-detail {
+      display: none;
+    }
+
+    .mobile-card-detail.is-visible {
+      position: fixed;
+      inset: 0;
+      z-index: 38;
+      display: grid;
+      place-items: end center;
+      padding: 14px;
+      background: rgba(12, 14, 18, .42);
+    }
+
+    .mobile-card-detail-panel {
+      width: min(420px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel-2);
+      color: var(--ink);
+      box-shadow: 0 24px 70px rgba(0, 0, 0, .38);
+      padding: 12px;
+    }
+
+    .mobile-card-detail-head {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .mobile-card-detail-cost {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 2px solid #d7e9ff;
+      border-radius: 50%;
+      background: radial-gradient(circle, #448ee2, #1f4779);
+      color: white;
+      font-weight: 1000;
+    }
+
+    .mobile-card-detail-title {
+      margin: 0;
+      font-size: 1.02rem;
+      line-height: 1.24;
+    }
+
+    .mobile-card-detail-meta {
+      margin-top: 3px;
+      color: var(--muted);
+      font-size: .72rem;
+      font-weight: 900;
+    }
+
+    .mobile-card-detail-text {
+      margin: 10px 0 8px;
+      color: #453d34;
+      font-size: .86rem;
+      line-height: 1.62;
+      font-weight: 800;
+    }
+
+    .mobile-card-detail-stats {
+      min-height: 26px;
+      color: var(--muted);
+      font-size: .78rem;
+      font-weight: 900;
+    }
+
+    .mobile-card-detail-actions {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 10px;
+    }
+
     .primary,
     .secondary {
       min-height: 44px;
@@ -1399,21 +1477,17 @@
       }
 
       .app.battle-compact .mobile-log-toggle {
-        position: absolute;
-        top: 6px;
-        right: 6px;
-        z-index: 34;
         display: inline-grid;
         place-items: center;
-        min-width: 42px;
-        min-height: 32px;
+        min-width: 44px;
+        min-height: 26px;
         border: 1px solid rgba(255, 250, 241, .28);
         border-radius: 7px;
         background: rgba(18, 23, 31, .86);
         color: #fffaf1;
-        font-size: .68rem;
+        font-size: .64rem;
         font-weight: 1000;
-        box-shadow: 0 10px 24px rgba(0, 0, 0, .28);
+        box-shadow: 0 7px 16px rgba(0, 0, 0, .24);
       }
 
       .app.battle-compact.log-open .mobile-log-toggle {
@@ -1597,13 +1671,12 @@
         <div class="hand-wrap">
           <div class="hand-head">
             <span>手札</span>
+            <button class="mobile-log-toggle" type="button" id="mobile-log-toggle" aria-expanded="false" aria-controls="log">ログ</button>
             <span id="deck-count">山札 30</span>
           </div>
           <div class="hand" id="hand"></div>
         </div>
       </section>
-
-      <button class="mobile-log-toggle" type="button" id="mobile-log-toggle" aria-expanded="false" aria-controls="log">ログ</button>
 
       <aside class="side" aria-label="ログと操作">
         <h2>ログ</h2>
@@ -1644,6 +1717,24 @@
       <h2 id="ending-title">調整完了</h2>
       <p id="ending-copy">今日の山は、ひとまず越えた。</p>
       <button class="primary" type="button" id="ending-restart">もう一度</button>
+    </div>
+  </div>
+
+  <div class="mobile-card-detail" id="mobile-card-detail" role="dialog" aria-modal="true" aria-hidden="true" aria-labelledby="mobile-card-detail-title">
+    <div class="mobile-card-detail-panel">
+      <div class="mobile-card-detail-head">
+        <div class="mobile-card-detail-cost" id="mobile-card-detail-cost">0</div>
+        <div>
+          <h2 class="mobile-card-detail-title" id="mobile-card-detail-title">カード名</h2>
+          <div class="mobile-card-detail-meta" id="mobile-card-detail-meta"></div>
+        </div>
+      </div>
+      <p class="mobile-card-detail-text" id="mobile-card-detail-text"></p>
+      <div class="mobile-card-detail-stats" id="mobile-card-detail-stats"></div>
+      <div class="mobile-card-detail-actions">
+        <button class="secondary" type="button" id="mobile-card-detail-close">閉じる</button>
+        <button class="primary" type="button" id="mobile-card-detail-use">使用</button>
+      </div>
     </div>
   </div>
 
@@ -1840,6 +1931,7 @@
       audioEnabled: false,
       audioCtx: null,
       bgmAudio: null,
+      mobileDetailUid: null,
       cutInTimer: null,
       presidentEffectTimer: null
     };
@@ -1873,6 +1965,14 @@
       endingTitle: document.querySelector("#ending-title"),
       endingCopy: document.querySelector("#ending-copy"),
       endingRestart: document.querySelector("#ending-restart"),
+      mobileCardDetail: document.querySelector("#mobile-card-detail"),
+      mobileCardDetailCost: document.querySelector("#mobile-card-detail-cost"),
+      mobileCardDetailTitle: document.querySelector("#mobile-card-detail-title"),
+      mobileCardDetailMeta: document.querySelector("#mobile-card-detail-meta"),
+      mobileCardDetailText: document.querySelector("#mobile-card-detail-text"),
+      mobileCardDetailStats: document.querySelector("#mobile-card-detail-stats"),
+      mobileCardDetailClose: document.querySelector("#mobile-card-detail-close"),
+      mobileCardDetailUse: document.querySelector("#mobile-card-detail-use"),
       decisionCutIn: document.querySelector("#decision-cutin"),
       decisionCutInText: document.querySelector("#decision-cutin-text"),
       presidentEffect: document.querySelector("#president-effect"),
@@ -1895,6 +1995,40 @@
       if (card.cost >= 6) return "gold";
       if (card.cost >= 3) return "silver";
       return "bronze";
+    }
+
+    function isCompactMobileBattle() {
+      return els.app.classList.contains("battle-compact")
+        && window.matchMedia("(max-width: 600px) and (orientation: portrait)").matches;
+    }
+
+    function getCardDetailText(card) {
+      const traits = [];
+      if (card.lethal) traits.push("必殺");
+      if (card.rush) traits.push("即盤面");
+      if (card.direct) traits.push("責任者攻撃可");
+      if (card.enhance) traits.push(`エンハンス${card.enhance.cost}: ${card.enhance.doubleAttack ? "2回攻撃" : ""}${card.enhance.invulnerable ? "・無傷" : ""}`);
+      if (card.freeDecision) traits.push("決裁枠なしで決裁可能");
+      if (card.decision) traits.push(`決裁: ${decisionLabels[card.decision]}`);
+      return `${traits.length ? `${traits.join(" / ")}。` : ""}${card.text}`.trim();
+    }
+
+    function closeMobileCardDetail() {
+      state.mobileDetailUid = null;
+      els.mobileCardDetail.classList.remove("is-visible");
+      els.mobileCardDetail.setAttribute("aria-hidden", "true");
+    }
+
+    function openMobileCardDetail(card) {
+      state.mobileDetailUid = card.uid;
+      els.mobileCardDetailCost.textContent = card.cost;
+      els.mobileCardDetailTitle.textContent = card.name;
+      els.mobileCardDetailMeta.textContent = `${rarityLabels[getRarity(card)]} / ${factionLabels[card.faction]} / ${card.kind}`;
+      els.mobileCardDetailText.textContent = getCardDetailText(card);
+      els.mobileCardDetailStats.textContent = card.kind === "担当者" ? `攻撃 ${card.atk} / HP ${card.hp}` : "施策カード";
+      els.mobileCardDetailUse.disabled = state.phase !== "player" || card.cost > state.pp || state.over;
+      els.mobileCardDetail.classList.add("is-visible");
+      els.mobileCardDetail.setAttribute("aria-hidden", "false");
     }
 
     function log(text) {
@@ -2081,6 +2215,7 @@
       hideDecisionCutIn();
       hidePresidentEffect();
       setMobileLogOpen(false);
+      closeMobileCardDetail();
       state.started = false;
       state.phase = "start";
       state.over = false;
@@ -2123,6 +2258,7 @@
       els.battle.classList.remove("is-hidden");
       els.app.classList.add("battle-compact");
       setMobileLogOpen(false);
+      closeMobileCardDetail();
       els.log.textContent = "";
       els.ending.classList.remove("is-visible");
       els.playerName.textContent = classDef.leader;
@@ -2214,6 +2350,7 @@
     }
 
     function playCard(uid) {
+      closeMobileCardDetail();
       if (state.phase !== "player" || state.over) return;
       const index = state.hand.findIndex((card) => card.uid === uid);
       const card = state.hand[index];
@@ -2948,7 +3085,13 @@
       const rarity = getRarity(card);
       button.className = `card rarity-${rarity} ${card.image ? "has-art" : ""}`;
       button.disabled = state.phase !== "player" || card.cost > state.pp || state.over;
-      button.addEventListener("click", () => playCard(card.uid));
+      button.addEventListener("click", () => {
+        if (isCompactMobileBattle()) {
+          openMobileCardDetail(card);
+          return;
+        }
+        playCard(card.uid);
+      });
 
       const cost = document.createElement("div");
       cost.className = "cost";
@@ -3042,6 +3185,14 @@
     els.restart.addEventListener("click", showStartScreen);
     els.endingRestart.addEventListener("click", showStartScreen);
     els.mobileLogToggle.addEventListener("click", () => setMobileLogOpen(!els.app.classList.contains("log-open")));
+    els.mobileCardDetailClose.addEventListener("click", closeMobileCardDetail);
+    els.mobileCardDetail.addEventListener("click", (event) => {
+      if (event.target === els.mobileCardDetail) closeMobileCardDetail();
+    });
+    els.mobileCardDetailUse.addEventListener("click", () => {
+      const uid = state.mobileDetailUid;
+      if (uid) playCard(uid);
+    });
     els.enemyLife.addEventListener("click", attackLeader);
     els.startGame.addEventListener("click", () => startGame());
     els.classButtons.forEach((button) => {
