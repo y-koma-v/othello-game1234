@@ -1112,7 +1112,7 @@
       }
     }
 
-    @media (max-width: 430px) {
+    @media (max-width: 600px) and (orientation: portrait) {
       .app {
         padding: max(10px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
       }
@@ -1388,8 +1388,9 @@
       }
 
       .app.battle-compact .side h2,
-      .app.battle-compact .log {
-        display: none;
+      .app.battle-compact .log,
+      .app.battle-compact .log-item {
+        display: none !important;
       }
 
       .app.battle-compact .actions {
