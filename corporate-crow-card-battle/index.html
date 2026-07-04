@@ -49,13 +49,14 @@
 
     button {
       font: inherit;
+      touch-action: manipulation;
     }
 
     .app {
       width: min(1180px, 100%);
       margin: 0 auto;
       min-height: 100vh;
-      padding: 14px clamp(10px, 2.5vw, 22px) 18px;
+      padding: max(14px, env(safe-area-inset-top)) max(clamp(10px, 2.5vw, 22px), env(safe-area-inset-right)) calc(18px + env(safe-area-inset-bottom)) max(clamp(10px, 2.5vw, 22px), env(safe-area-inset-left));
     }
 
     .top {
@@ -85,6 +86,7 @@
       grid-template-columns: 1fr 280px;
       gap: 12px;
       align-items: start;
+      min-width: 0;
     }
 
     .is-hidden {
@@ -313,6 +315,7 @@
         repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0, rgba(255, 255, 255, 0.04) 1px, transparent 1px, transparent 84px);
       box-shadow: 0 22px 70px var(--shadow);
       overflow: hidden;
+      min-width: 0;
     }
 
     .leader-row {
@@ -404,6 +407,7 @@
       grid-template-rows: 1fr auto 1fr;
       gap: 10px;
       padding: 6px 12px 12px;
+      min-width: 0;
     }
 
     .lane-title {
@@ -421,12 +425,15 @@
       border-radius: 8px;
       background: rgba(0, 0, 0, 0.18);
       padding: 9px;
+      width: 100%;
+      min-width: 0;
     }
 
     .slot {
       display: grid;
       place-items: center;
       min-height: 126px;
+      min-width: 0;
       border: 1px dashed rgba(255, 250, 241, 0.22);
       border-radius: 8px;
       color: rgba(255, 250, 241, 0.34);
@@ -447,6 +454,7 @@
       box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
       cursor: pointer;
       text-align: left;
+      min-width: 0;
     }
 
     .unit.enemy {
@@ -569,6 +577,8 @@
       border-top: 1px solid rgba(255, 250, 241, 0.14);
       background: rgba(0, 0, 0, 0.2);
       padding: 10px 12px 12px;
+      min-width: 0;
+      overflow: hidden;
     }
 
     .hand-head {
@@ -585,6 +595,9 @@
       display: grid;
       grid-template-columns: repeat(5, minmax(112px, 1fr));
       gap: 8px;
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
     }
 
     .card {
@@ -1081,8 +1094,8 @@
       }
 
       .board {
-        grid-template-columns: repeat(3, minmax(92px, 1fr));
-        overflow-x: auto;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        overflow-x: visible;
       }
 
       .hand {
@@ -1090,6 +1103,7 @@
         overflow-x: auto;
         padding: 6px 2px 10px;
         scroll-snap-type: x mandatory;
+        -webkit-overflow-scrolling: touch;
       }
 
       .card {
@@ -1100,7 +1114,11 @@
 
     @media (max-width: 430px) {
       .app {
-        padding-inline: 8px;
+        padding: max(10px, env(safe-area-inset-top)) max(8px, env(safe-area-inset-right)) calc(16px + env(safe-area-inset-bottom)) max(8px, env(safe-area-inset-left));
+      }
+
+      .battle {
+        gap: 8px;
       }
 
       .leader {
@@ -1119,6 +1137,54 @@
 
       .center {
         padding-inline: 8px;
+        gap: 8px;
+      }
+
+      .board {
+        gap: 8px;
+        padding: 8px;
+        min-height: 150px;
+      }
+
+      .slot {
+        min-height: 132px;
+      }
+
+      .unit {
+        min-width: 0;
+        min-height: 132px;
+      }
+
+      .hand-wrap {
+        padding: 9px 8px 11px;
+      }
+
+      .hand {
+        gap: 8px;
+      }
+
+      .card {
+        flex-basis: min(42vw, 156px);
+        min-height: 184px;
+      }
+
+      .card.has-art {
+        min-height: 232px;
+      }
+
+      .actions {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 8px;
+      }
+
+      .primary,
+      .secondary {
+        min-height: 48px;
+        padding: 10px 8px;
+      }
+
+      .log {
+        max-height: 132px;
       }
     }
   </style>
