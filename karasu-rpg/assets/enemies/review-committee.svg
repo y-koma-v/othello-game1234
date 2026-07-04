@@ -1,0 +1,48 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" role="img" aria-label="審査委員会">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="38%" r="66%">
+      <stop offset="0%" stop-color="#33415d"/>
+      <stop offset="62%" stop-color="#101726"/>
+      <stop offset="100%" stop-color="#05070c"/>
+    </radialGradient>
+    <linearGradient id="robe" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#253247"/>
+      <stop offset="100%" stop-color="#070b12"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="18" flood-color="#000" flood-opacity=".68"/>
+    </filter>
+  </defs>
+  <rect width="720" height="720" fill="url(#bg)"/>
+  <g opacity=".25" stroke="#e8dbc0" stroke-width="2" fill="none">
+    <rect x="105" y="90" width="510" height="420" rx="14"/>
+    <path d="M140 160h440M140 230h440M140 300h440M140 370h440M140 440h440"/>
+    <path d="M250 90v420M470 90v420"/>
+  </g>
+  <g filter="url(#shadow)">
+    <path d="M118 690c22-148 91-216 242-216s220 68 242 216z" fill="url(#robe)"/>
+    <g transform="translate(0 6)">
+      <path d="M150 415c-26-84 14-167 94-190 77-22 137 18 154 91 16 70-13 137-80 166-70 30-143 10-168-67z" fill="#12151d"/>
+      <path d="M186 382c18 59 69 79 121 57 47-20 66-68 54-117-14-55-55-82-111-67-58 16-82 75-64 127z" fill="#1d222e"/>
+      <circle cx="258" cy="355" r="13" fill="#e8dbc0"/>
+      <circle cx="330" cy="346" r="13" fill="#e8dbc0"/>
+      <path d="M245 312c24-15 48-17 75-5" stroke="#e8b840" stroke-width="8" stroke-linecap="round" fill="none"/>
+    </g>
+    <g transform="translate(204 -25)">
+      <path d="M150 415c-26-84 14-167 94-190 77-22 137 18 154 91 16 70-13 137-80 166-70 30-143 10-168-67z" fill="#11151d"/>
+      <path d="M186 382c18 59 69 79 121 57 47-20 66-68 54-117-14-55-55-82-111-67-58 16-82 75-64 127z" fill="#1b222e"/>
+      <circle cx="258" cy="355" r="13" fill="#e8dbc0"/>
+      <circle cx="330" cy="346" r="13" fill="#e8dbc0"/>
+      <path d="M245 312c24-15 48-17 75-5" stroke="#e8b840" stroke-width="8" stroke-linecap="round" fill="none"/>
+    </g>
+    <g transform="translate(380 12)">
+      <path d="M150 415c-26-84 14-167 94-190 77-22 137 18 154 91 16 70-13 137-80 166-70 30-143 10-168-67z" fill="#12151d"/>
+      <path d="M186 382c18 59 69 79 121 57 47-20 66-68 54-117-14-55-55-82-111-67-58 16-82 75-64 127z" fill="#1d222e"/>
+      <circle cx="258" cy="355" r="13" fill="#e8dbc0"/>
+      <circle cx="330" cy="346" r="13" fill="#e8dbc0"/>
+      <path d="M245 312c24-15 48-17 75-5" stroke="#e8b840" stroke-width="8" stroke-linecap="round" fill="none"/>
+    </g>
+    <path d="M180 570h360l-56 120H236z" fill="#111827"/>
+    <path d="M240 575h240" stroke="#e8b840" stroke-width="10" stroke-linecap="round"/>
+  </g>
+</svg>

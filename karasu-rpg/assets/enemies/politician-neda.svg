@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" role="img" aria-label="社内政治家・根田 腹黒">
+  <defs>
+    <radialGradient id="bg" cx="48%" cy="34%" r="64%">
+      <stop offset="0%" stop-color="#44215a"/>
+      <stop offset="58%" stop-color="#151023"/>
+      <stop offset="100%" stop-color="#06070d"/>
+    </radialGradient>
+    <linearGradient id="cape" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#2c1838"/>
+      <stop offset="100%" stop-color="#080a12"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="24" stdDeviation="17" flood-color="#000" flood-opacity=".7"/>
+    </filter>
+  </defs>
+  <rect width="720" height="720" fill="url(#bg)"/>
+  <g opacity=".28" fill="none" stroke="#d8a7ff" stroke-width="3">
+    <path d="M100 175c120-74 207 70 319 10 70-38 118-34 196 16"/>
+    <path d="M92 548c96-92 197-70 303-28 76 31 140 8 228-46"/>
+    <path d="M200 83c-54 151-32 278 66 381"/>
+    <path d="M534 80c41 125 20 251-62 379"/>
+  </g>
+  <g filter="url(#shadow)">
+    <path d="M171 690c9-158 76-235 189-235s180 77 189 235z" fill="url(#cape)"/>
+    <path d="M258 498l102 126 102-126-52-32H310z" fill="#efe7d3"/>
+    <path d="M322 520l38 86 38-86-38-38z" fill="#4d1c7a"/>
+    <path d="M199 338c-33-15-43-57-20-88 18-24 47-29 79-18 20-88 82-144 153-132 79 13 129 87 119 177 29 13 42 43 27 74-17 33-53 41-86 24-39 78-99 118-166 107-64-10-102-64-106-144z" fill="#101018"/>
+    <path d="M231 309c13 96 43 145 91 153 57 9 111-42 143-138-57 6-115-10-173-45-29-18-49-18-61 30z" fill="#181823"/>
+    <path d="M243 221c50-78 145-103 233-53 31 18 51 52 54 88-72-38-151-52-287-35z" fill="#252236"/>
+    <path d="M289 323c36-6 58 1 74 22M407 347c24-23 54-29 89-18" stroke="#d8a7ff" stroke-width="10" stroke-linecap="round" fill="none"/>
+    <circle cx="323" cy="365" r="14" fill="#f1dfca"/>
+    <circle cx="443" cy="367" r="14" fill="#f1dfca"/>
+    <path d="M337 433c30 13 57 9 82-12" stroke="#e8dbc0" stroke-width="9" stroke-linecap="round" fill="none" opacity=".62"/>
+    <path d="M143 563c72-75 142-99 213-72" stroke="#d8a7ff" stroke-width="11" stroke-linecap="round" fill="none"/>
+    <path d="M579 560c-73-74-143-98-214-71" stroke="#d8a7ff" stroke-width="11" stroke-linecap="round" fill="none"/>
+  </g>
+  <g opacity=".35">
+    <circle cx="152" cy="132" r="5" fill="#e8b840"/>
+    <circle cx="602" cy="247" r="6" fill="#e8b840"/>
+    <circle cx="557" cy="92" r="4" fill="#e8b840"/>
+  </g>
+</svg>

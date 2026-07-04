@@ -1,0 +1,42 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 720 720" role="img" aria-label="部長・権藤 権太郎">
+  <defs>
+    <radialGradient id="bg" cx="50%" cy="34%" r="60%">
+      <stop offset="0%" stop-color="#4c2b18"/>
+      <stop offset="58%" stop-color="#1a1020"/>
+      <stop offset="100%" stop-color="#08070d"/>
+    </radialGradient>
+    <linearGradient id="suit" x1="0" x2="1" y1="0" y2="1">
+      <stop offset="0%" stop-color="#3d4658"/>
+      <stop offset="100%" stop-color="#111827"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" x2="1">
+      <stop offset="0%" stop-color="#7a5810"/>
+      <stop offset="50%" stop-color="#e8b840"/>
+      <stop offset="100%" stop-color="#7a5810"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="26" stdDeviation="18" flood-color="#000" flood-opacity=".65"/>
+    </filter>
+  </defs>
+  <rect width="720" height="720" fill="url(#bg)"/>
+  <g opacity=".3" stroke="#e8b840" stroke-width="2">
+    <path d="M90 120h540M80 255h560M110 625h500"/>
+    <path d="M155 90v550M565 90v550"/>
+  </g>
+  <g filter="url(#shadow)">
+    <path d="M182 690c18-145 86-214 178-214s160 69 178 214z" fill="url(#suit)"/>
+    <path d="M263 514l97 128 97-128-45-34H308z" fill="#ece5d2"/>
+    <path d="M322 531l38 105 38-105-38-36z" fill="#8b1515"/>
+    <path d="M204 318c-36-12-54-43-46-73 9-34 43-43 77-33 12-91 72-146 142-146 91 0 158 70 158 164 34 4 59 27 56 61-3 36-35 55-72 51-28 88-86 141-160 141-72 0-127-61-155-165z" fill="#111217"/>
+    <path d="M213 307c28 134 85 188 151 188 70 0 123-63 145-176-58 22-128 20-202-10-38-16-71-17-94-2z" fill="#191b22"/>
+    <path d="M230 198c64-98 192-120 280-25 17 18 25 44 23 73-85-46-178-48-303-48z" fill="#242831"/>
+    <path d="M246 210c81-26 171-26 247 5" fill="none" stroke="#596170" stroke-width="14" stroke-linecap="round" opacity=".55"/>
+    <circle cx="305" cy="320" r="18" fill="#e8dbc0"/>
+    <circle cx="424" cy="320" r="18" fill="#e8dbc0"/>
+    <path d="M282 281c39-18 65-10 84 8M395 289c30-22 62-23 91-2" stroke="#e8b840" stroke-width="12" stroke-linecap="round" fill="none"/>
+    <path d="M329 401c28 18 57 18 86 0" stroke="#e8dbc0" stroke-width="10" stroke-linecap="round" fill="none" opacity=".65"/>
+    <path d="M130 590c54-52 113-69 177-54" stroke="url(#gold)" stroke-width="13" stroke-linecap="round" fill="none"/>
+    <path d="M590 590c-55-52-114-69-178-54" stroke="url(#gold)" stroke-width="13" stroke-linecap="round" fill="none"/>
+  </g>
+  <path d="M74 646h572v38H74z" fill="#050810" opacity=".72"/>
+</svg>

@@ -44,11 +44,11 @@ window.UGOU_HOME = {
       number: "05",
       kind: "GAME",
       tone: "blue",
-      title: "ORBIT ONE — 重力の輪",
-      summary: "内と外の軌道を切り替えて進む、ワンボタン軌道アクション。",
-      href: "orbit-one/index.html",
+      title: "カラス会社員の社内調整カードバトル",
+      summary: "会議、差し戻し、曖昧な指示。社内課題をカードで突破する短時間カードバトル。",
+      href: "corporate-crow-card-battle/index.html",
       action: "ゲームを遊ぶ",
-      date: ""
+      date: "2026.07.04"
     }
   ],
   channels: [

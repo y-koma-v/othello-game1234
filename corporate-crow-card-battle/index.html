@@ -1,0 +1,2681 @@
+<!doctype html>
+<html lang="ja">
+
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="description" content="カラス会社員が社内課題と盤面で戦う、短時間の社内調整カードバトルです。" />
+  <title>カラス会社員の社内調整カードバトル | 烏合ワークス</title>
+  <link rel="canonical" href="https://works.ugounosyu-aiblog.com/corporate-crow-card-battle/index.html" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="カラス会社員の社内調整カードバトル | 烏合ワークス" />
+  <meta property="og:description" content="会議、差し戻し、曖昧な指示。社内課題をカードで突破する短時間カードバトル。" />
+  <meta property="og:url" content="https://works.ugounosyu-aiblog.com/corporate-crow-card-battle/index.html" />
+  <meta name="twitter:card" content="summary" />
+  <script src="/assets/analytics.js"></script>
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.84em' font-size='86'%3E%E7%83%8F%3C/text%3E%3C/svg%3E" />
+  <style>
+    :root {
+      --bg: #15191f;
+      --panel: #f8f1e6;
+      --panel-2: #fffaf1;
+      --ink: #191c20;
+      --muted: #6a6258;
+      --line: #d8c6ae;
+      --green: #1f6b63;
+      --green-2: #2e8a77;
+      --red: #b2413d;
+      --blue: #295d9a;
+      --gold: #b9822a;
+      --dark-card: #252b33;
+      --shadow: rgba(0, 0, 0, 0.24);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      min-height: 100%;
+      background:
+        radial-gradient(circle at 50% 12%, rgba(255, 250, 241, 0.2), transparent 32%),
+        linear-gradient(180deg, #20252c, #0e1116);
+      color: var(--ink);
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Hiragino Sans", "Yu Gothic", sans-serif;
+      letter-spacing: 0;
+    }
+
+    button {
+      font: inherit;
+    }
+
+    .app {
+      width: min(1180px, 100%);
+      margin: 0 auto;
+      min-height: 100vh;
+      padding: 14px clamp(10px, 2.5vw, 22px) 18px;
+    }
+
+    .top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 10px;
+      color: #fffaf1;
+    }
+
+    .brand {
+      color: rgba(255, 250, 241, 0.72);
+      font-size: 0.76rem;
+      font-weight: 800;
+    }
+
+    h1 {
+      margin: 2px 0 0;
+      font-size: clamp(1.15rem, 3.4vw, 2.1rem);
+      line-height: 1.16;
+      text-shadow: 0 3px 18px rgba(0, 0, 0, 0.35);
+    }
+
+    .battle {
+      display: grid;
+      grid-template-columns: 1fr 280px;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .is-hidden {
+      display: none !important;
+    }
+
+    .start-screen {
+      border: 1px solid rgba(255, 250, 241, 0.16);
+      border-radius: 8px;
+      background: rgba(248, 241, 230, 0.96);
+      padding: clamp(12px, 2.4vw, 20px);
+      box-shadow: 0 22px 70px var(--shadow);
+    }
+
+    .hero-strip {
+      display: flex;
+      align-items: flex-end;
+      min-height: clamp(180px, 28vw, 300px);
+      margin-bottom: 14px;
+      overflow: hidden;
+      border: 1px solid rgba(255, 250, 241, 0.18);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(10, 12, 16, 0.08), rgba(10, 12, 16, 0.72)),
+        url("assets/images/hero-main.png") center / cover;
+      color: #fffaf1;
+      padding: clamp(12px, 2vw, 18px);
+    }
+
+    .hero-strip strong {
+      max-width: 720px;
+      font-size: clamp(1.35rem, 3.4vw, 2.6rem);
+      line-height: 1.05;
+      text-shadow: 0 3px 18px rgba(0, 0, 0, 0.52);
+    }
+
+    .start-lead {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 14px;
+      margin-bottom: 14px;
+    }
+
+    .start-card {
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffaf1;
+      padding: 14px;
+    }
+
+    .start-card h2 {
+      margin: 0 0 10px;
+      font-size: 1.05rem;
+    }
+
+    .start-card p,
+    .start-card li {
+      color: var(--muted);
+      font-size: 0.9rem;
+      line-height: 1.7;
+    }
+
+    .start-card ol {
+      margin: 0;
+      padding-left: 1.35rem;
+    }
+
+    .deck-preview {
+      display: grid;
+      gap: 6px;
+      max-height: 360px;
+      overflow: auto;
+      padding-right: 4px;
+    }
+
+    .deck-row {
+      display: grid;
+      grid-template-columns: 28px 1fr auto;
+      gap: 8px;
+      align-items: center;
+      border: 1px solid #e2d3bd;
+      border-radius: 8px;
+      background: #fffdf8;
+      padding: 8px;
+      font-size: 0.84rem;
+    }
+
+    .deck-row.rarity-bronze { border-color: #9b6a3f; }
+    .deck-row.rarity-silver { border-color: #aab4c4; }
+    .deck-row.rarity-gold { border-color: #d6a834; }
+    .deck-row.rarity-rainbow {
+      border-color: #f2d27d;
+      box-shadow: 0 0 12px rgba(83, 172, 255, 0.24);
+    }
+
+    .deck-cost {
+      display: grid;
+      place-items: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: white;
+      font-weight: 1000;
+    }
+
+    .deck-name {
+      min-width: 0;
+      font-weight: 900;
+    }
+
+    .deck-meta {
+      color: var(--muted);
+      font-size: 0.75rem;
+      font-weight: 800;
+      white-space: nowrap;
+    }
+
+    .start-actions {
+      display: flex;
+      justify-content: flex-end;
+      margin-top: 14px;
+    }
+
+    .credit-note {
+      margin: 12px 0 0;
+      color: rgba(255, 250, 241, 0.66);
+      font-size: 0.68rem;
+      line-height: 1.7;
+      text-align: right;
+    }
+
+    .class-picker {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+      margin-bottom: 10px;
+    }
+
+    .difficulty-picker {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 8px;
+      margin-top: 10px;
+    }
+
+    .class-button {
+      position: relative;
+      overflow: hidden;
+      min-height: 74px;
+      border: 1px solid rgba(255, 250, 241, 0.22);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, rgba(13, 16, 21, 0.86), rgba(13, 16, 21, 0.54)),
+        rgba(255, 250, 241, 0.1);
+      background-position: center;
+      background-size: cover;
+      color: #fffaf1;
+      padding: 10px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .class-button.is-active {
+      border-color: #f0d597;
+      background: rgba(240, 213, 151, 0.2);
+    }
+
+    .class-button strong {
+      position: relative;
+      z-index: 1;
+      display: block;
+      margin-bottom: 4px;
+      font-size: 0.95rem;
+    }
+
+    .class-button span {
+      position: relative;
+      z-index: 1;
+      color: rgba(255, 250, 241, 0.72);
+      font-size: 0.76rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .difficulty-button {
+      min-height: 58px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: #fffdf8;
+      color: var(--ink);
+      padding: 10px;
+      text-align: left;
+      cursor: pointer;
+    }
+
+    .difficulty-button.is-active {
+      border-color: var(--gold);
+      background: #f7e8c4;
+      box-shadow: inset 0 0 0 2px rgba(185, 130, 42, 0.18);
+    }
+
+    .difficulty-button strong {
+      display: block;
+      margin-bottom: 3px;
+      font-size: 0.95rem;
+    }
+
+    .difficulty-button span {
+      color: var(--muted);
+      font-size: 0.76rem;
+      font-weight: 800;
+      line-height: 1.35;
+    }
+
+    .arena {
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      min-height: 700px;
+      border: 1px solid rgba(255, 250, 241, 0.16);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(20, 22, 27, 0.56), rgba(0, 0, 0, 0.72)),
+        linear-gradient(180deg, rgba(255, 250, 241, 0.07), rgba(0, 0, 0, 0.18)),
+        url("assets/images/enemy-endless-meeting.png") center / cover,
+        repeating-linear-gradient(90deg, rgba(255, 255, 255, 0.04) 0, rgba(255, 255, 255, 0.04) 1px, transparent 1px, transparent 84px);
+      box-shadow: 0 22px 70px var(--shadow);
+      overflow: hidden;
+    }
+
+    .leader-row {
+      display: grid;
+      grid-template-columns: 250px 1fr 140px;
+      gap: 10px;
+      align-items: center;
+      padding: 12px;
+      color: #fffaf1;
+    }
+
+    .leader {
+      display: grid;
+      grid-template-columns: 54px 1fr;
+      gap: 10px;
+      align-items: center;
+      min-height: 70px;
+      border: 1px solid rgba(255, 250, 241, 0.18);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.24);
+      padding: 9px;
+    }
+
+    .portrait {
+      display: grid;
+      place-items: center;
+      width: 54px;
+      height: 54px;
+      border: 2px solid rgba(255, 250, 241, 0.34);
+      border-radius: 50%;
+      background: #15191f;
+      font-size: 1.55rem;
+      font-weight: 900;
+      overflow: hidden;
+    }
+
+    .portrait img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .leader-name {
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    .leader-sub {
+      margin-top: 4px;
+      color: rgba(255, 250, 241, 0.68);
+      font-size: 0.78rem;
+      font-weight: 800;
+    }
+
+    .life {
+      display: inline-grid;
+      place-items: center;
+      min-width: 58px;
+      min-height: 58px;
+      border: 2px solid #f0d597;
+      border-radius: 50%;
+      background: radial-gradient(circle, #cf533f 0 52%, #7e211c 53%);
+      color: white;
+      font-size: 1.35rem;
+      font-weight: 1000;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.38);
+    }
+
+    .pp {
+      justify-self: end;
+      border: 1px solid rgba(255, 250, 241, 0.26);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.28);
+      padding: 9px 10px;
+      color: #fffaf1;
+      font-weight: 1000;
+      text-align: center;
+    }
+
+    .pp span {
+      display: block;
+      color: rgba(255, 250, 241, 0.68);
+      font-size: 0.72rem;
+      font-weight: 800;
+    }
+
+    .center {
+      display: grid;
+      grid-template-rows: 1fr auto 1fr;
+      gap: 10px;
+      padding: 6px 12px 12px;
+    }
+
+    .lane-title {
+      color: rgba(255, 250, 241, 0.68);
+      font-size: 0.76rem;
+      font-weight: 900;
+    }
+
+    .board {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(92px, 1fr));
+      gap: 9px;
+      min-height: 144px;
+      border: 1px solid rgba(255, 250, 241, 0.14);
+      border-radius: 8px;
+      background: rgba(0, 0, 0, 0.18);
+      padding: 9px;
+    }
+
+    .slot {
+      display: grid;
+      place-items: center;
+      min-height: 126px;
+      border: 1px dashed rgba(255, 250, 241, 0.22);
+      border-radius: 8px;
+      color: rgba(255, 250, 241, 0.34);
+      font-size: 0.78rem;
+      font-weight: 900;
+    }
+
+    .unit {
+      position: relative;
+      overflow: hidden;
+      width: 100%;
+      height: 126px;
+      border: 1px solid #d5c29f;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #fffdf6, #e7d9be);
+      padding: 8px;
+      color: var(--ink);
+      box-shadow: 0 10px 26px rgba(0, 0, 0, 0.2);
+      cursor: pointer;
+      text-align: left;
+    }
+
+    .unit.enemy {
+      background: linear-gradient(180deg, #f2e5df, #c99c93);
+      border-color: #c89187;
+    }
+
+    .unit.rarity-bronze { border-color: #9b6a3f; }
+    .unit.rarity-silver { border-color: #aab4c4; }
+    .unit.rarity-gold {
+      border-color: #d6a834;
+      box-shadow: 0 10px 26px rgba(178, 123, 24, 0.28), 0 0 14px rgba(239, 187, 69, 0.24);
+    }
+    .unit.rarity-rainbow {
+      border-color: #f2d27d;
+      box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.28) inset,
+        0 0 16px rgba(83, 172, 255, 0.44),
+        0 10px 28px rgba(202, 91, 255, 0.34);
+      animation: rarityRainbowPulse 2.6s ease-in-out infinite;
+    }
+
+    .unit.rarity-gold::after,
+    .unit.rarity-rainbow::after {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 0 42%, rgba(255, 255, 255, 0.42) 50%, transparent 58% 100%);
+      transform: translateX(-140%);
+      animation: rarityShine 3.4s ease-in-out infinite;
+    }
+
+    .unit.ready {
+      outline: 3px solid rgba(46, 138, 119, 0.55);
+    }
+
+    .unit.selected {
+      outline: 3px solid #f0d597;
+    }
+
+    .unit.decided {
+      box-shadow: 0 0 0 3px rgba(240, 213, 151, 0.45), 0 12px 28px rgba(0, 0, 0, 0.24);
+    }
+
+    .unit-name {
+      font-size: 0.86rem;
+      font-weight: 1000;
+      line-height: 1.25;
+    }
+
+    .unit-text {
+      position: absolute;
+      left: 44px;
+      right: 44px;
+      bottom: 13px;
+      overflow: hidden;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      color: var(--muted);
+      font-size: 0.68rem;
+      font-weight: 900;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .unit-art {
+      display: block;
+      width: 100%;
+      height: 58px;
+      margin: 5px 0 4px;
+      border-radius: 6px;
+      object-fit: cover;
+      object-position: center;
+      background: rgba(20, 22, 27, 0.88);
+    }
+
+    .stats {
+      position: absolute;
+      left: 7px;
+      right: 7px;
+      bottom: 7px;
+      display: flex;
+      justify-content: space-between;
+      gap: 6px;
+    }
+
+    .atk,
+    .hp {
+      display: grid;
+      place-items: center;
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      color: white;
+      font-weight: 1000;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    .atk {
+      background: var(--blue);
+    }
+
+    .hp {
+      background: var(--red);
+    }
+
+    .message {
+      min-height: 42px;
+      border: 1px solid rgba(255, 250, 241, 0.18);
+      border-radius: 8px;
+      background: rgba(255, 250, 241, 0.08);
+      color: #fffaf1;
+      padding: 10px 12px;
+      font-weight: 900;
+      line-height: 1.5;
+    }
+
+    .hand-wrap {
+      border-top: 1px solid rgba(255, 250, 241, 0.14);
+      background: rgba(0, 0, 0, 0.2);
+      padding: 10px 12px 12px;
+    }
+
+    .hand-head {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      color: #fffaf1;
+      margin-bottom: 8px;
+      font-weight: 900;
+    }
+
+    .hand {
+      display: grid;
+      grid-template-columns: repeat(5, minmax(112px, 1fr));
+      gap: 8px;
+    }
+
+    .card {
+      position: relative;
+      overflow: hidden;
+      min-height: 172px;
+      border: 2px solid #d0bb95;
+      border-radius: 8px;
+      background: linear-gradient(180deg, #fffdf8, #e9dcc8);
+      color: var(--ink);
+      padding: 10px;
+      cursor: pointer;
+      text-align: left;
+      box-shadow: 0 10px 22px rgba(0, 0, 0, 0.2);
+      transition: transform 0.14s ease, border-color 0.14s ease;
+    }
+
+    .card.rarity-bronze {
+      border-color: #9b6a3f;
+      box-shadow: 0 10px 22px rgba(70, 42, 20, 0.24);
+    }
+
+    .card.rarity-silver {
+      border-color: #aab4c4;
+      box-shadow: 0 10px 22px rgba(92, 104, 124, 0.26);
+    }
+
+    .card.rarity-gold {
+      border-color: #d6a834;
+      box-shadow: 0 10px 24px rgba(178, 123, 24, 0.3), 0 0 16px rgba(239, 187, 69, 0.26);
+    }
+
+    .card.rarity-rainbow {
+      border-color: #f2d27d;
+      box-shadow:
+        0 0 0 2px rgba(255, 255, 255, 0.38) inset,
+        0 0 18px rgba(83, 172, 255, 0.48),
+        0 12px 28px rgba(202, 91, 255, 0.34);
+      animation: rarityRainbowPulse 2.6s ease-in-out infinite;
+    }
+
+    .card.rarity-gold::after,
+    .card.rarity-rainbow::after {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(115deg, transparent 0 42%, rgba(255, 255, 255, 0.42) 50%, transparent 58% 100%);
+      transform: translateX(-140%);
+      animation: rarityShine 3.4s ease-in-out infinite;
+    }
+
+    .card.rarity-rainbow::before {
+      content: "";
+      pointer-events: none;
+      position: absolute;
+      inset: -2px;
+      border-radius: 8px;
+      background: linear-gradient(120deg, rgba(229, 73, 143, 0.34), rgba(244, 182, 64, 0.3), rgba(63, 174, 122, 0.3), rgba(62, 142, 232, 0.34), rgba(155, 93, 229, 0.3));
+      opacity: 0.34;
+      mix-blend-mode: screen;
+    }
+
+    .card.has-art {
+      min-height: 244px;
+    }
+
+    .card:hover,
+    .card:focus-visible {
+      border-color: #f0d597;
+      outline: none;
+      transform: translateY(-4px);
+    }
+
+    .card:disabled {
+      cursor: not-allowed;
+      opacity: 0.56;
+      transform: none;
+    }
+
+    .cost {
+      position: absolute;
+      top: -8px;
+      left: -8px;
+      display: grid;
+      place-items: center;
+      width: 36px;
+      height: 36px;
+      border: 2px solid #d7e9ff;
+      border-radius: 50%;
+      background: radial-gradient(circle, #448ee2, #1f4779);
+      color: white;
+      font-weight: 1000;
+    }
+
+    .card-kind {
+      margin-left: 22px;
+      color: var(--green);
+      font-size: 0.72rem;
+      font-weight: 1000;
+    }
+
+    .card-rarity {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      min-width: 26px;
+      border-radius: 999px;
+      padding: 3px 7px;
+      color: white;
+      font-size: 0.68rem;
+      font-weight: 1000;
+      line-height: 1;
+      text-align: center;
+    }
+
+    .rarity-bronze .card-rarity { background: #8c5c32; }
+    .rarity-silver .card-rarity { background: #8b96a8; }
+    .rarity-gold .card-rarity { background: #bd8420; }
+    .rarity-rainbow .card-rarity {
+      background: linear-gradient(90deg, #e5498f, #f4b640, #3fae7a, #3e8ee8, #9b5de5);
+      color: #fff;
+      text-shadow: 0 1px 4px rgba(0, 0, 0, 0.42);
+    }
+
+    .card h2 {
+      margin: 10px 0 6px;
+      font-size: 0.96rem;
+      line-height: 1.24;
+    }
+
+    .card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.75rem;
+      line-height: 1.42;
+    }
+
+    .card-art {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      margin: 8px 0 7px;
+      border: 1px solid rgba(70, 60, 46, 0.18);
+      border-radius: 6px;
+      object-fit: cover;
+      object-position: center;
+      background: #1b1d22;
+    }
+
+    .card .stats {
+      left: 9px;
+      right: 9px;
+      bottom: 9px;
+    }
+
+    .side {
+      position: sticky;
+      top: 14px;
+      display: grid;
+      grid-template-rows: auto minmax(0, 1fr) auto;
+      gap: 10px;
+      max-height: calc(100vh - 28px);
+      min-height: 0;
+      overflow: hidden;
+      border: 1px solid rgba(255, 250, 241, 0.16);
+      border-radius: 8px;
+      background: rgba(248, 241, 230, 0.96);
+      padding: 12px;
+      box-shadow: 0 22px 70px var(--shadow);
+    }
+
+    .side h2 {
+      margin: 0;
+      font-size: 1rem;
+    }
+
+    .log {
+      display: grid;
+      align-content: start;
+      gap: 7px;
+      min-height: 0;
+      overflow: auto;
+      padding-right: 2px;
+      overscroll-behavior: contain;
+    }
+
+    .log-item {
+      border-left: 3px solid var(--line);
+      background: #fffaf1;
+      padding: 8px 9px;
+      color: #514a42;
+      font-size: 0.82rem;
+      line-height: 1.52;
+    }
+
+    .actions {
+      display: grid;
+      gap: 8px;
+    }
+
+    .primary,
+    .secondary {
+      min-height: 44px;
+      border-radius: 8px;
+      padding: 10px 12px;
+      font-weight: 1000;
+      cursor: pointer;
+    }
+
+    .primary {
+      border: 1px solid #113d39;
+      background: var(--green);
+      color: white;
+    }
+
+    #decision-mode {
+      border-color: rgba(240, 213, 151, 0.68);
+      background:
+        linear-gradient(90deg, rgba(177, 65, 61, 0.96), rgba(185, 130, 42, 0.84)),
+        url("assets/images/effect-decision-mode.png") center / cover;
+      color: #fffaf1;
+      text-shadow: 0 1px 5px rgba(0, 0, 0, 0.42);
+    }
+
+    .secondary {
+      border: 1px solid var(--line);
+      background: #fffaf1;
+      color: var(--ink);
+    }
+
+    .primary:disabled,
+    .secondary:disabled {
+      cursor: not-allowed;
+      opacity: 0.58;
+    }
+
+    .decision-cutin {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 16;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      opacity: 0;
+      visibility: hidden;
+      background: rgba(8, 10, 14, 0);
+      transition: opacity 0.16s ease, visibility 0.16s ease, background 0.16s ease;
+    }
+
+    .decision-cutin.is-visible {
+      opacity: 1;
+      visibility: visible;
+      background: rgba(8, 10, 14, 0.54);
+    }
+
+    .decision-cutin-panel {
+      position: relative;
+      display: grid;
+      align-items: end;
+      width: min(760px, 100%);
+      min-height: clamp(220px, 48vw, 430px);
+      overflow: hidden;
+      border: 2px solid rgba(240, 213, 151, 0.82);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(16, 18, 22, 0.05), rgba(16, 18, 22, 0.82)),
+        url("assets/images/effect-decision-mode.png") center / cover;
+      box-shadow: 0 26px 90px rgba(0, 0, 0, 0.62), 0 0 42px rgba(185, 130, 42, 0.42);
+      transform: translateY(12px) scale(0.96);
+      transition: transform 0.18s ease;
+    }
+
+    .decision-cutin.is-visible .decision-cutin-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .decision-cutin-copy {
+      position: relative;
+      padding: clamp(18px, 3vw, 28px);
+      color: #fffaf1;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.78);
+    }
+
+    .decision-cutin-label {
+      color: #f0d597;
+      font-size: clamp(0.8rem, 2vw, 1rem);
+      font-weight: 1000;
+    }
+
+    .decision-cutin-title {
+      margin-top: 4px;
+      font-size: clamp(2rem, 8vw, 5rem);
+      font-weight: 1000;
+      line-height: 0.95;
+    }
+
+    .decision-cutin-text {
+      margin-top: 10px;
+      font-size: clamp(0.9rem, 2.4vw, 1.18rem);
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
+    .president-effect {
+      pointer-events: none;
+      position: fixed;
+      inset: 0;
+      z-index: 18;
+      display: grid;
+      place-items: center;
+      padding: 18px;
+      opacity: 0;
+      visibility: hidden;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(185, 32, 45, 0.32), transparent 34%),
+        rgba(3, 4, 7, 0);
+      transition: opacity 0.14s ease, visibility 0.14s ease, background 0.14s ease;
+    }
+
+    .president-effect.is-visible {
+      opacity: 1;
+      visibility: visible;
+      background:
+        radial-gradient(circle at 50% 45%, rgba(185, 32, 45, 0.42), transparent 36%),
+        rgba(3, 4, 7, 0.72);
+    }
+
+    .president-effect-panel {
+      width: min(820px, 100%);
+      overflow: hidden;
+      border: 2px solid #f2d27d;
+      border-radius: 8px;
+      background: #15191f;
+      box-shadow: 0 28px 90px rgba(0, 0, 0, 0.68), 0 0 46px rgba(202, 91, 255, 0.4);
+      transform: translateY(16px) scale(0.94);
+      transition: transform 0.16s ease;
+    }
+
+    .president-effect.is-visible .president-effect-panel {
+      transform: translateY(0) scale(1);
+    }
+
+    .president-effect-art {
+      display: block;
+      width: 100%;
+      aspect-ratio: 16 / 9;
+      object-fit: cover;
+    }
+
+    .president-effect-copy {
+      display: grid;
+      gap: 5px;
+      padding: 14px 16px 16px;
+      background: linear-gradient(90deg, rgba(78, 18, 24, 0.98), rgba(21, 25, 31, 0.98));
+      color: #fffaf1;
+      text-shadow: 0 2px 12px rgba(0, 0, 0, 0.76);
+    }
+
+    .president-effect-label {
+      color: #f2d27d;
+      font-size: 0.78rem;
+      font-weight: 1000;
+    }
+
+    .president-effect-title {
+      font-size: clamp(1.8rem, 6vw, 4.2rem);
+      font-weight: 1000;
+      line-height: 0.98;
+    }
+
+    .president-effect-text {
+      font-size: clamp(0.9rem, 2.4vw, 1.1rem);
+      font-weight: 900;
+      line-height: 1.45;
+    }
+
+    .app.screen-shake {
+      animation: screenShake 0.45s ease both;
+    }
+
+    .ending {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      place-items: center;
+      padding: 16px;
+      background: rgba(12, 14, 18, 0.72);
+    }
+
+    .ending.is-visible {
+      display: grid;
+    }
+
+    .ending-panel {
+      width: min(520px, 100%);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      background: var(--panel);
+      padding: 22px;
+      text-align: center;
+      box-shadow: 0 24px 70px rgba(0, 0, 0, 0.38);
+    }
+
+    .ending-panel h2 {
+      margin: 0 0 10px;
+      font-size: clamp(1.5rem, 5vw, 2.4rem);
+    }
+
+    .ending-panel p {
+      color: var(--muted);
+      line-height: 1.75;
+    }
+
+    @keyframes rarityShine {
+      0%, 55% { transform: translateX(-140%); opacity: 0; }
+      68% { opacity: 0.85; }
+      82%, 100% { transform: translateX(140%); opacity: 0; }
+    }
+
+    @keyframes rarityRainbowPulse {
+      0%, 100% {
+        filter: saturate(1);
+      }
+      50% {
+        filter: saturate(1.28) brightness(1.04);
+      }
+    }
+
+    @keyframes screenShake {
+      0%, 100% { transform: translate(0, 0); }
+      14% { transform: translate(-8px, 3px); }
+      28% { transform: translate(7px, -4px); }
+      42% { transform: translate(-6px, 4px); }
+      56% { transform: translate(5px, -2px); }
+      70% { transform: translate(-3px, 1px); }
+      84% { transform: translate(2px, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .card.rarity-gold::after,
+      .card.rarity-rainbow::after,
+      .unit.rarity-gold::after,
+      .unit.rarity-rainbow::after,
+      .card.rarity-rainbow,
+      .unit.rarity-rainbow,
+      .app.screen-shake {
+        animation: none;
+      }
+    }
+
+    @media (max-width: 980px) {
+      .battle {
+        grid-template-columns: 1fr;
+      }
+
+      .class-picker {
+        grid-template-columns: 1fr;
+      }
+
+      .difficulty-picker {
+        grid-template-columns: 1fr;
+      }
+
+      .start-lead {
+        grid-template-columns: 1fr;
+      }
+
+      .side {
+        position: static;
+        grid-template-rows: auto auto auto;
+        max-height: none;
+        overflow: visible;
+      }
+
+      .log {
+        max-height: 180px;
+      }
+    }
+
+    @media (max-width: 720px) {
+      .arena {
+        min-height: 0;
+      }
+
+      .leader-row {
+        grid-template-columns: 1fr auto;
+      }
+
+      .leader-row .message {
+        grid-column: 1 / -1;
+      }
+
+      .board {
+        grid-template-columns: repeat(3, minmax(92px, 1fr));
+        overflow-x: auto;
+      }
+
+      .hand {
+        display: flex;
+        overflow-x: auto;
+        padding: 6px 2px 10px;
+        scroll-snap-type: x mandatory;
+      }
+
+      .card {
+        flex: 0 0 148px;
+        scroll-snap-align: start;
+      }
+    }
+
+    @media (max-width: 430px) {
+      .app {
+        padding-inline: 8px;
+      }
+
+      .leader {
+        grid-template-columns: 44px 1fr;
+      }
+
+      .portrait {
+        width: 44px;
+        height: 44px;
+      }
+
+      .life {
+        min-width: 50px;
+        min-height: 50px;
+      }
+
+      .center {
+        padding-inline: 8px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <main class="app">
+    <header class="top">
+      <div>
+        <div class="brand">烏合ワークス ゲーム</div>
+        <h1>カラス会社員の社内調整カードバトル</h1>
+      </div>
+    </header>
+
+    <section class="start-screen" id="start-screen" aria-label="ゲーム開始">
+      <div class="hero-strip" aria-hidden="true">
+        <strong>社内調整、開戦。</strong>
+      </div>
+
+      <div class="start-lead">
+        <section class="start-card">
+          <h2>遊び方</h2>
+          <ol>
+            <li>クラスを選ぶと、30枚の山札候補が表示されます。</li>
+            <li>ゲーム開始時に山札はシャッフルされ、上から順番に引きます。</li>
+            <li>毎ターン増える調整力の範囲で、担当者や施策カードを使います。</li>
+            <li>担当者は次の自分ターンから攻撃できます。相手責任者HPを0にすると勝利です。</li>
+          </ol>
+        </section>
+        <section class="start-card">
+          <h2>クラス選択</h2>
+          <nav class="class-picker" aria-label="クラス選択">
+            <button class="class-button" type="button" data-class="aggro">
+              <strong>即レス営業部</strong>
+              <span>低コストを並べて早めに削るアグロ型</span>
+            </button>
+            <button class="class-button" type="button" data-class="spell">
+              <strong>文書統制室</strong>
+              <span>施策で除去・ドローしながら詰める型</span>
+            </button>
+            <button class="class-button" type="button" data-class="control">
+              <strong>根回し総務部</strong>
+              <span>回復と防波堤で長期戦に持ち込む型</span>
+            </button>
+          </nav>
+          <h2>CPUの強さ</h2>
+          <nav class="difficulty-picker" aria-label="CPUの強さ">
+            <button class="difficulty-button is-active" type="button" data-difficulty="normal">
+              <strong>普通</strong>
+              <span>現在の標準バランス。まずはこちら。</span>
+            </button>
+            <button class="difficulty-button" type="button" data-difficulty="hard">
+              <strong>強い</strong>
+              <span>手札の使い方と攻撃対象の選び方が上手い。</span>
+            </button>
+          </nav>
+        </section>
+      </div>
+
+      <section class="start-card">
+        <h2 id="deck-title">山札一覧</h2>
+        <div class="deck-preview" id="deck-preview"></div>
+      </section>
+
+      <div class="start-actions">
+        <button class="primary" type="button" id="start-game">このクラスで開始</button>
+      </div>
+      <p class="credit-note">音声: VOICEVOX:四国めたん / 玄野武宏 / 麒ヶ島宗麟 / 九州そら / 東北イタコ / BGM: Suno生成</p>
+    </section>
+
+    <div class="battle is-hidden" id="battle">
+      <section class="arena" aria-label="カードバトル盤面">
+        <div class="leader-row">
+          <div class="leader">
+            <div class="portrait" aria-hidden="true">
+              <img src="assets/images/leader-enemy-corporate-issue.png" alt="" />
+            </div>
+            <div>
+              <div class="leader-name">社内課題</div>
+              <div class="leader-sub" id="enemy-status">相手ターンを待っている</div>
+            </div>
+          </div>
+          <div class="message" id="message">カードを出して盤面を作り、相手責任者のHPを削り切る。</div>
+          <div class="life" id="enemy-life">20</div>
+        </div>
+
+        <div class="center">
+          <div>
+            <div class="lane-title">相手の盤面</div>
+            <div class="board" id="enemy-board"></div>
+          </div>
+
+          <div></div>
+
+          <div>
+            <div class="lane-title">自分の盤面</div>
+            <div class="board" id="player-board"></div>
+          </div>
+        </div>
+
+        <div class="leader-row">
+          <div class="leader">
+            <div class="portrait" id="player-portrait" aria-hidden="true">烏</div>
+            <div>
+              <div class="leader-name" id="player-name">黒羽 係長</div>
+              <div class="leader-sub" id="turn-status">あなたのターン</div>
+            </div>
+          </div>
+          <div class="pp"><span>調整力</span><strong id="pp">1 / 1</strong><span>決裁枠</span><strong id="decision-count">2</strong></div>
+          <div class="life" id="player-life">20</div>
+        </div>
+
+        <div class="hand-wrap">
+          <div class="hand-head">
+            <span>手札</span>
+            <span id="deck-count">山札 30</span>
+          </div>
+          <div class="hand" id="hand"></div>
+        </div>
+      </section>
+
+      <aside class="side" aria-label="ログと操作">
+        <h2>ログ</h2>
+        <div class="log" id="log"></div>
+        <div class="actions">
+          <button class="primary" type="button" id="decision-mode">決裁モード</button>
+          <button class="primary" type="button" id="end-turn">ターン終了</button>
+          <button class="secondary" type="button" id="sound-toggle">音 OFF</button>
+          <button class="secondary" type="button" id="restart">最初から</button>
+        </div>
+      </aside>
+    </div>
+  </main>
+
+  <div class="decision-cutin" id="decision-cutin" aria-hidden="true">
+    <div class="decision-cutin-panel">
+      <div class="decision-cutin-copy">
+        <div class="decision-cutin-label">APPROVAL MODE</div>
+        <div class="decision-cutin-title">決裁者モード</div>
+        <div class="decision-cutin-text" id="decision-cutin-text">稟議、通します。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="president-effect" id="president-effect" aria-hidden="true">
+    <div class="president-effect-panel">
+      <img class="president-effect-art" src="assets/images/card-president-intent-wide.png" alt="" />
+      <div class="president-effect-copy">
+        <div class="president-effect-label">EXECUTIVE ORDER</div>
+        <div class="president-effect-title">社長の意向</div>
+        <div class="president-effect-text">全会一致ではなく、社長決裁。盤面の議題はすべて白紙に戻る。</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="ending" id="ending" role="dialog" aria-modal="true" aria-labelledby="ending-title">
+    <div class="ending-panel">
+      <h2 id="ending-title">調整完了</h2>
+      <p id="ending-copy">今日の山は、ひとまず越えた。</p>
+      <button class="primary" type="button" id="ending-restart">もう一度</button>
+    </div>
+  </div>
+
+  <script>
+    const cardPool = [
+      { id: "nemawashi", faction: "neutral", name: "根回し役", kind: "担当者", cost: 1, atk: 1, hp: 3, text: "出した時、相手担当者1体に1ダメージ。", effect: "ping", decision: "ready" },
+      { id: "minutes", faction: "neutral", name: "議事録係", kind: "担当者", cost: 2, atk: 2, hp: 3, text: "記録で場を固める標準戦力。", effect: "", decision: "ready" },
+      { id: "section-chief", faction: "neutral", name: "巻き込み課長", kind: "担当者", cost: 3, atk: 3, hp: 3, text: "出した時、自分責任者を2回復。", effect: "healLeader", decision: "heal" },
+      { id: "excel-master", faction: "neutral", name: "Excel職人", kind: "担当者", cost: 3, atk: 2, hp: 4, text: "場持ちが良い調整役。", effect: "", decision: "ready" },
+      { id: "one-page", faction: "neutral", name: "一枚にまとめる", kind: "施策", cost: 2, text: "相手担当者1体に3ダメージ。いなければ責任者に2ダメージ。", spell: "damageUnit" },
+      { id: "first-reply", faction: "neutral", name: "一次回答", kind: "施策", cost: 1, text: "カードを1枚引く。自分責任者を1回復。", spell: "drawHeal" },
+      { id: "audit-board", faction: "neutral", name: "監査役", kind: "担当者", cost: 4, atk: 3, hp: 5, text: "防波堤。堅く場を支える高コスト担当者。", effect: "", guard: true, decision: "guard" },
+      { id: "budget-council", faction: "neutral", name: "予算会議", kind: "担当者", cost: 5, atk: 4, hp: 6, text: "重いが頼れる大型担当者。", effect: "", decision: "ready" },
+      { id: "final-report", faction: "neutral", name: "最終報告書", kind: "施策", cost: 6, text: "相手担当者全体に1ダメージ。カードを1枚引く。", spell: "damageAllSmallDraw" },
+      { id: "outside-expert", faction: "neutral", name: "外部有識者", kind: "担当者", cost: 7, atk: 6, hp: 6, text: "出した時、自分責任者を2回復。", effect: "healLeader", decision: "heal" },
+      { id: "board-approval", faction: "neutral", name: "役員決裁", kind: "施策", cost: 8, text: "相手責任者に6ダメージ。", spell: "face6" },
+      { id: "president-intent-player", faction: "neutral", name: "社長の意向", kind: "担当者", cost: 10, atk: 10, hp: 10, text: "出る前に両方の盤面の担当者全体を破壊する。", effect: "destroyAllBoards", image: "assets/images/card-president-intent-wide.png", rarity: "rainbow" },
+
+      { id: "quick-reply", faction: "aggro", name: "即レス担当", kind: "担当者", cost: 1, atk: 2, hp: 1, text: "出した時、相手責任者に1ダメージ。", effect: "pingFace", direct: true, decision: "ready" },
+      { id: "junior", faction: "aggro", name: "若手の突撃", kind: "担当者", cost: 2, atk: 3, hp: 1, text: "すぐ盤面攻撃できる。", effect: "", rush: true, decision: "ready" },
+      { id: "sales-push", faction: "aggro", name: "前倒し提案", kind: "施策", cost: 1, text: "相手責任者に2ダメージ。", spell: "face2" },
+      { id: "focus15", faction: "aggro", name: "15分集中", kind: "施策", cost: 3, text: "相手責任者に4ダメージ。", spell: "face4" },
+      { id: "named-assignment", faction: "aggro", name: "指名アサイン", kind: "施策", cost: 5, text: "相手担当者1体を破壊する。", spell: "destroyUnit" },
+      { id: "rush-executive", faction: "aggro", name: "即断専務", kind: "担当者", cost: 5, atk: 4, hp: 5, text: "責任者攻撃可。エンハンス10: 2回攻撃でき、ダメージを受けない。", effect: "", direct: true, decision: "ready", rarity: "rainbow", enhance: { cost: 10, doubleAttack: true, invulnerable: true }, image: "assets/images/card-rush-executive-wide.png", voice: "assets/audio/voice-rush-executive.wav" },
+      { id: "sales-director", faction: "aggro", name: "営業部長の号令", kind: "担当者", cost: 5, atk: 5, hp: 3, text: "出した時、相手責任者に2ダメージ。", effect: "pingFace2", decision: "face3" },
+      { id: "closing-rush", faction: "aggro", name: "月末追い込み", kind: "施策", cost: 6, text: "相手責任者に5ダメージ。", spell: "face5" },
+
+      { id: "parking", faction: "spell", name: "別紙に退避", kind: "施策", cost: 2, text: "相手の最も攻撃力が高い担当者に2ダメージ。カードを1枚引く。", spell: "damageStrongDraw" },
+      { id: "approval-route", faction: "spell", name: "承認ルート確認", kind: "施策", cost: 2, text: "カードを2枚引く。", spell: "draw2" },
+      { id: "all-hands", faction: "spell", name: "全体周知", kind: "施策", cost: 4, text: "相手担当者全体に2ダメージ。", spell: "damageAll" },
+      { id: "risk-register", faction: "spell", name: "リスク台帳", kind: "施策", cost: 5, text: "相手担当者1体に5ダメージ。自分責任者を3回復。", spell: "removeHeal" },
+      { id: "approval-stop", faction: "spell", name: "稟議差し止め", kind: "施策", cost: 5, text: "相手担当者1体を破壊する。", spell: "destroyUnit" },
+      { id: "document-ai", faction: "spell", name: "文書統制AI", kind: "担当者", cost: 5, atk: 2, hp: 5, text: "このバトル中に使った施策の数だけ+1/+1。決裁枠がなくても決裁モードにできる。", effect: "spellScale", decision: "aoe2", freeDecision: true, rarity: "rainbow", image: "assets/images/card-document-ai-wide.png", voice: "assets/audio/voice-document-ai.wav" },
+      { id: "executive-summary", faction: "spell", name: "役員向け要約", kind: "施策", cost: 6, text: "相手担当者全体に3ダメージ。", spell: "damageAllBig" },
+      { id: "evidence-binder", faction: "spell", name: "証跡バインダー", kind: "担当者", cost: 7, atk: 4, hp: 7, text: "出した時、カードを2枚引く。", effect: "draw2", decision: "aoe2" },
+
+      { id: "firewall", faction: "control", name: "防波堤係長", kind: "担当者", cost: 3, atk: 1, hp: 6, text: "防波堤。相手は先にこのカードを攻撃する。", effect: "", guard: true, decision: "guard" },
+      { id: "veteran", faction: "control", name: "古参の一言", kind: "担当者", cost: 4, atk: 4, hp: 4, text: "出した時、自分の他担当者を+1/+0。", effect: "buffTeam", decision: "teamBuff" },
+      { id: "director", faction: "control", name: "決裁部長", kind: "担当者", cost: 6, atk: 5, hp: 7, text: "防波堤。出した時、自分責任者を3回復。", effect: "bigHealLeader", guard: true, decision: "guard" },
+      { id: "close-day", faction: "control", name: "今日は閉じる", kind: "施策", cost: 2, text: "自分責任者を4回復。", spell: "heal4" },
+      { id: "personnel-transfer", faction: "control", name: "人事異動", kind: "施策", cost: 5, text: "相手担当者1体を破壊する。", spell: "destroyUnit" },
+      { id: "general-affairs-all", faction: "control", name: "総務総動員", kind: "担当者", cost: 7, atk: 3, hp: 6, text: "防波堤。出した時、応援総務を2体出す。", effect: "summonSupportTeam", guard: true, decision: "guardHeal", rarity: "rainbow", image: "assets/images/card-general-affairs-all-wide.png", voice: "assets/audio/voice-general-affairs-all.wav" },
+      { id: "crisis-room", faction: "control", name: "危機対策室", kind: "担当者", cost: 7, atk: 3, hp: 9, text: "防波堤。出した時、自分責任者を4回復。", effect: "heal4Leader", guard: true, decision: "guardHeal" },
+      { id: "long-meeting", faction: "control", name: "長時間会議で粘る", kind: "施策", cost: 5, text: "自分責任者を6回復。", spell: "heal6" }
+    ];
+
+    function makeDeck(ids) {
+      return ids.flatMap((id) => [id, id]);
+    }
+
+    const classDefs = {
+      aggro: {
+        name: "即レス営業部",
+        leader: "黒羽 営業係長",
+        image: "assets/images/leader-sales.png",
+        intro: "即レス営業部。低コストを並べて、早めに相手責任者を削る。",
+        cards: [
+          ...makeDeck([
+          "nemawashi", "minutes", "section-chief", "excel-master", "one-page",
+          "first-reply", "audit-board", "budget-council",
+          "quick-reply", "junior", "sales-push", "named-assignment",
+          "sales-director", "rush-executive"
+          ]),
+          "president-intent-player",
+          "president-intent-player"
+        ]
+      },
+      spell: {
+        name: "文書統制室",
+        leader: "黒羽 統制主任",
+        image: "assets/images/leader-document-control.png",
+        intro: "文書統制室。施策で盤面を処理し、手札を切らさず詰める。",
+        cards: [
+          ...makeDeck([
+          "nemawashi", "minutes", "section-chief", "excel-master", "one-page",
+          "first-reply", "audit-board", "budget-council",
+          "parking", "approval-route", "all-hands", "approval-stop",
+          "executive-summary", "document-ai"
+          ]),
+          "president-intent-player",
+          "president-intent-player"
+        ]
+      },
+      control: {
+        name: "根回し総務部",
+        leader: "黒羽 総務課長",
+        image: "assets/images/leader-general-affairs.png",
+        intro: "根回し総務部。防波堤と回復で耐えて、大型担当者で押し返す。",
+        cards: [
+          ...makeDeck([
+          "nemawashi", "minutes", "section-chief", "excel-master", "one-page",
+          "first-reply", "audit-board", "budget-council",
+          "firewall", "veteran", "director", "close-day",
+          "general-affairs-all", "personnel-transfer"
+          ]),
+          "president-intent-player",
+          "president-intent-player"
+        ]
+      }
+    };
+
+    const cardsById = Object.fromEntries(cardPool.map((card) => [card.id, card]));
+    const factionLabels = {
+      neutral: "ニュートラル",
+      aggro: "アグロ",
+      spell: "施策",
+      control: "コントロール"
+    };
+    const rarityLabels = {
+      bronze: "銅",
+      silver: "銀",
+      gold: "金",
+      rainbow: "虹"
+    };
+    const decisionLabels = {
+      ready: "すぐ攻撃",
+      guard: "防波堤",
+      guardHeal: "防波堤+回復",
+      heal: "回復",
+      face3: "責任者3点",
+      aoe1: "全体1点",
+      aoe2: "全体2点",
+      teamBuff: "味方強化"
+    };
+
+    const enemyCardPool = [
+      { id: "endless-meeting", name: "終わらない会議", kind: "担当者", cost: 1, atk: 1, hp: 3, text: "粘り強い社内課題。" },
+      { id: "rework", name: "差し戻し", kind: "担当者", cost: 2, atk: 2, hp: 2, text: "出した時、相手責任者に1ダメージ。", effect: "enemyFace1" },
+      { id: "vague-order", name: "曖昧な指示", kind: "担当者", cost: 2, atk: 1, hp: 4, text: "防波堤。", guard: true },
+      { id: "responsibility-maze", name: "責任所在の迷宮", kind: "施策", cost: 6, text: "相手担当者1体を破壊し、カードを1枚引く。", spell: "enemyDestroyDraw" },
+      { id: "mystery-excel", name: "謎のExcel", kind: "担当者", cost: 3, atk: 3, hp: 2, text: "出した時、相手担当者1体に1ダメージ。", effect: "enemyPing" },
+      { id: "silent-room", name: "沈黙の会議室", kind: "担当者", cost: 4, atk: 3, hp: 5, text: "防波堤。", guard: true },
+      { id: "audit-sting", name: "監査の一刺し", kind: "担当者", cost: 4, atk: 2, hp: 2, text: "必殺。戦闘した相手担当者を破壊する。", lethal: true },
+      { id: "sudden-agenda", name: "急な追加議題", kind: "施策", cost: 1, text: "相手責任者に2ダメージ。", spell: "enemyFace2" },
+      { id: "reconsider-order", name: "再検討指示", kind: "施策", cost: 2, text: "相手担当者1体に2ダメージ。", spell: "enemyDamageUnit2" },
+      { id: "rumor", name: "噂話", kind: "施策", cost: 3, text: "カードを1枚引く。相手責任者に1ダメージ。", spell: "enemyDrawFace1" },
+      { id: "cc-storm", name: "CC嵐", kind: "施策", cost: 3, text: "カードを2枚引く。", spell: "enemyDraw2" },
+      { id: "all-pending", name: "全部いったん保留", kind: "施策", cost: 5, text: "相手担当者全体を-1/-1。CPU担当者全体を+1/+1。", spell: "enemyPendingAll" },
+      { id: "executive-delay", name: "役員保留", kind: "担当者", cost: 5, atk: 4, hp: 5, text: "出した時、自分責任者を2回復。", effect: "enemyHeal2" },
+      { id: "executive-night-review", name: "緊急役員レビュー", kind: "担当者", cost: 9, atk: 7, hp: 8, text: "出した時、相手担当者全体に2ダメージ。", effect: "enemyAoe2" },
+      { id: "president-intent", name: "社長の意向", kind: "担当者", cost: 10, atk: 10, hp: 10, text: "出る前に両方の盤面の担当者全体を破壊する。", effect: "destroyAllBoards", image: "assets/images/card-president-intent-wide.png", rarity: "rainbow" }
+    ];
+
+    const enemyCardsById = Object.fromEntries(enemyCardPool.map((card) => [card.id, card]));
+    const enemyClassDef = {
+      name: "社内課題デッキ",
+      cards: makeDeck(enemyCardPool.map((card) => card.id))
+    };
+
+    const difficultyDefs = {
+      normal: {
+        name: "普通",
+        enemyLife: 20,
+        smartTarget: false,
+        smartPlay: false,
+        preCombatPlay: false,
+        smartFace: false
+      },
+      hard: {
+        name: "強い",
+        enemyLife: 20,
+        smartTarget: true,
+        smartPlay: true,
+        preCombatPlay: true,
+        smartFace: true
+      }
+    };
+
+    const state = {
+      playerLife: 20,
+      enemyLife: 20,
+      turn: 1,
+      maxPp: 1,
+      pp: 1,
+      deck: [],
+      hand: [],
+      enemyDeck: [],
+      enemyHand: [],
+      playerBoard: [],
+      enemyBoard: [],
+      selected: null,
+      pendingSpell: null,
+      playerClass: "aggro",
+      enemyDifficulty: "normal",
+      turnOrder: "first",
+      decisionPoints: 2,
+      decisionUsed: false,
+      enemyDecisionPoints: 2,
+      enemyDecisionUsed: false,
+      spellsPlayed: 0,
+      started: false,
+      phase: "player",
+      over: false,
+      audioEnabled: false,
+      audioCtx: null,
+      bgmAudio: null,
+      cutInTimer: null,
+      presidentEffectTimer: null
+    };
+
+    const els = {
+      startScreen: document.querySelector("#start-screen"),
+      battle: document.querySelector("#battle"),
+      startGame: document.querySelector("#start-game"),
+      deckTitle: document.querySelector("#deck-title"),
+      deckPreview: document.querySelector("#deck-preview"),
+      enemyLife: document.querySelector("#enemy-life"),
+      playerLife: document.querySelector("#player-life"),
+      pp: document.querySelector("#pp"),
+      decisionCount: document.querySelector("#decision-count"),
+      deckCount: document.querySelector("#deck-count"),
+      hand: document.querySelector("#hand"),
+      playerBoard: document.querySelector("#player-board"),
+      enemyBoard: document.querySelector("#enemy-board"),
+      message: document.querySelector("#message"),
+      playerName: document.querySelector("#player-name"),
+      turnStatus: document.querySelector("#turn-status"),
+      enemyStatus: document.querySelector("#enemy-status"),
+      playerPortrait: document.querySelector("#player-portrait"),
+      log: document.querySelector("#log"),
+      decisionMode: document.querySelector("#decision-mode"),
+      endTurn: document.querySelector("#end-turn"),
+      soundToggle: document.querySelector("#sound-toggle"),
+      restart: document.querySelector("#restart"),
+      ending: document.querySelector("#ending"),
+      endingTitle: document.querySelector("#ending-title"),
+      endingCopy: document.querySelector("#ending-copy"),
+      endingRestart: document.querySelector("#ending-restart"),
+      decisionCutIn: document.querySelector("#decision-cutin"),
+      decisionCutInText: document.querySelector("#decision-cutin-text"),
+      presidentEffect: document.querySelector("#president-effect"),
+      app: document.querySelector(".app"),
+      classButtons: [...document.querySelectorAll(".class-button")],
+      difficultyButtons: [...document.querySelectorAll(".difficulty-button")]
+    };
+
+    function shuffle(items) {
+      const copy = items.slice();
+      for (let i = copy.length - 1; i > 0; i -= 1) {
+        const j = Math.floor(Math.random() * (i + 1));
+        [copy[i], copy[j]] = [copy[j], copy[i]];
+      }
+      return copy;
+    }
+
+    function getRarity(card) {
+      if (card.rarity) return card.rarity;
+      if (card.cost >= 6) return "gold";
+      if (card.cost >= 3) return "silver";
+      return "bronze";
+    }
+
+    function log(text) {
+      const item = document.createElement("div");
+      item.className = "log-item";
+      item.textContent = text;
+      els.log.prepend(item);
+      while (els.log.children.length > 30) {
+        els.log.lastElementChild.remove();
+      }
+    }
+
+    function initAudio() {
+      if (state.audioCtx) {
+        if (state.audioCtx.state === "suspended") state.audioCtx.resume();
+        return;
+      }
+      const AudioCtor = window.AudioContext || window.webkitAudioContext;
+      if (!AudioCtor) {
+        state.audioEnabled = false;
+        return;
+      }
+      state.audioCtx = new AudioCtor();
+    }
+
+    function playTone(freq, duration = 0.08, type = "sine", gainValue = 0.045) {
+      if (!state.audioEnabled) return;
+      initAudio();
+      if (!state.audioCtx) return;
+      const now = state.audioCtx.currentTime;
+      const osc = state.audioCtx.createOscillator();
+      const gain = state.audioCtx.createGain();
+      osc.type = type;
+      osc.frequency.setValueAtTime(freq, now);
+      gain.gain.setValueAtTime(0.0001, now);
+      gain.gain.exponentialRampToValueAtTime(gainValue, now + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + duration);
+      osc.connect(gain).connect(state.audioCtx.destination);
+      osc.start(now);
+      osc.stop(now + duration + 0.02);
+    }
+
+    function playSound(type) {
+      if (type === "card") playTone(520, 0.07, "triangle", 0.035);
+      if (type === "attack") {
+        playTone(180, 0.08, "sawtooth", 0.04);
+        window.setTimeout(() => playTone(110, 0.08, "square", 0.025), 45);
+      }
+      if (type === "decision") {
+        playTone(440, 0.1, "triangle", 0.04);
+        window.setTimeout(() => playTone(660, 0.12, "triangle", 0.04), 80);
+      }
+      if (type === "end") playTone(260, 0.14, "sine", 0.035);
+      if (type === "win") {
+        playTone(440, 0.1, "triangle", 0.04);
+        window.setTimeout(() => playTone(554, 0.1, "triangle", 0.04), 90);
+        window.setTimeout(() => playTone(740, 0.16, "triangle", 0.04), 180);
+      }
+      if (type === "lose") {
+        playTone(220, 0.12, "sine", 0.04);
+        window.setTimeout(() => playTone(165, 0.18, "sine", 0.035), 110);
+      }
+    }
+
+    function playVoice(src, volume = 0.72) {
+      if (!state.audioEnabled) return;
+      const voice = new Audio(src);
+      voice.volume = volume;
+      voice.play().catch(() => {});
+    }
+
+    function startBgm() {
+      stopBgm();
+      if (!state.audioEnabled) return;
+      if (!state.bgmAudio) {
+        state.bgmAudio = new Audio("assets/audio/bgm-battle-main.mp3");
+        state.bgmAudio.loop = true;
+        state.bgmAudio.volume = 0.17;
+      }
+      state.bgmAudio.currentTime = 0;
+      state.bgmAudio.play().catch(() => {
+        state.audioEnabled = false;
+        render("BGMを再生できませんでした。ブラウザの音声許可を確認してください。");
+      });
+    }
+
+    function stopBgm() {
+      if (state.bgmAudio) {
+        state.bgmAudio.pause();
+      }
+    }
+
+    function hideDecisionCutIn() {
+      if (state.cutInTimer) {
+        window.clearTimeout(state.cutInTimer);
+        state.cutInTimer = null;
+      }
+      els.decisionCutIn.classList.remove("is-visible");
+    }
+
+    function showDecisionCutIn(unit, extra) {
+      hideDecisionCutIn();
+      els.decisionCutInText.textContent = `${unit.name}、決裁完了。${extra || "すぐ動ける状態になりました。"}`;
+      els.decisionCutIn.classList.add("is-visible");
+      state.cutInTimer = window.setTimeout(hideDecisionCutIn, 1200);
+    }
+
+    function hidePresidentEffect() {
+      if (state.presidentEffectTimer) {
+        window.clearTimeout(state.presidentEffectTimer);
+        state.presidentEffectTimer = null;
+      }
+      els.presidentEffect.classList.remove("is-visible");
+      els.app.classList.remove("screen-shake");
+    }
+
+    function showPresidentEffect() {
+      hidePresidentEffect();
+      els.presidentEffect.classList.add("is-visible");
+      els.app.classList.add("screen-shake");
+      playSound("decision");
+      playVoice("assets/audio/voice-president-intent.wav");
+      state.presidentEffectTimer = window.setTimeout(hidePresidentEffect, 1450);
+    }
+
+    function selectClass(classKey) {
+      state.playerClass = classKey;
+      renderClassSelection();
+    }
+
+    function selectDifficulty(difficultyKey) {
+      state.enemyDifficulty = difficultyKey;
+      renderDifficultySelection();
+    }
+
+    function renderDifficultySelection() {
+      els.difficultyButtons.forEach((button) => {
+        button.classList.toggle("is-active", button.dataset.difficulty === state.enemyDifficulty);
+      });
+    }
+
+    function renderClassSelection() {
+      const classDef = classDefs[state.playerClass];
+      els.classButtons.forEach((button) => {
+        const buttonClass = classDefs[button.dataset.class];
+        button.classList.toggle("is-active", button.dataset.class === state.playerClass);
+        button.style.backgroundImage = buttonClass.image
+          ? `linear-gradient(90deg, rgba(13, 16, 21, 0.9), rgba(13, 16, 21, 0.48)), url("${buttonClass.image}")`
+          : "";
+      });
+      els.deckTitle.textContent = `${classDef.name}の山札 30枚`;
+      els.deckPreview.textContent = "";
+
+      const counts = new Map();
+      classDef.cards.forEach((id) => {
+        counts.set(id, (counts.get(id) || 0) + 1);
+      });
+      [...counts.entries()]
+        .map(([id, count]) => ({ card: cardsById[id], count }))
+        .sort((a, b) => a.card.cost - b.card.cost || a.card.name.localeCompare(b.card.name, "ja"))
+        .forEach(({ card, count }) => {
+          const row = document.createElement("div");
+          row.className = `deck-row rarity-${getRarity(card)}`;
+
+          const cost = document.createElement("div");
+          cost.className = "deck-cost";
+          cost.textContent = card.cost;
+
+          const name = document.createElement("div");
+          name.className = "deck-name";
+          name.textContent = card.name;
+
+          const meta = document.createElement("div");
+          meta.className = "deck-meta";
+          meta.textContent = `${rarityLabels[getRarity(card)]} / ${factionLabels[card.faction]} / ${card.kind}${card.decision ? ` / 決裁:${decisionLabels[card.decision]}` : ""} x${count}`;
+
+          row.append(cost, name, meta);
+          els.deckPreview.appendChild(row);
+        });
+    }
+
+    function showStartScreen() {
+      stopBgm();
+      hideDecisionCutIn();
+      hidePresidentEffect();
+      state.started = false;
+      state.phase = "start";
+      state.over = false;
+      els.ending.classList.remove("is-visible");
+      els.battle.classList.add("is-hidden");
+      els.startScreen.classList.remove("is-hidden");
+      renderClassSelection();
+      renderDifficultySelection();
+    }
+
+    function startGame(classKey = state.playerClass) {
+      initAudio();
+      state.playerClass = classKey;
+      const classDef = classDefs[state.playerClass];
+      const difficultyDef = difficultyDefs[state.enemyDifficulty];
+      state.started = true;
+      state.playerLife = 20;
+      state.enemyLife = difficultyDef.enemyLife;
+      state.turn = 1;
+      state.maxPp = 1;
+      state.pp = 1;
+      state.turnOrder = Math.random() < 0.5 ? "first" : "second";
+      state.deck = shuffle(classDef.cards.map((id) => ({ ...cardsById[id] })));
+      state.enemyDeck = shuffle(enemyClassDef.cards.map((id) => ({ ...enemyCardsById[id] })));
+      state.hand = [];
+      state.enemyHand = [];
+      state.playerBoard = [];
+      state.enemyBoard = [];
+      state.selected = null;
+      state.pendingSpell = null;
+      state.decisionPoints = 2;
+      state.decisionUsed = false;
+      state.enemyDecisionPoints = 2;
+      state.enemyDecisionUsed = false;
+      state.spellsPlayed = 0;
+      state.phase = "player";
+      state.over = false;
+      els.startScreen.classList.add("is-hidden");
+      els.battle.classList.remove("is-hidden");
+      els.log.textContent = "";
+      els.ending.classList.remove("is-visible");
+      els.playerName.textContent = classDef.leader;
+      els.playerPortrait.textContent = "";
+      if (classDef.image) {
+        const image = document.createElement("img");
+        image.src = classDef.image;
+        image.alt = "";
+        els.playerPortrait.appendChild(image);
+      } else {
+        els.playerPortrait.textContent = "烏";
+      }
+      draw(state.turnOrder === "first" ? 4 : 5);
+      enemyDraw(4);
+      ensureOpeningPlay();
+      ensureEnemyOpeningPlay();
+      log(`${classDef.name}で開始。CPUは${difficultyDef.name}。${state.turnOrder === "first" ? "先攻" : "後攻"}です。`);
+      startBgm();
+      playSound("card");
+      if (state.turnOrder === "first") {
+        state.phase = "player";
+        render(`${classDef.intro} CPUは${difficultyDef.name}。あなたは先攻です。`);
+      } else {
+        state.phase = "enemy";
+        render(`${classDef.intro} CPUは${difficultyDef.name}。あなたは後攻です。相手の先手から始まります。`);
+        window.setTimeout(() => enemyTurn({ opening: true }), 520);
+      }
+    }
+
+    function ensureOpeningPlay() {
+      if (state.hand.some((card) => card.cost <= 1 && card.kind === "担当者")) return;
+      const index = state.deck.findIndex((card) => card.cost <= 1 && card.kind === "担当者");
+      if (index < 0 || state.hand.length === 0) return;
+      const playable = state.deck.splice(index, 1)[0];
+      state.deck.push(state.hand.pop());
+      state.hand.push(playable);
+    }
+
+    function ensureEnemyOpeningPlay() {
+      if (state.enemyHand.some((card) => card.cost <= 1 && card.kind === "担当者")) return;
+      const index = state.enemyDeck.findIndex((card) => card.cost <= 1 && card.kind === "担当者");
+      if (index < 0 || state.enemyHand.length === 0) return;
+      const playable = state.enemyDeck.splice(index, 1)[0];
+      state.enemyDeck.push(state.enemyHand.pop());
+      state.enemyHand.push(playable);
+    }
+
+    function draw(count) {
+      for (let i = 0; i < count; i += 1) {
+        const card = state.deck.shift();
+        if (card) state.hand.push({ ...card, uid: crypto.randomUUID() });
+      }
+    }
+
+    function enemyDraw(count) {
+      for (let i = 0; i < count; i += 1) {
+        const card = state.enemyDeck.shift();
+        if (card) state.enemyHand.push({ ...card, uid: crypto.randomUUID() });
+      }
+    }
+
+    function summonEnemy(card) {
+      if (state.enemyBoard.length >= 5 && card.effect !== "destroyAllBoards") return false;
+      if (card.effect === "destroyAllBoards") destroyAllBoardsByPresident();
+      state.enemyBoard.push({
+        uid: crypto.randomUUID(),
+        name: card.name,
+        atk: card.atk,
+        hp: card.hp,
+        maxHp: card.hp,
+        image: card.image || "",
+        rarity: getRarity(card),
+        ready: false,
+        guard: !!card.guard,
+        lethal: !!card.lethal,
+        rush: !!card.rush,
+        direct: !!card.direct,
+        leaderReady: !!card.direct
+      });
+      log(`CPUが「${card.name}」を場に出した。`);
+      applyEnemyFollowerEffect(card);
+      return true;
+    }
+
+    function playCard(uid) {
+      if (state.phase !== "player" || state.over) return;
+      const index = state.hand.findIndex((card) => card.uid === uid);
+      const card = state.hand[index];
+      if (!card || card.cost > state.pp) return;
+      const enhanced = Boolean(card.enhance && state.pp >= card.enhance.cost);
+      const playCost = enhanced ? card.enhance.cost : card.cost;
+      if (card.kind === "担当者" && state.playerBoard.length >= 5 && card.effect !== "destroyAllBoards") {
+        render("自分の盤面がいっぱいです。");
+        return;
+      }
+      if (card.kind === "施策" && requiresSpellTarget(card) && state.enemyBoard.length === 0) {
+        render(`施策「${card.name}」の対象がいません。`);
+        return;
+      }
+      if (card.kind === "施策" && needsSpellTarget(card) && state.enemyBoard.length > 0) {
+        state.pendingSpell = card.uid;
+        state.selected = null;
+        render(`施策「${card.name}」の対象を選んでください。`);
+        return;
+      }
+      state.hand.splice(index, 1);
+      state.pp -= playCost;
+      playSound("card");
+      if (card.kind === "担当者") {
+        if (card.effect === "destroyAllBoards") destroyAllBoardsByPresident();
+        const spellBonus = card.effect === "spellScale" ? state.spellsPlayed : 0;
+        const doubleAttack = Boolean(enhanced && card.enhance.doubleAttack);
+        const unit = {
+          uid: crypto.randomUUID(),
+          name: card.name,
+          atk: card.atk + spellBonus,
+          hp: card.hp + spellBonus,
+          maxHp: card.hp + spellBonus,
+          image: card.image || "",
+          rarity: getRarity(card),
+          ready: !!card.rush || !!card.direct,
+          leaderReady: !!card.direct,
+          attacksLeft: (!!card.rush || !!card.direct) ? (doubleAttack ? 2 : 1) : 0,
+          guard: !!card.guard,
+          lethal: !!card.lethal,
+          rush: !!card.rush,
+          direct: !!card.direct,
+          doubleAttack,
+          invulnerable: Boolean(enhanced && card.enhance.invulnerable),
+          freeDecision: !!card.freeDecision,
+          decision: card.decision || "ready"
+        };
+        state.playerBoard.push(unit);
+        log(`「${card.name}」を場に出した。`);
+        if (spellBonus > 0) log(`${card.name}は施策利用数により+${spellBonus}/+${spellBonus}。`);
+        if (enhanced) log(`${card.name}をエンハンス${card.enhance.cost}で使用。2回攻撃と無傷を得た。`);
+        if (card.voice) playVoice(card.voice, 0.78);
+        applyFollowerEffect(card);
+      } else {
+        state.spellsPlayed += 1;
+        log(`施策「${card.name}」を使った。`);
+        applySpell(card);
+      }
+      cleanup();
+      checkEnd();
+      render();
+    }
+
+    function needsSpellTarget(card) {
+      return ["damageUnit", "damageStrongDraw", "removeHeal", "destroyUnit"].includes(card.spell);
+    }
+
+    function requiresSpellTarget(card) {
+      return ["destroyUnit"].includes(card.spell);
+    }
+
+    function resolveTargetedSpell(uid) {
+      const handIndex = state.hand.findIndex((card) => card.uid === state.pendingSpell);
+      const card = state.hand[handIndex];
+      const target = state.enemyBoard.find((unit) => unit.uid === uid);
+      if (!card || !target || card.cost > state.pp) {
+        state.pendingSpell = null;
+        render();
+        return;
+      }
+      state.hand.splice(handIndex, 1);
+      state.pp -= card.cost;
+      state.pendingSpell = null;
+      playSound("card");
+      state.spellsPlayed += 1;
+      log(`施策「${card.name}」を${target.name}に使った。`);
+      applySpell(card, target);
+      cleanup();
+      checkEnd();
+      render();
+    }
+
+    function applyFollowerEffect(card) {
+      if (card.effect === "ping" && state.enemyBoard.length > 0) {
+        damageUnit(state.enemyBoard[0], 1);
+        log("根回しで相手担当者に1ダメージ。");
+      }
+      if (card.effect === "pingFace") {
+        state.enemyLife -= 1;
+        log("即レスで相手責任者に1ダメージ。");
+      }
+      if (card.effect === "pingFace2") {
+        state.enemyLife -= 2;
+        log("営業部長の号令で相手責任者に2ダメージ。");
+      }
+      if (card.effect === "healLeader") {
+        state.playerLife = Math.min(20, state.playerLife + 2);
+        log("巻き込みで自分責任者を2回復。");
+      }
+      if (card.effect === "heal4Leader") {
+        state.playerLife = Math.min(20, state.playerLife + 4);
+        log("危機対策室で自分責任者を4回復。");
+      }
+      if (card.effect === "bigHealLeader") {
+        state.playerLife = Math.min(20, state.playerLife + 3);
+        log("決裁部長で自分責任者を3回復。");
+      }
+      if (card.effect === "draw2") {
+        draw(2);
+        log("証跡バインダーでカードを2枚引いた。");
+      }
+      if (card.effect === "buffTeam") {
+        state.playerBoard.forEach((unit) => {
+          if (unit.name !== card.name) unit.atk += 1;
+        });
+        log("古参の一言で味方の攻撃力を上げた。");
+      }
+      if (card.effect === "summonSupportTeam") {
+        let summoned = 0;
+        while (state.playerBoard.length < 5 && summoned < 2) {
+          state.playerBoard.push({
+            uid: crypto.randomUUID(),
+            name: "応援総務",
+            atk: 1,
+            hp: 3,
+            maxHp: 3,
+            image: "",
+            rarity: "silver",
+            ready: false,
+            leaderReady: false,
+            attacksLeft: 0,
+            guard: true,
+            lethal: false,
+            rush: false,
+            direct: false,
+            decision: "guard"
+          });
+          summoned += 1;
+        }
+        if (summoned > 0) log(`総務総動員で応援総務を${summoned}体出した。`);
+      }
+    }
+
+    function damageUnit(unit, amount) {
+      if (!unit || amount <= 0) return;
+      if (unit.invulnerable) {
+        log(`${unit.name}はダメージを受けない。`);
+        return;
+      }
+      unit.hp -= amount;
+    }
+
+    function spendAttack(unit) {
+      const couldAttackLeader = unit.leaderReady;
+      unit.attacksLeft = Math.max(0, (unit.attacksLeft || 1) - 1);
+      unit.ready = unit.attacksLeft > 0;
+      unit.leaderReady = unit.ready && couldAttackLeader;
+      if (!unit.ready && state.selected === unit.uid) state.selected = null;
+    }
+
+    function applySpell(card, target = null) {
+      if (card.spell === "damageUnit") {
+        if (target || state.enemyBoard.length > 0) {
+          damageUnit(target || state.enemyBoard[0], 3);
+          log("相手担当者に3ダメージ。");
+        } else {
+          state.enemyLife -= 2;
+          log("相手責任者に2ダメージ。");
+        }
+      }
+      if (card.spell === "damageStrongDraw") {
+        if (target || state.enemyBoard.length > 0) {
+          const spellTarget = target || state.enemyBoard.reduce((best, unit) => unit.atk > best.atk ? unit : best, state.enemyBoard[0]);
+          damageUnit(spellTarget, 2);
+          log("攻撃力が高い相手担当者に2ダメージ。");
+        }
+        draw(1);
+      }
+      if (card.spell === "drawHeal") {
+        draw(1);
+        state.playerLife = Math.min(20, state.playerLife + 1);
+      }
+      if (card.spell === "face2") {
+        state.enemyLife -= 2;
+      }
+      if (card.spell === "face4") {
+        state.enemyLife -= 4;
+      }
+      if (card.spell === "face5") {
+        state.enemyLife -= 5;
+      }
+      if (card.spell === "face6") {
+        state.enemyLife -= 6;
+      }
+      if (card.spell === "heal4") {
+        state.playerLife = Math.min(20, state.playerLife + 4);
+      }
+      if (card.spell === "heal6") {
+        state.playerLife = Math.min(20, state.playerLife + 6);
+      }
+      if (card.spell === "draw2") {
+        draw(2);
+      }
+      if (card.spell === "damageAll") {
+        state.enemyBoard.forEach((unit) => { damageUnit(unit, 2); });
+        log("相手担当者全体に2ダメージ。");
+      }
+      if (card.spell === "damageAllBig") {
+        state.enemyBoard.forEach((unit) => { damageUnit(unit, 3); });
+        log("相手担当者全体に3ダメージ。");
+      }
+      if (card.spell === "damageAllSmallDraw") {
+        state.enemyBoard.forEach((unit) => { damageUnit(unit, 1); });
+        draw(1);
+        log("相手担当者全体に1ダメージ。カードを1枚引いた。");
+      }
+      if (card.spell === "removeHeal") {
+        if (target || state.enemyBoard.length > 0) {
+          damageUnit(target || state.enemyBoard[0], 5);
+          log("相手担当者1体に5ダメージ。");
+        }
+        state.playerLife = Math.min(20, state.playerLife + 3);
+      }
+      if (card.spell === "destroyUnit") {
+        if (target || state.enemyBoard.length > 0) {
+          (target || state.enemyBoard[0]).hp = 0;
+          log("相手担当者1体を破壊した。");
+        }
+      }
+    }
+
+    function applyEnemyFollowerEffect(card) {
+      if (card.effect === "enemyFace1") {
+        state.playerLife -= 1;
+        log("差し戻しで自分責任者に1ダメージ。");
+      }
+      if (card.effect === "enemyPing" && state.playerBoard.length > 0) {
+        const target = chooseCpuRemovalTarget(1);
+        damageUnit(target, 1);
+        log("謎のExcelで自分担当者に1ダメージ。");
+      }
+      if (card.effect === "enemyHeal2") {
+        state.enemyLife = Math.min(difficultyDefs[state.enemyDifficulty].enemyLife, state.enemyLife + 2);
+        log("役員保留でCPU責任者を2回復。");
+      }
+      if (card.effect === "enemyAoe2") {
+        state.playerBoard.forEach((unit) => { damageUnit(unit, 2); });
+        log("緊急役員レビューで自分担当者全体に2ダメージ。");
+      }
+    }
+
+    function destroyAllBoardsByPresident() {
+      showPresidentEffect();
+      state.playerBoard = [];
+      state.enemyBoard = [];
+      log("社長の意向で両方の盤面の担当者全体が破壊された。");
+    }
+
+    function applyEnemySpell(card) {
+      if (card.spell === "enemyFace2") {
+        state.playerLife -= 2;
+        log("急な追加議題で自分責任者に2ダメージ。");
+      }
+      if (card.spell === "enemyDamageUnit2" && state.playerBoard.length > 0) {
+        damageUnit(chooseCpuRemovalTarget(2), 2);
+        log("再検討指示で自分担当者に2ダメージ。");
+      }
+      if (card.spell === "enemyDamageUnit5" && state.playerBoard.length > 0) {
+        damageUnit(chooseCpuRemovalTarget(5), 5);
+        log("緊急レビューで自分担当者に5ダメージ。");
+      }
+      if (card.spell === "enemyDestroyDraw" && state.playerBoard.length > 0) {
+        const target = chooseCpuRemovalTarget(999);
+        target.hp = 0;
+        enemyDraw(1);
+        log(`責任所在の迷宮で${target.name}が破壊され、CPUがカードを1枚引いた。`);
+      }
+      if (card.spell === "enemyPendingAll") {
+        state.playerBoard.forEach((unit) => {
+          unit.atk = Math.max(0, unit.atk - 1);
+          unit.hp -= 1;
+          unit.maxHp = Math.max(1, unit.maxHp - 1);
+        });
+        state.enemyBoard.forEach((unit) => {
+          unit.atk += 1;
+          unit.hp += 1;
+          unit.maxHp += 1;
+        });
+        log("全部いったん保留で自分担当者全体を弱体化し、CPU担当者全体を強化した。");
+      }
+      if (card.spell === "enemyDrawFace1") {
+        enemyDraw(1);
+        state.playerLife -= 1;
+        log("噂話でCPUがカードを1枚引き、自分責任者に1ダメージ。");
+      }
+      if (card.spell === "enemyDraw2") {
+        enemyDraw(2);
+        log("CC嵐でCPUがカードを2枚引いた。");
+      }
+    }
+
+    function chooseCpuRemovalTarget(damage) {
+      const guarded = state.playerBoard.filter((unit) => unit.guard);
+      const candidates = guarded.length > 0 ? guarded : state.playerBoard;
+      if (!difficultyDefs[state.enemyDifficulty].smartTarget) return candidates[0];
+      const lethal = candidates
+        .filter((unit) => unit.hp <= damage)
+        .sort((a, b) => b.atk - a.atk || b.hp - a.hp)[0];
+      if (lethal) return lethal;
+      return candidates.slice().sort((a, b) => b.atk - a.atk || a.hp - b.hp)[0];
+    }
+
+    function selectUnit(uid) {
+      if (state.phase !== "player" || state.over) return;
+      const unit = state.playerBoard.find((item) => item.uid === uid);
+      if (!unit) return;
+      if (!unit.ready && !canDecision(unit)) {
+        render("この担当者はまだ攻撃できません。");
+        return;
+      }
+      state.pendingSpell = null;
+      state.selected = uid;
+      render(unit.ready ? "攻撃対象を選んでください。" : "この担当者を決裁モードにできます。");
+    }
+
+    function canDecision(unit) {
+      return Boolean(
+        unit &&
+        state.phase === "player" &&
+        state.turn >= 4 &&
+        (state.decisionPoints > 0 || unit.freeDecision) &&
+        !state.decisionUsed &&
+        !unit.decided
+      );
+    }
+
+    function activateDecisionMode() {
+      if (state.phase !== "player" || state.over) return;
+      const unit = state.playerBoard.find((item) => item.uid === state.selected);
+      if (!canDecision(unit)) {
+        render("決裁モードは4ターン目以降、未決裁の担当者に使えます。");
+        return;
+      }
+      unit.atk += 2;
+      unit.hp += 2;
+      unit.maxHp += 2;
+      unit.ready = true;
+      unit.leaderReady = unit.leaderReady || !!unit.direct;
+      unit.decided = true;
+      const extra = applyDecisionEffect(unit);
+      if (!unit.freeDecision) state.decisionPoints -= 1;
+      state.decisionUsed = true;
+      playSound("decision");
+      showDecisionCutIn(unit, extra);
+      log(`${unit.name}が決裁モード。+2/+2して攻撃可能になった。${extra ? ` ${extra}` : ""}`);
+      cleanup();
+      checkEnd();
+      render(`決裁モード発動。${extra || "担当者を強化し、攻撃できる状態にしました。"}`);
+    }
+
+    function applyDecisionEffect(unit) {
+      const decision = unit.decision || "ready";
+      if (decision === "guard") {
+        unit.guard = true;
+        return "防波堤を得た。";
+      }
+      if (decision === "guardHeal") {
+        unit.guard = true;
+        state.playerLife = Math.min(20, state.playerLife + 4);
+        return "防波堤を得て、自分責任者を4回復。";
+      }
+      if (decision === "heal") {
+        state.playerLife = Math.min(20, state.playerLife + 3);
+        return "自分責任者を3回復。";
+      }
+      if (decision === "face3") {
+        state.enemyLife -= 3;
+        return "相手責任者に3ダメージ。";
+      }
+      if (decision === "aoe1") {
+        state.enemyBoard.forEach((enemy) => { damageUnit(enemy, 1); });
+        return "相手担当者全体に1ダメージ。";
+      }
+      if (decision === "aoe2") {
+        state.enemyBoard.forEach((enemy) => { damageUnit(enemy, 2); });
+        return "相手担当者全体に2ダメージ。";
+      }
+      if (decision === "teamBuff") {
+        state.playerBoard.forEach((ally) => {
+          if (ally.uid !== unit.uid) ally.atk += 1;
+        });
+        return "他の味方担当者を+1/+0。";
+      }
+      return "すぐ攻撃可能。";
+    }
+
+    function attackEnemyUnit(uid) {
+      if (state.pendingSpell) {
+        resolveTargetedSpell(uid);
+        return;
+      }
+      if (!state.selected || state.phase !== "player" || state.over) return;
+      const attacker = state.playerBoard.find((unit) => unit.uid === state.selected);
+      const target = state.enemyBoard.find((unit) => unit.uid === uid);
+      if (!attacker || !target || !attacker.ready) return;
+      damageUnit(target, attacker.atk);
+      damageUnit(attacker, target.atk);
+      if (attacker.lethal && !target.invulnerable) target.hp = 0;
+      if (target.lethal && !attacker.invulnerable) attacker.hp = 0;
+      spendAttack(attacker);
+      log(`${attacker.name}が${target.name}に攻撃した。`);
+      playSound("attack");
+      cleanup();
+      checkEnd();
+      render("攻撃しました。続けてカードを出すか、ターンを終了できます。");
+    }
+
+    function attackLeader() {
+      if (!state.selected || state.phase !== "player" || state.over) return;
+      const attacker = state.playerBoard.find((unit) => unit.uid === state.selected);
+      if (!attacker || !attacker.ready) return;
+      if (!attacker.leaderReady) {
+        render("この担当者はまだ責任者を攻撃できません。");
+        return;
+      }
+      if (state.enemyBoard.some((unit) => unit.guard)) {
+        render("防波堤があるため、先にその担当者を処理する必要があります。");
+        return;
+      }
+      state.enemyLife -= attacker.atk;
+      spendAttack(attacker);
+      log(`${attacker.name}が相手責任者に${attacker.atk}ダメージ。`);
+      playSound("attack");
+      checkEnd();
+      render("相手責任者へ攻撃しました。");
+    }
+
+    function endTurn() {
+      if (state.phase !== "player" || state.over) return;
+      state.phase = "enemy";
+      state.selected = null;
+      state.pendingSpell = null;
+      playSound("end");
+      render("相手のターン。");
+      window.setTimeout(enemyTurn, 360);
+    }
+
+    function enemyTurn(options = {}) {
+      if (state.over) return;
+      const difficultyDef = difficultyDefs[state.enemyDifficulty];
+      if (!options.opening) enemyDraw(1);
+      if (difficultyDef.preCombatPlay) {
+        playEnemyCards();
+        cleanup();
+        checkEnd();
+      }
+      if (state.over) {
+        render();
+        return;
+      }
+      activateEnemyDecisionMode();
+      if (state.over) {
+        render();
+        return;
+      }
+      const attackers = state.enemyBoard.filter((enemy) => enemy.ready);
+      attackers.forEach((enemy) => {
+        if (state.over) return;
+        if (shouldEnemyAttackLeader(enemy)) {
+          state.playerLife -= enemy.atk;
+          spendAttack(enemy);
+          log(`${enemy.name}が黒羽係長に${enemy.atk}ダメージ。`);
+        } else if (state.playerBoard.length > 0) {
+          const target = chooseEnemyTarget(enemy);
+          damageUnit(target, enemy.atk);
+          damageUnit(enemy, target.atk);
+          if (enemy.lethal && !target.invulnerable) target.hp = 0;
+          if (target.lethal && !enemy.invulnerable) enemy.hp = 0;
+          spendAttack(enemy);
+          log(`${enemy.name}が${target.name}に攻撃。`);
+        } else {
+          state.playerLife -= enemy.atk;
+          spendAttack(enemy);
+          log(`${enemy.name}が黒羽係長に${enemy.atk}ダメージ。`);
+        }
+        cleanup();
+        checkEnd();
+      });
+      if (state.over) {
+        render();
+        return;
+      }
+      if (!difficultyDef.preCombatPlay) {
+        playEnemyCards();
+        cleanup();
+        checkEnd();
+        if (state.over) {
+          render();
+          return;
+        }
+      }
+      if (!options.opening) {
+        state.turn += 1;
+        state.maxPp = Math.min(10, state.maxPp + 1);
+      }
+      state.pp = state.maxPp;
+      state.phase = "player";
+      state.decisionUsed = false;
+      state.enemyDecisionUsed = false;
+      state.playerBoard.forEach((unit) => {
+        unit.ready = true;
+        unit.leaderReady = true;
+        unit.attacksLeft = unit.doubleAttack ? 2 : 1;
+      });
+      state.enemyBoard.forEach((unit) => {
+        unit.ready = true;
+        unit.leaderReady = true;
+        unit.attacksLeft = unit.doubleAttack ? 2 : 1;
+      });
+      if (!options.opening) draw(1);
+      render(options.opening ? "あなたの後攻1ターン目。手札は多め、ここから巻き返せます。" : "あなたのターン。盤面の担当者で攻撃できます。");
+    }
+
+    function activateEnemyDecisionMode() {
+      if (state.turn < 4 || state.enemyDecisionPoints <= 0 || state.enemyDecisionUsed || state.enemyBoard.length === 0) return;
+      const candidates = state.enemyBoard.filter((unit) => !unit.decided);
+      if (candidates.length === 0) return;
+      const unit = difficultyDefs[state.enemyDifficulty].smartPlay
+        ? candidates.slice().sort((a, b) => (b.atk + b.hp) - (a.atk + a.hp))[0]
+        : candidates[0];
+      unit.atk += 2;
+      unit.hp += 2;
+      unit.maxHp += 2;
+      unit.ready = true;
+      unit.leaderReady = unit.leaderReady || !!unit.direct;
+      unit.decided = true;
+      state.enemyDecisionPoints -= 1;
+      state.enemyDecisionUsed = true;
+      playSound("decision");
+      log(`CPUが${unit.name}を決裁モード。+2/+2して攻撃可能になった。`);
+    }
+
+    function shouldEnemyAttackLeader(enemy) {
+      if (!enemy.leaderReady) return false;
+      if (state.playerBoard.length === 0) return true;
+      if (!difficultyDefs[state.enemyDifficulty].smartFace) return false;
+      if (state.playerBoard.some((unit) => unit.guard)) return false;
+      if (state.playerLife <= enemy.atk) return true;
+      const enemyAttack = state.enemyBoard.filter((unit) => unit.ready).reduce((sum, unit) => sum + unit.atk, 0);
+      if (state.playerLife <= enemyAttack) return true;
+      return state.playerLife <= 8 && enemy.atk >= 3;
+    }
+
+    function playEnemyCards() {
+      let enemyPp = state.maxPp;
+      let played = true;
+      while (played) {
+        played = false;
+        const index = chooseEnemyCardIndex(enemyPp);
+        if (index < 0) break;
+        const card = state.enemyHand[index];
+        if (!card || card.cost > enemyPp) break;
+        if (card.kind === "担当者" && state.enemyBoard.length >= 5 && card.effect !== "destroyAllBoards") {
+          state.enemyHand.splice(index, 1);
+          continue;
+        }
+        state.enemyHand.splice(index, 1);
+        enemyPp -= card.cost;
+        if (card.kind === "担当者") {
+          summonEnemy(card);
+        } else {
+          log(`CPUが施策「${card.name}」を使った。`);
+          applyEnemySpell(card);
+        }
+        cleanup();
+        checkEnd();
+        played = !state.over;
+      }
+    }
+
+    function chooseEnemyCardIndex(enemyPp) {
+      const playable = state.enemyHand
+        .map((card, index) => ({ card, index, score: scoreEnemyCard(card, enemyPp) }))
+        .filter((item) => item.card.cost <= enemyPp && item.score > -999);
+      if (playable.length === 0) return -1;
+      if (!difficultyDefs[state.enemyDifficulty].smartPlay) return playable[0].index;
+      playable.sort((a, b) => b.score - a.score || b.card.cost - a.card.cost);
+      return playable[0].index;
+    }
+
+    function scoreEnemyCard(card, enemyPp) {
+      if (card.kind === "担当者" && state.enemyBoard.length >= 5 && card.effect !== "destroyAllBoards") return -1000;
+      let score = card.cost;
+      if (card.kind === "担当者") {
+        score += card.atk + card.hp * 0.45;
+        if (card.guard && state.playerBoard.length > 0) score += 2;
+        if (card.lethal && state.playerBoard.some((unit) => unit.hp >= 5 || unit.atk >= 4)) score += 14;
+      }
+      if (card.spell === "enemyFace2") score += state.playerLife <= 2 ? 40 : 2;
+      if (card.spell === "enemyDamageUnit2") score += state.playerBoard.some((unit) => unit.hp <= 2) ? 12 : (state.playerBoard.length ? 3 : -6);
+      if (card.spell === "enemyDamageUnit5") score += state.playerBoard.some((unit) => unit.hp <= 5) ? 18 : (state.playerBoard.length ? 5 : -8);
+      if (card.spell === "enemyDestroyDraw") score += state.playerBoard.length ? 22 : -20;
+      if (card.spell === "enemyPendingAll") score += (state.playerBoard.length * 4) + (state.enemyBoard.length * 3) - (state.playerBoard.length ? 0 : 10);
+      if (card.spell === "enemyDrawFace1") score += state.enemyHand.length <= 3 ? 9 : 3;
+      if (card.spell === "enemyDraw2") score += state.enemyHand.length <= 2 ? 10 : 1;
+      if (card.effect === "enemyAoe2") score += state.playerBoard.length >= 2 ? 18 : (state.playerBoard.length ? 7 : 0);
+      if (card.effect === "destroyAllBoards") score += (state.playerBoard.length + state.enemyBoard.length) >= 3 ? 50 : (state.playerBoard.length >= 2 ? 18 : 0);
+      if (card.cost === enemyPp) score += 1.5;
+      return score;
+    }
+
+    function chooseEnemyTarget(enemy) {
+      const guarded = state.playerBoard.filter((unit) => unit.guard);
+      const candidates = guarded.length > 0 ? guarded : state.playerBoard;
+      if (!difficultyDefs[state.enemyDifficulty].smartTarget) return candidates[0];
+
+      const lethal = candidates
+        .filter((unit) => unit.hp <= enemy.atk)
+        .sort((a, b) => b.atk - a.atk || b.hp - a.hp)[0];
+      if (lethal) return lethal;
+
+      return candidates
+        .slice()
+        .sort((a, b) => b.atk - a.atk || a.hp - b.hp)[0];
+    }
+
+    function cleanup() {
+      state.playerBoard = state.playerBoard.filter((unit) => unit.hp > 0);
+      state.enemyBoard = state.enemyBoard.filter((unit) => unit.hp > 0);
+    }
+
+    function checkEnd() {
+      if (state.enemyLife <= 0) {
+        state.enemyLife = 0;
+        finish(true);
+      }
+      if (state.playerLife <= 0) {
+        state.playerLife = 0;
+        finish(false);
+      }
+    }
+
+    function finish(win) {
+      state.over = true;
+      state.phase = "over";
+      stopBgm();
+      hidePresidentEffect();
+      playSound(win ? "win" : "lose");
+      els.endingTitle.textContent = win ? "調整完了" : "本日は持ち帰り";
+      els.endingCopy.textContent = win
+        ? "会議体を抜け、承認ルートも見えた。今日の仕事は前へ進んだ。"
+        : "押し切るより、仕切り直す日もある。次は手札と盤面を整えていこう。";
+      els.ending.classList.add("is-visible");
+    }
+
+    function createUnit(unit, side) {
+      const button = document.createElement("button");
+      button.type = "button";
+      button.className = `unit rarity-${unit.rarity || "bronze"} ${side === "enemy" ? "enemy" : ""} ${unit.ready ? "ready" : ""} ${unit.decided ? "decided" : ""} ${state.selected === unit.uid ? "selected" : ""}`;
+      button.addEventListener("click", () => {
+        if (side === "player") selectUnit(unit.uid);
+        if (side === "enemy") attackEnemyUnit(unit.uid);
+      });
+
+      const name = document.createElement("div");
+      name.className = "unit-name";
+      name.textContent = unit.name;
+
+      const text = document.createElement("div");
+      text.className = "unit-text";
+      const traits = [];
+      if (unit.guard) traits.push("防波堤");
+      if (unit.lethal) traits.push("必殺");
+      if (unit.rush) traits.push("即盤面");
+      if (unit.direct) traits.push("責任者可");
+      if (unit.doubleAttack) traits.push("2回攻撃");
+      if (unit.invulnerable) traits.push("無傷");
+      if (unit.freeDecision) traits.push("自力決裁");
+      if (unit.decided) traits.push("決裁済");
+      traits.push(unit.ready ? (unit.attacksLeft > 1 ? `攻撃可x${unit.attacksLeft}` : "攻撃可能") : "待機中");
+      text.textContent = traits.join(" / ");
+
+      const stats = document.createElement("div");
+      stats.className = "stats";
+      const atk = document.createElement("span");
+      atk.className = "atk";
+      atk.textContent = unit.atk;
+      const hp = document.createElement("span");
+      hp.className = "hp";
+      hp.textContent = unit.hp;
+      stats.append(atk, hp);
+
+      button.append(name);
+      if (unit.image) {
+        const art = document.createElement("img");
+        art.className = "unit-art";
+        art.src = unit.image;
+        art.alt = "";
+        button.appendChild(art);
+      }
+      button.append(text, stats);
+      return button;
+    }
+
+    function renderBoard(container, units, side) {
+      container.textContent = "";
+      for (let i = 0; i < 5; i += 1) {
+        const slot = document.createElement("div");
+        slot.className = "slot";
+        if (units[i]) {
+          slot.appendChild(createUnit(units[i], side));
+        } else {
+          slot.textContent = "空き";
+        }
+        container.appendChild(slot);
+      }
+    }
+
+    function createCard(card) {
+      const button = document.createElement("button");
+      button.type = "button";
+      const rarity = getRarity(card);
+      button.className = `card rarity-${rarity} ${card.image ? "has-art" : ""}`;
+      button.disabled = state.phase !== "player" || card.cost > state.pp || state.over;
+      button.addEventListener("click", () => playCard(card.uid));
+
+      const cost = document.createElement("div");
+      cost.className = "cost";
+      cost.textContent = card.cost;
+
+      const kind = document.createElement("div");
+      kind.className = "card-kind";
+      kind.textContent = `${factionLabels[card.faction]} / ${card.kind}`;
+
+      const rarityBadge = document.createElement("div");
+      rarityBadge.className = "card-rarity";
+      rarityBadge.textContent = rarityLabels[rarity];
+
+      const title = document.createElement("h2");
+      title.textContent = card.name;
+
+      const text = document.createElement("p");
+      const cardTraits = [];
+      if (card.lethal) cardTraits.push("必殺。");
+      if (card.rush) cardTraits.push("即盤面。");
+      if (card.direct) cardTraits.push("責任者攻撃可。");
+      if (card.enhance) cardTraits.push(`エンハンス${card.enhance.cost}: ${card.enhance.doubleAttack ? "2回攻撃" : ""}${card.enhance.invulnerable ? "・無傷" : ""}。`);
+      if (card.freeDecision) cardTraits.push("決裁枠なしで決裁可能。");
+      const decisionText = card.decision ? ` 決裁: ${decisionLabels[card.decision]}。` : "";
+      text.textContent = `${cardTraits.join(" ")} ${card.text}${decisionText}`.trim();
+
+      button.append(cost, rarityBadge, kind, title);
+      if (card.image) {
+        const art = document.createElement("img");
+        art.className = "card-art";
+        art.src = card.image;
+        art.alt = "";
+        button.appendChild(art);
+      }
+      button.appendChild(text);
+      if (card.kind === "担当者") {
+        const stats = document.createElement("div");
+        stats.className = "stats";
+        const atk = document.createElement("span");
+        atk.className = "atk";
+        atk.textContent = card.atk;
+        const hp = document.createElement("span");
+        hp.className = "hp";
+        hp.textContent = card.hp;
+        stats.append(atk, hp);
+        button.appendChild(stats);
+      }
+      return button;
+    }
+
+    function render(message) {
+      els.enemyLife.textContent = state.enemyLife;
+      els.playerLife.textContent = state.playerLife;
+      els.pp.textContent = `${state.pp} / ${state.maxPp}`;
+      els.decisionCount.textContent = state.decisionPoints;
+      els.deckCount.textContent = `山札 ${state.deck.length}`;
+      els.turnStatus.textContent = state.phase === "player" ? `あなたのターン ${state.turn}` : "相手のターン";
+      els.enemyStatus.textContent = `手札 ${state.enemyHand.length} / 山札 ${state.enemyDeck.length} / 盤面 ${state.enemyBoard.length}`;
+      els.classButtons.forEach((button) => {
+        button.classList.toggle("is-active", button.dataset.class === state.playerClass);
+      });
+      if (message) els.message.textContent = message;
+
+      renderBoard(els.enemyBoard, state.enemyBoard, "enemy");
+      renderBoard(els.playerBoard, state.playerBoard, "player");
+
+      els.hand.textContent = "";
+      state.hand.forEach((card) => {
+        els.hand.appendChild(createCard(card));
+      });
+
+      els.endTurn.disabled = state.phase !== "player" || state.over;
+      const selectedUnit = state.playerBoard.find((unit) => unit.uid === state.selected);
+      els.decisionMode.disabled = !canDecision(selectedUnit);
+      els.soundToggle.textContent = state.audioEnabled ? "音 ON" : "音 OFF";
+    }
+
+    els.decisionMode.addEventListener("click", activateDecisionMode);
+    els.endTurn.addEventListener("click", endTurn);
+    els.soundToggle.addEventListener("click", () => {
+      state.audioEnabled = !state.audioEnabled;
+      if (state.audioEnabled) {
+        initAudio();
+        startBgm();
+        playSound("card");
+      } else {
+        stopBgm();
+      }
+      render();
+    });
+    els.restart.addEventListener("click", showStartScreen);
+    els.endingRestart.addEventListener("click", showStartScreen);
+    els.enemyLife.addEventListener("click", attackLeader);
+    els.startGame.addEventListener("click", () => startGame());
+    els.classButtons.forEach((button) => {
+      button.addEventListener("click", () => selectClass(button.dataset.class));
+    });
+    els.difficultyButtons.forEach((button) => {
+      button.addEventListener("click", () => selectDifficulty(button.dataset.difficulty));
+    });
+
+    showStartScreen();
+  </script>
+</body>
+
+</html>
