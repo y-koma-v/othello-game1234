@@ -22,3 +22,11 @@ jobs:
           AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           AWS_REGION: ${{ secrets.AWS_REGION }}
           SOURCE_DIR: './'
+
+      # 同期後にCloudFrontのキャッシュを全削除(/*は課金上1パス扱い・月1000パスまで無料)
+      - name: Invalidate CloudFront cache
+        run: aws cloudfront create-invalidation --distribution-id E1AVR0XRC1KGKK --paths '/*'
+        env:
+          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          AWS_DEFAULT_REGION: ap-northeast-1
