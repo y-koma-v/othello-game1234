@@ -4,21 +4,21 @@ window.UGOU_HOME = {
       number: "01",
       kind: "ARTICLE",
       tone: "amber",
-      title: "副業・個人プロジェクトで「3年続く人」に共通する3つの条件",
-      summary: "完璧主義・固定費・スコープの3つの観点から、副業や個人プロジェクトが続く人と続かない人の差を整理。",
-      href: "articles/fukugyou-tsuzuku-3-conditions/index.html",
+      title: "生成AIで作った素材、公開前に確認すべき5つのチェックポイント",
+      summary: "AIイラスト・AI音楽・AI生成文章を公開前にどう確認するか。商用利用、権利、第三者素材の実務チェック。",
+      href: "articles/ai-generated-assets-rights-checklist/index.html",
       action: "記事を読む",
-      date: "2026.07.01"
+      date: "2026.07.05"
     },
     {
       number: "02",
       kind: "STORIES",
       tone: "rose",
-      title: "漫画と絵本",
-      summary: "大人向けのAI実用ファンタジー漫画と、雨の日の小さな絵本。短い物語をこの棚にまとめています。",
-      href: "manga/index.html",
-      action: "物語を読む",
-      date: "2026.07.01"
+      title: "JTCで死んだおじさん 第5話まで公開",
+      summary: "理不尽な職場の仕組みをAI的な魔法でデバッグする実用ファンタジー漫画。第3〜5話を追加しました。",
+      href: "manga/jtc-ai-isekai/index.html",
+      action: "漫画を読む",
+      date: "2026.07.05"
     },
     {
       number: "03",

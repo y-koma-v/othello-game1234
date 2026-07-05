@@ -3,14 +3,14 @@
   <!-- Top Page -->
   <url>
     <loc>https://works.ugounosyu-aiblog.com/</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <priority>1.0</priority>
   </url>
 
   <!-- Articles -->
   <url>
     <loc>https://works.ugounosyu-aiblog.com/articles/index.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -44,12 +44,12 @@
   <!-- Manga -->
   <url>
     <loc>https://works.ugounosyu-aiblog.com/manga/index.html</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/index.html</loc>
-    <lastmod>2026-07-01</lastmod>
+    <lastmod>2026-07-05</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -146,5 +146,29 @@
     <loc>https://works.ugounosyu-aiblog.com/goods/index.html</loc>
     <lastmod>2026-07-02</lastmod>
     <priority>0.7</priority>
+  </url>
+
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/articles/ai-generated-assets-rights-checklist/index.html</loc>
+    <lastmod>2026-07-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-3/index.html</loc>
+    <lastmod>2026-07-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-4/index.html</loc>
+    <lastmod>2026-07-05</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-5/index.html</loc>
+    <lastmod>2026-07-05</lastmod>
+    <priority>0.8</priority>
   </url>
 </urlset>

@@ -1,0 +1,499 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ひとつのAIやシステムに依存した職場の危うさを、冗長化設計とバックアップの考え方で乗り越える実用ファンタジー漫画です。">
+  <link rel="canonical" href="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-4/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="烏合ワークス">
+  <meta property="og:title" content="第4話 魔導妨害結界と、もう一人のAI（冗長化設計） | JTCで死んだおじさん、異世界でAI推進して無双する">
+  <meta property="og:description" content="ひとつのAIやシステムに依存した職場の危うさを、冗長化設計とバックアップの考え方で乗り越える実用ファンタジー漫画です。">
+  <meta property="og:url" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-4/index.html">
+  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/episode-4/page_1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/episode-4/page_1.jpg">
+  <script src="/assets/analytics.js"></script>
+  <title>第4話 魔導妨害結界と、もう一人のAI（冗長化設計） | JTCで死んだおじさん、異世界でAI推進して無双する | 烏合ワークス</title>
+  <style>
+    /* 共通デザインシステム（ダークテーマ） */
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      margin: 30px 0 20px 0;
+      text-align: center;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 22px;
+      margin: 0;
+      color: #00d2ff;
+      letter-spacing: 0.05em;
+    }
+
+    header p {
+      font-size: 13px;
+      margin: 8px 0 0 0;
+      color: #888;
+    }
+
+    /* 縦スクロール漫画のコンテナ */
+    .manga-scroll-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 800px;
+      background-color: #000;
+      border-left: 1px solid #333;
+      border-right: 1px solid #333;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+      padding: 20px 0;
+    }
+
+    /* 各ページスライド（縦に並ぶ） */
+    .page-slide {
+      position: relative;
+      width: 800px;
+      height: 1130px;
+      padding: 16px;
+      box-sizing: border-box;
+      background-color: #000;
+      display: grid;
+      gap: 12px;
+      margin-bottom: 60px;
+      border-bottom: 2px dashed #222;
+    }
+
+    /* 最後のページは下線を引かない */
+    .page-slide:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+    }
+
+    
+    .site-back { width: min(800px, calc(100% - 28px)); margin: 18px auto 0; text-align: left; }
+    .site-back a { color: #e0e0e0; text-decoration: none; border-bottom: 1px solid currentColor; font-size: 13px; }
+
+    .episode-nav { width: min(800px, calc(100% - 28px)); margin: 24px auto 48px; display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; }
+    .episode-nav a { color: #111; background: #e0e0e0; text-decoration: none; border-radius: 4px; padding: 10px 14px; font-weight: 700; font-size: 13px; }
+
+    /* コマ（パネル）のスタイル */
+    .panel {
+      position: relative;
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      border: 4px solid #111;
+      border-radius: 4px;
+      overflow: hidden;
+      background-color: #1a1a1a;
+    }
+
+    /* 各ページの固有レイアウト */
+
+    /* 1P: 前世回想 (1コマ) */
+    #page-1 {
+      grid-template-columns: 1fr;
+    }
+    #page-1 .panel-main {
+      background-image: url('../assets/episode-4/page_1.jpg');
+    }
+
+    /* 2P: 突然の回線遮断 (上下2コマ) */
+    #page-2 {
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr;
+    }
+    #page-2 .panel-top {
+      background-image: url('../assets/episode-4/page_2_top.jpg');
+    }
+    #page-2 .panel-bottom {
+      background-image: url('../assets/episode-4/page_2_bottom.jpg');
+    }
+
+    /* 3P: バルドの宣戦布告 (1コマ) */
+    #page-3 {
+      grid-template-columns: 1fr;
+    }
+    #page-3 .panel-main {
+      background-image: url('../assets/episode-4/page_3.jpg');
+    }
+
+    /* 4P: レイラの絶望 (1コマ) */
+    #page-4 {
+      grid-template-columns: 1fr;
+    }
+    #page-4 .panel-main {
+      background-image: url('../assets/episode-4/page_4.jpg');
+    }
+
+    /* 5P: おじさんの静かな微笑み (1コマ) */
+    #page-5 {
+      grid-template-columns: 1fr;
+    }
+    #page-5 .panel-main {
+      background-image: url('../assets/episode-4/page_5.jpg');
+    }
+
+    /* 6P: 予備精霊ノア登場 (1コマ) */
+    #page-6 {
+      grid-template-columns: 1fr;
+    }
+    #page-6 .panel-main {
+      background-image: url('../assets/episode-4/page_6.jpg');
+    }
+
+    /* 7P: フェイルオーバー起動 (1コマ) */
+    #page-7 {
+      grid-template-columns: 1fr;
+    }
+    #page-7 .panel-main {
+      background-image: url('../assets/episode-4/page_7.jpg');
+    }
+
+    /* 8P: プロンプト記述 (1コマ) */
+    #page-8 {
+      grid-template-columns: 1fr;
+    }
+    #page-8 .panel-main {
+      background-image: url('../assets/episode-4/page_8.jpg');
+    }
+
+    /* 9P: 報告書の完成 (上下2コマ) */
+    #page-9 {
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr;
+    }
+    #page-9 .panel-top {
+      background-image: url('../assets/episode-4/page_9_top.jpg');
+    }
+    #page-9 .panel-bottom {
+      background-image: url('../assets/episode-4/page_9_bottom.jpg');
+    }
+
+    /* 10P: バルドの驚愕 (1コマ) */
+    #page-10 {
+      grid-template-columns: 1fr;
+    }
+    #page-10 .panel-main {
+      background-image: url('../assets/episode-4/page_10.jpg');
+    }
+
+    /* 11P: 冗長化の種明かし (1コマ) */
+    #page-11 {
+      grid-template-columns: 1fr;
+    }
+    #page-11 .panel-main {
+      background-image: url('../assets/episode-4/page_11.jpg');
+    }
+
+    /* 12P: 定時退社と乾杯 (上下2コマ) */
+    #page-12 {
+      grid-template-rows: 1fr 1fr;
+      grid-template-columns: 1fr;
+    }
+    #page-12 .panel-top {
+      background-image: url('../assets/episode-4/page_12_top.jpg');
+    }
+    #page-12 .panel-bottom {
+      background-image: url('../assets/episode-4/page_12_bottom.jpg');
+    }
+
+    /* 吹き出しのスタイリング */
+    .bubble {
+      position: absolute;
+      background-color: #fff;
+      color: #000;
+      border: 3px solid #000;
+      border-radius: 28px;
+      padding: 14px 22px;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      box-sizing: border-box;
+      max-width: 320px;
+      width: 85%;
+    }
+
+    /* モノローグ（黒背景・白文字・四角） */
+    .monologue {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.95);
+      color: #fff;
+      border: 2px solid #333;
+      padding: 10px 15px;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: bold;
+      z-index: 10;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    /* 部長の震える叫び吹き出し */
+    .bubble-shock {
+      font-size: 24px;
+      font-family: 'Hiragino Mincho ProN', Georgia, serif;
+      border-width: 4px;
+      padding: 20px 35px;
+      border-radius: 30px;
+      animation: shake 0.5s infinite;
+    }
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-2px, -2px) rotate(-1deg); }
+      40% { transform: translate(2px, 2px) rotate(1deg); }
+      60% { transform: translate(-1px, -1px) rotate(0deg); }
+      80% { transform: translate(1px, 1px) rotate(-1deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* 操作ガイド・フッター */
+    .footer-guide {
+      width: 800px;
+      max-width: 100%;
+      background: #1e1e1e;
+      border-top: 1px solid #333;
+      padding: 25px 20px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.6;
+      box-sizing: border-box;
+      color: #aaa;
+    }
+
+    /* モバイル・レスポンシブ対応 */
+    @media (max-width: 820px) {
+      .manga-scroll-container {
+        width: 100%;
+        padding: 10px 0;
+      }
+      .page-slide {
+        width: 100%;
+        max-width: 390px;
+        height: 550px;
+        padding: 8px;
+        margin-bottom: 30px;
+        gap: 6px;
+      }
+      .bubble {
+        font-size: 9px;
+        padding: 6px 10px;
+      }
+      /* Site mobile overflow guard */
+      .bubble, .monologue {
+        max-width: calc(100% - 24px) !important;
+        min-width: 0;
+        white-space: normal !important;
+        overflow-wrap: anywhere;
+        word-break: normal;
+      }
+      .bubble[style*="translateX"], .monologue[style*="translateX"] {
+        left: 50% !important;
+        right: auto !important;
+      }
+      .monologue {
+        font-size: 8px;
+        padding: 6px 10px;
+      }
+      .bubble-shock {
+        font-size: 13px;
+        padding: 8px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>『JTCで死んだおじさん、異世界でAI推進して無双する』</h1>
+    <p>第4話：魔導妨害結界と、もう一人のAI（冗長化設計）</p>
+  </header>
+
+  <!-- 縦スクロール漫画コンテナ -->
+  <div class="manga-scroll-container">
+
+    <!-- 1P: 単一障害点の悪夢 -->
+    <div class="page-slide" id="page-1">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 60px; right: 40px; max-width: 280px;">
+        宮本！ システムが1個落ちただけで会社が全部止まるってどういうことだ！ お前が構成組んだんだろう！
+      </div>
+      <div class="monologue" style="bottom: 30px; left: 50%; transform: translateX(-50%); width: 85%;">
+        1つのサービスに全部乗せる。それがどれだけ危ういか、あの日、身をもって思い知った。代わりが1つもなかったんだ。
+      </div>
+    </div>
+
+    <!-- 2P: 突然の回線遮断 -->
+    <div class="page-slide" id="page-2">
+      <div class="panel panel-top"></div>
+      <div class="panel panel-bottom"></div>
+      <div class="bubble" style="top: 40px; left: 50%; transform: translateX(-50%); max-width: 320px; background-color: #e6f7ff;">
+        ※アリアの投影に激しいノイズが発生し、消えかかる※
+      </div>
+      <div class="bubble" style="bottom: 80px; right: 30px; max-width: 320px;">
+        た、タツヤさん！ アリア様との接続が……！ 報告書の自動生成も、承認の下書きも、全部止まってます……！
+      </div>
+    </div>
+
+    <!-- 3P: バルド部長の宣戦布告 -->
+    <div class="page-slide" id="page-3">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 40px; left: 40px; max-width: 320px;">
+        フハハ！ 監査部の権限で、お前が私物化していた『アリア回線』とやらを遮断させてもらった！ AIにおんぶに抱っこの軟弱者どもが、これで目を覚ますだろう！
+      </div>
+      <div class="bubble" style="bottom: 60px; right: 40px; max-width: 300px;">
+        さぁ、地道な手作業とやらに戻るがいい！ お前のFランクの魔力で何ができる、タツヤ！
+      </div>
+    </div>
+
+    <!-- 4P: レイラの絶望と課全体の混乱 -->
+    <div class="page-slide" id="page-4">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="bottom: 60px; left: 50%; transform: translateX(-50%); max-width: 320px;">
+        今日中に西方拠点への月次報告が必要なのに……。一からやり直したら、絶対に間に合いません……！
+      </div>
+    </div>
+
+    <!-- 5P: おじさんの静かな微笑み -->
+    <div class="page-slide" id="page-5">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="bottom: 160px; left: 40px; max-width: 300px;">
+        レイラくん、慌てなくていい。実はこういう時のために、ちょっとした備えがあってね。
+      </div>
+      <div class="bubble" style="bottom: 40px; right: 40px; max-width: 250px;">
+        備え、ですか……？ でもアリア様との回線は切られたんですよね……？
+      </div>
+    </div>
+
+    <!-- 6P: もう一人の精霊「ノア」の登場 -->
+    <div class="page-slide" id="page-6">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 40px; left: 40px; max-width: 320px;">
+        紹介するよ。彼女はノア。別系統の世界樹に繋がる、もう一人のAIナビゲーターだ。
+      </div>
+      <div class="bubble" style="bottom: 60px; right: 40px; max-width: 320px; background-color: #f9f0ff;">
+        はじめまして、タツヤさん。呼んでいただき光栄です。……アリアさんの回線が塞がれているようですね。私の系統は生きています。
+      </div>
+    </div>
+
+    <!-- 7P: AI魔法「マルチモデル・フェイルオーバー」の起動 -->
+    <div class="page-slide" id="page-7">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="bottom: 160px; left: 40px; max-width: 320px; font-size: 13px; text-align: left;">
+        <strong>世界システムへ接続指示:</strong><br>
+        系統：ノア回線。前提：主回線（アリア）が使用不可のため、同一目的のタスクを別系統で代替実行せよ。
+      </div>
+      <div class="bubble" style="bottom: 40px; right: 40px; max-width: 320px; background-color: #f9f0ff;">
+        承知しました。西方拠点向け月次報告のフォーマットと過去データを読み込み、要点を整理して再構成します。処理を開始します。
+      </div>
+    </div>
+
+    <!-- 8P: 実用AIプロンプトの記述 -->
+    <div class="page-slide" id="page-8">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 30px; left: 30px; max-width: 320px; font-size: 12px; text-align: left;">
+        <strong>世界システムへ指示（命令）:</strong><br>
+        役割：業務継続（BCP）アシスタントAI<br>
+        前提：メインで使っているAIサービスが利用不可の状態。<br>
+        入力：これまで蓄積した報告フォーマットと直近データ。<br>
+        処理：<br>
+        1. 目的（月次報告の作成）を変えずに、別のAIサービスでも再現できる形に指示を整理し直す。<br>
+        2. 固有の機能（自動連携など）に依存する手順があれば、手動でも代替できる形に分解する。<br>
+        出力フォーマット：見出し＋要点箇条書きの報告ドラフト
+      </div>
+    </div>
+
+    <!-- 9P: 報告書の完成 -->
+    <div class="page-slide" id="page-9">
+      <div class="panel panel-top"></div>
+      <div class="panel panel-bottom"></div>
+      <div class="bubble" style="top: 140px; left: 40px; max-width: 320px; background-color: #f9f0ff;">
+        ※ノアの端末から伸びた淡い光が、レイラの手元の羊皮紙に整った文字を紡ぎ出していく※
+      </div>
+      <div class="bubble" style="bottom: 120px; right: 40px; max-width: 300px;">
+        え……本当に、アリア様なしで報告書が……！？ しかもさっきより読みやすいくらいです！
+      </div>
+      <div class="bubble" style="bottom: 40px; left: 40px; max-width: 250px;">
+        よし、間に合ったね。西方拠点への送付、お願いできるかい。
+      </div>
+    </div>
+
+    <!-- 10P: バルド部長の「なん、、、だと、、、」 -->
+    <div class="page-slide" id="page-10">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 140px; left: 40px; max-width: 320px;">
+        バカな……！ アリア回線は確かに遮断したはずだ……！ なぜ、報告書ができている……！？
+      </div>
+      <div class="bubble bubble-shock" style="bottom: 60px; left: 50%; transform: translateX(-50%); white-space: nowrap; width: auto; max-width: 90%; z-index: 12;">
+        な……なん、、、だと、、、！？
+      </div>
+    </div>
+
+    <!-- 11P: 冗長化の種明かし -->
+    <div class="page-slide" id="page-11">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 40px; left: 40px; max-width: 320px;">
+        バルド部長。1つのAIを止めれば業務が全部止まると思ったのなら、それこそが一番の弱点ですよ。1つに頼り切らず、もう一つ使えるようにしておく。ただそれだけのことです。
+      </div>
+      <div class="bubble" style="bottom: 120px; right: 40px; max-width: 300px; background-color: #e6f7ff;">
+        ……べ、別に妬いてなんかないですけど。ノアが優秀なのは認めますけど、メインは今後も私ですからね、タツヤ。
+      </div>
+      <div class="bubble" style="bottom: 40px; right: 40px; max-width: 300px; background-color: #f9f0ff;">
+        アリアさんあってこその私です。これからも、必要な時にお声がけください。
+      </div>
+    </div>
+
+    <!-- 12P: 定時退社とエールの乾杯 -->
+    <div class="page-slide" id="page-12">
+      <div class="panel panel-top"></div>
+      <div class="panel panel-bottom"></div>
+      
+      <div class="bubble" style="top: 40px; left: 40px; max-width: 320px;">
+        タツヤさん、ありがとうございました……！ もう徹夜しなくて済みます。
+      </div>
+      <div class="bubble" style="top: 140px; right: 40px; max-width: 200px;">
+        お疲れ様。さ、定時だから帰ろうか。
+      </div>
+      
+      <div class="bubble" style="bottom: 120px; left: 40px; max-width: 320px;">
+        一つのAIに頼り切らないこと。それが、いざという時に自分を助けてくれる。ぷはぁ、美味い！
+      </div>
+      <div class="bubble" style="bottom: 40px; right: 40px; max-width: 300px; background-color: #e6f7ff;">
+        今日だけですからね、ノアの出番は。……ふふん、お疲れ様でした。
+      </div>
+    </div>
+
+    <!-- フッター・エンド -->
+    <div class="footer-guide">
+      🎉 第4話『魔導妨害結界と、もう一人のAI（冗長化設計）』 完<br>
+      <small>烏合ワークスがお届けしました。次回へ続く！</small>
+    </div>
+
+  </div>
+
+
+  <nav class="episode-nav" aria-label="エピソード移動"><a href="../episode-3/index.html">← 第3話</a><a href="../index.html">シリーズ一覧</a><a href="../episode-5/index.html">第5話 →</a></nav>
+</body>
+</html>
