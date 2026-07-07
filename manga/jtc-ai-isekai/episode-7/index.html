@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="高額な固定契約に頼らず、必要なときだけAPIで高度なAIを使う発想を、契約切れの魔導AI騒動として描く実用ファンタジー漫画です。">
+  <link rel="canonical" href="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-7/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="烏合ワークス">
+  <meta property="og:title" content="第7話 七夕の契約切れ、消えゆく世界最高知性（Fable）と禁断の魔導APIキー | JTCで死んだおじさん、異世界でAI推進して無双する">
+  <meta property="og:description" content="高額な固定契約に頼らず、必要なときだけAPIで高度なAIを使う発想を、契約切れの魔導AI騒動として描く実用ファンタジー漫画です。">
+  <meta property="og:url" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-7/index.html">
+  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/episode-7/page_1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/episode-7/page_1.jpg">
+  <script src="/assets/analytics.js"></script>
+  <title>第7話 七夕の契約切れ、消えゆく世界最高知性（Fable）と禁断の魔導APIキー | JTCで死んだおじさん、異世界でAI推進して無双する | 烏合ワークス</title>
+  <style>
+    /* 共通デザインシステム（ダークテーマ） */
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      margin: 30px 0 20px 0;
+      text-align: center;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 22px;
+      margin: 0;
+      color: #00d2ff;
+      letter-spacing: 0.05em;
+    }
+
+    header p {
+      font-size: 13px;
+      margin: 8px 0 0 0;
+      color: #888;
+    }
+
+    /* 縦スクロール漫画のコンテナ */
+    .manga-scroll-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 800px;
+      background-color: #000;
+      border-left: 1px solid #333;
+      border-right: 1px solid #333;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+      padding: 20px 0;
+    }
+
+    /* 各ページスライド（縦に並ぶ） */
+    .page-slide {
+      position: relative;
+      width: 800px;
+      height: 1130px;
+      padding: 16px;
+      box-sizing: border-box;
+      display: grid;
+      gap: 12px;
+      margin-bottom: 40px;
+      border-bottom: 2px dashed #222;
+    }
+
+    .page-slide:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    /* コマの基本スタイル */
+    .panel {
+      border: 4px solid #fff;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-main {
+      grid-row: 1 / -1;
+      grid-column: 1 / -1;
+    }
+
+    /* ページごとの画像マッピング */
+    #page-1 .panel-main {
+      background-image: url('../assets/episode-7/page_1.jpg');
+    }
+    #page-2 .panel-main {
+      background-image: url('../assets/episode-7/page_2.jpg');
+    }
+    #page-3 .panel-main {
+      background-image: url('../assets/episode-7/page_3.jpg');
+    }
+    #page-4 .panel-main {
+      background-image: url('../assets/episode-7/page_4.jpg');
+    }
+    #page-5 .panel-main {
+      background-image: url('../assets/episode-7/page_5.jpg');
+    }
+    #page-6 .panel-main {
+      background-image: url('../assets/episode-7/page_6.jpg');
+    }
+    #page-7 .panel-main {
+      background-image: url('../assets/episode-7/page_7.jpg');
+    }
+    #page-8 .panel-main {
+      background-image: url('../assets/episode-7/page_8.jpg');
+    }
+    #page-9 .panel-main {
+      background-image: url('../assets/episode-7/page_9.jpg');
+    }
+    #page-10 .panel-main {
+      background-image: url('../assets/episode-7/page_10.jpg');
+    }
+    #page-11 .panel-main {
+      background-image: url('../assets/episode-7/page_11.jpg');
+    }
+    #page-12 .panel-main {
+      background-image: url('../assets/episode-7/page_12.jpg');
+    }
+
+    /* 吹き出しの基本スタイル */
+    .bubble {
+      position: absolute;
+      background-color: #fff;
+      color: #000;
+      border: 3px solid #000;
+      border-radius: 28px;
+      padding: 14px 22px;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      box-sizing: border-box;
+      max-width: 320px;
+      width: 85%;
+    }
+
+    /* モノローグ（黒背景・白文字・四角） */
+    .monologue {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.95);
+      color: #fff;
+      border: 2px solid #333;
+      padding: 10px 15px;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: bold;
+      z-index: 10;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    /* ショック（叫び吹き出し） */
+    .bubble-shock {
+      font-size: 24px;
+      font-family: 'Hiragino Mincho ProN', Georgia, serif;
+      border-width: 4px;
+      padding: 20px 35px;
+      border-radius: 30px;
+      animation: shake 0.5s infinite;
+    }
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-2px, -2px) rotate(-1deg); }
+      40% { transform: translate(2px, 2px) rotate(1deg); }
+      60% { transform: translate(-1px, -1px) rotate(0deg); }
+      80% { transform: translate(1px, 1px) rotate(-1deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* 操作ガイド・フッター */
+    .footer-guide {
+      width: 800px;
+      max-width: 100%;
+      background: #1e1e1e;
+      border-top: 1px solid #333;
+      padding: 25px 20px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.6;
+      box-sizing: border-box;
+      color: #aaa;
+    }
+
+    /* モバイル・レスポンシブ対応 */
+    @media (max-width: 820px) {
+      .manga-scroll-container {
+        width: 100%;
+        padding: 10px 0;
+      }
+      .page-slide {
+        width: 100%;
+        max-width: 390px;
+        height: 550px;
+        padding: 8px;
+        margin-bottom: 30px;
+        gap: 6px;
+      }
+      .bubble {
+        font-size: 9px;
+        padding: 6px 10px;
+      }
+      .monologue {
+        font-size: 8px;
+        padding: 6px 10px;
+      }
+      .bubble-shock {
+        font-size: 13px;
+        padding: 8px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a class="back-link" href="../index.html">← シリーズ一覧へ</a>
+    <h1>『JTCで死んだおじさん、異世界でAI推進して無双する』</h1>
+    <p>第7話：七夕の契約切れ、消えゆく世界最高知性（Fable）と禁断の魔導APIキー</p>
+  </header>
+
+  <!-- 縦スクロール漫画コンテナ -->
+  <div class="manga-scroll-container">
+
+    <!-- 1P: ライセンス終了のトラウマ（前世の回想） -->
+    <div class="page-slide" id="page-1">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; right: 40px; max-width: 280px;">
+        宮本、この有料ソフトウェアのライセンス、月数千円もするが本当に必要なのか？ コスト削減のために解約だ！
+      </div>
+      <div class="bubble" style="top: 250px; left: 40px; max-width: 260px;">
+        待ってください！ これがないと開発効率が劇的に落ちます！
+      </div>
+      <div class="monologue" style="bottom: 40px; left: 50%; transform: translateX(-50%); width: 85%;">
+        世界最高のツールを月たった数千円で雇える価値が、なぜお偉いさんには理解できないのか。その目先のコスト削減が、現場に何百倍もの労働と損失を強いるとも知らずに。
+      </div>
+    </div>
+
+    <!-- 2P: 7月7日の死神とノアの危機 -->
+    <div class="page-slide" id="page-2">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 40px; right: 30px; max-width: 280px;">
+        ノアさんが……消えちゃう！ 体が透けてます！
+      </div>
+      <div class="bubble" style="bottom: 60px; left: 45px; max-width: 280px;">
+        今日（7月7日）が有効期限なのよ……。バルド部長が『世界最高知性の魔導AI契約（サブスク）』の更新を拒否したの……。明日からノアさんは使えなくなるわ。
+      </div>
+    </div>
+
+    <!-- 3P: バルド部長の嘲笑とノアの消滅 -->
+    <div class="page-slide" id="page-3">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 40px; left: 40px; max-width: 280px;">
+        ハッハッハ！ 世界最高のAI『Fable』など、我が社には贅沢すぎる！ 月額30魔力などドブに捨てるようなものだ。明日からは頭を使って手作業で働きなさい！
+      </div>
+      <div class="bubble" style="bottom: 60px; right: 40px; max-width: 280px; background-color: #f6f0ff; border-color: #b37feb;">
+        マスター、これまでお仕えできて光栄でした……
+      </div>
+    </div>
+
+    <!-- 4P: 牙を剥く「超難解スパゲッティシステム」 -->
+    <div class="page-slide" id="page-4">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 45px; left: 45px; max-width: 280px;">
+        バグが複雑すぎて、アリアちゃんの高速スキャンでも解析できません！ 世界最高の推論能力を持つノアさんがいれば、一瞬でデバッグできたのに……！
+      </div>
+    </div>
+
+    <!-- 5P: おじさんの不敵な笑みと「APIキー」 -->
+    <div class="page-slide" id="page-5">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="bottom: 40px; right: 40px; max-width: 280px;">
+        慌てることはないよ。世界最高の知性は、何も月額固定（サブスク）で囲い込まなくても、必要な時に『APIキー』で呼び出せばいいだけだ。
+      </div>
+    </div>
+
+    <!-- 6P: APIによるノア（Fable）の再臨 -->
+    <div class="page-slide" id="page-6">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 40px; left: 40px; max-width: 280px;">
+        世界システムへ接続。APIキー認証。超高度推論モデル『ノア・Fable』を呼び出し、デバッグ用エージェントとして起動せよ。
+      </div>
+      <div class="bubble" style="bottom: 60px; right: 40px; max-width: 280px;">
+        ノアさんが……戻ってきた！ しかも前より賢そう！
+      </div>
+    </div>
+
+    <!-- 7P: 世界最強 of 推論魔法（プロンプト）の構築 -->
+    <div class="page-slide" id="page-7">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 40px; left: 40px; max-width: 240px;">
+        な、何だと！？ 契約は切れたはずだぞ！
+      </div>
+      <div class="bubble" style="bottom: 40px; right: 40px; max-width: 340px; font-family: 'Courier New', Courier, monospace; font-size: 11px; line-height: 1.35; text-align: left; background-color: #1e1e1e; border-color: #00d2ff; color: #a9ffb7; align-items: flex-start; justify-content: flex-start; padding: 14px;">
+        世界システムへ指示（命令）。<br>
+        前提：お前は世界最高のデバッガーだ。<br>
+        入力：この崩壊しかけた古代魔導コード。<br>
+        制約：<br>
+        1. 深層思考（Deep Reasoning）を行い原因を特定せよ。<br>
+        2. 最小限の魔力でバグ修正コードを生成せよ。<br>
+        3. 余計な解説はすべて排除し、修正コードと要点のみ3行で出力せよ（Run）
+      </div>
+    </div>
+
+    <!-- 8P: 一瞬のデバッグとバグの消滅 -->
+    <div class="page-slide" id="page-8">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="bottom: 40px; left: 40px; max-width: 280px;">
+        すごい……！ 誰も解読できなかったバグが一瞬で消えた！
+      </div>
+      <div class="bubble" style="bottom: 120px; left: 40px; max-width: 160px; font-family: 'Impact', Charcoal, sans-serif; border-width: 4px; font-weight: 900; font-size: 18px; background-color: #fff9e6;">
+        フゥン……
+      </div>
+    </div>
+
+    <!-- 9P: バルド部長の「なん、、、だと、、、」 -->
+    <div class="page-slide" id="page-9">
+      <div class="panel panel-main"></div>
+      <div class="bubble bubble-shock" style="top: 100px; left: 50%; transform: translateX(-50%); max-width: 320px; border-color: #ff3b30; color: #ff3b30;">
+        契約が切れたはずの、世界最高知性『fable』が動き……さらに、一瞬でバグを完璧にデバッグしただと……！？ な、な、なん、、、だと、、、！？！？！
+      </div>
+    </div>
+
+    <!-- 10P: 技術のタネ明かし -->
+    <div class="page-slide" id="page-10">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 40px; left: 40px; max-width: 280px;">
+        バルド部長。定額サブスク（月30魔力）が切れても、APIを使えば『1回の呼び出しにつき0.01魔力』の従量課金で使えます。今回のデバッグにかかったコストは、わずか0.03魔力。たまにしか使わないなら、こっちの方が圧倒的に安上がりなんですよ。
+      </div>
+      <div class="bubble" style="bottom: 40px; right: 40px; max-width: 280px; background-color: #e6f7ff; border-color: #00d2ff;">
+        人間がセキュリティーや予算を言い訳に、最高知性をドブに捨てようとしていただけですね。
+      </div>
+    </div>
+
+    <!-- 11P: バルドの降伏とインフラ予算の承認 -->
+    <div class="page-slide" id="page-11">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 40px; left: 40px; max-width: 280px;">
+        な、月30魔力どころか、たった0.03魔力で世界最高の知性が使えるのか……！？ 私のコスト削減の努力は一体……
+      </div>
+      <div class="bubble" style="bottom: 40px; right: 40px; max-width: 240px;">
+        ええ。だからこれからは、API利用のための『従量課金用の予算枠』を承認してくださいね。
+      </div>
+    </div>
+
+    <!-- 12P: 定時退社と乾杯 -->
+    <div class="page-slide" id="page-12">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 60px; left: 40px; max-width: 280px; background-color: #e6f7ff; border-color: #00d2ff;">
+        さすがタツヤ、世界最高の知性を数円で使い潰すなんて、相変わらず最悪のサボり魔ですね。
+      </div>
+      <div class="bubble" style="top: 150px; left: 40px; max-width: 280px; background-color: #f6f0ff; border-color: #b37feb;">
+        いえ、マスターの要件定義が完璧だったからこそ、最小のトークンで解決できたのです。光栄でした。
+      </div>
+      <div class="bubble" style="bottom: 40px; right: 40px; max-width: 200px;">
+        はは、二人ともありがとう。さあ、定時だ。今夜はみんなで冷たいエールで乾杯しよう。
+      </div>
+    </div>
+
+    <div class="footer-guide">
+      <p>『JTCで死んだおじさん、異世界でAI推進して無双する』第7話・完</p>
+      <p>※作中の魔法APIキーは、実際のAPI利用や従量課金の考え方を物語向けに表現したものです。導入時は各サービスの規約、費用、上限設定、セキュリティ要件を確認してください。</p>
+      <p><a href="../index.html">シリーズ一覧へ戻る →</a></p>
+    </div>
+
+  </div>
+
+</body>
+</html>

@@ -14,11 +14,11 @@ window.UGOU_HOME = {
       number: "02",
       kind: "STORIES",
       tone: "rose",
-      title: "JTCで死んだおじさん 第5話まで公開",
-      summary: "理不尽な職場の仕組みをAI的な魔法でデバッグする実用ファンタジー漫画。第3〜5話を追加しました。",
+      title: "JTCで死んだおじさん 第7話まで公開",
+      summary: "理不尽な職場の仕組みをAI的な魔法でデバッグする実用ファンタジー漫画。第6〜7話を追加しました。",
       href: "manga/jtc-ai-isekai/index.html",
       action: "漫画を読む",
-      date: "2026.07.05"
+      date: "2026.07.07"
     },
     {
       number: "03",
