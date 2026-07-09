@@ -1,0 +1,443 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="AIが自信満々に提示する存在しない「もっともらしい嘘（ハルシネーション）」に対し、公式データベースによるグラウンディングと自己修正（Self-Correction）で立ち向かう、実用ファンタジー漫画です。">
+  <link rel="canonical" href="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-8/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="烏合ワークス">
+  <meta property="og:title" content="第8話 知性（AI）の囁くもっともらしい嘘、魔導ハルシネーションと人間のファクトチェック | JTCで死んだおじさん、異世界でAI推進して無双する">
+  <meta property="og:description" content="AIが自信満々に提示する存在しない「もっともらしい嘘（ハルシネーション）」に対し、公式データベースによるグラウンディングと自己修正（Self-Correction）で立ち向かう、実用ファンタジー漫画です。">
+  <meta property="og:url" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-8/index.html">
+  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/episode-8/page_1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/episode-8/page_1.jpg">
+  <script src="/assets/analytics.js"></script>
+  <title>第8話 知性（AI）の囁くもっともらしい嘘、魔導ハルシネーションと人間のファクトチェック | JTCで死んだおじさん、異世界でAI推進して無双する | 烏合ワークス</title>
+  <style>
+    /* 共通デザインシステム（ダークテーマ） */
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      margin: 30px 0 20px 0;
+      text-align: center;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 22px;
+      margin: 0;
+      color: #00d2ff;
+      letter-spacing: 0.05em;
+    }
+
+    header p {
+      font-size: 13px;
+      margin: 8px 0 0 0;
+      color: #888;
+    }
+
+    /* 縦スクロール漫画のコンテナ */
+    .manga-scroll-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 800px;
+      background-color: #000;
+      border-left: 1px solid #333;
+      border-right: 1px solid #333;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+      padding: 20px 0;
+    }
+
+    /* 各ページスライド（縦に並ぶ） */
+    .page-slide {
+      position: relative;
+      width: 800px;
+      height: 1130px;
+      padding: 16px;
+      box-sizing: border-box;
+      display: grid;
+      gap: 12px;
+      margin-bottom: 40px;
+      border-bottom: 2px dashed #222;
+    }
+
+    .page-slide:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    /* コマの基本スタイル */
+    .panel {
+      border: 4px solid #fff;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-main {
+      grid-row: 1 / -1;
+      grid-column: 1 / -1;
+    }
+
+    /* ページごとの画像マッピング */
+    #page-1 .panel-main {
+      background-image: url('../assets/episode-8/page_1.jpg');
+    }
+    #page-2 .panel-main {
+      background-image: url('../assets/episode-8/page_2.jpg');
+    }
+    #page-3 .panel-main {
+      background-image: url('../assets/episode-8/page_3.jpg');
+    }
+    #page-4 .panel-main {
+      background-image: url('../assets/episode-8/page_4.jpg');
+    }
+    #page-5 .panel-main {
+      background-image: url('../assets/episode-8/page_5.jpg');
+    }
+    #page-6 .panel-main {
+      background-image: url('../assets/episode-8/page_6.jpg');
+    }
+    #page-7 .panel-main {
+      background-image: url('../assets/episode-8/page_7.jpg');
+    }
+    #page-8 .panel-main {
+      background-image: url('../assets/episode-8/page_8.jpg');
+    }
+    #page-9 .panel-main {
+      background-image: url('../assets/episode-8/page_9.jpg');
+    }
+    #page-10 .panel-main {
+      background-image: url('../assets/episode-8/page_10.jpg');
+    }
+    #page-11 .panel-main {
+      background-image: url('../assets/episode-8/page_11.jpg');
+    }
+    #page-12 .panel-main {
+      background-image: url('../assets/episode-8/page_12.jpg');
+    }
+
+    /* 吹き出しの基本スタイル */
+    .bubble {
+      position: absolute;
+      background-color: #fff;
+      color: #000;
+      border: 3px solid #000;
+      border-radius: 28px;
+      padding: 14px 22px;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      box-sizing: border-box;
+      max-width: 320px;
+      width: 85%;
+    }
+
+    /* モノローグ（黒背景・白文字・四角） */
+    .monologue {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.95);
+      color: #fff;
+      border: 2px solid #333;
+      padding: 10px 15px;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: bold;
+      z-index: 10;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    /* ショック（叫び吹き出し） */
+    .bubble-shock {
+      font-size: 24px;
+      font-family: 'Hiragino Mincho ProN', Georgia, serif;
+      border-width: 4px;
+      padding: 20px 35px;
+      border-radius: 30px;
+      animation: shake 0.5s infinite;
+      background-color: #fff;
+      color: #d32f2f;
+      border-color: #d32f2f;
+    }
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-2px, -2px) rotate(-1deg); }
+      40% { transform: translate(2px, 2px) rotate(1deg); }
+      60% { transform: translate(-1px, -1px) rotate(0deg); }
+      80% { transform: translate(1px, 1px) rotate(-1deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* 魔導コード・プロンプト表示用 */
+    .magic-code {
+      position: absolute;
+      background-color: rgba(10, 20, 30, 0.95);
+      color: #00ffcc;
+      border: 2px solid #00d2ff;
+      border-radius: 8px;
+      padding: 15px 20px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      z-index: 10;
+      box-shadow: 0 4px 20px rgba(0, 210, 255, 0.4);
+      box-sizing: border-box;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* 操作ガイド・フッター */
+    .footer-guide {
+      width: 800px;
+      max-width: 100%;
+      background: #1e1e1e;
+      border-top: 1px solid #333;
+      padding: 25px 20px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.6;
+      box-sizing: border-box;
+      color: #aaa;
+    }
+
+    .footer-guide a {
+      color: #00d2ff;
+      text-decoration: none;
+    }
+
+    .footer-guide a:hover {
+      text-decoration: underline;
+    }
+
+    /* モバイル・レスポンシブ対応 */
+    @media (max-width: 820px) {
+      .manga-scroll-container {
+        width: 100%;
+        padding: 10px 0;
+      }
+      .page-slide {
+        width: 100%;
+        max-width: 390px;
+        height: 550px;
+        padding: 8px;
+        margin-bottom: 30px;
+        gap: 6px;
+      }
+      .bubble {
+        font-size: 9px;
+        padding: 6px 10px;
+      }
+      .monologue {
+        font-size: 8px;
+        padding: 6px 10px;
+      }
+      .bubble-shock {
+        font-size: 13px;
+        padding: 8px 15px;
+      }
+      .magic-code {
+        font-size: 7px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>『JTCで死んだおじさん、異世界でAI推進して無双する』</h1>
+    <p>第8話：知性（AI）の囁くもっともらしい嘘、魔導ハルシネーションと人間のファクトチェック</p>
+  </header>
+
+  <!-- 縦スクロール漫画コンテナ -->
+  <div class="manga-scroll-container">
+
+    <!-- 1P: 盲信のトラウマ（前世の回想） -->
+    <div class="page-slide" id="page-1">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; right: 45px; max-width: 280px;">
+        宮本！ この大手コンサルの作ったAIシミュレーション報告書を見ろ！ この通りにやればコストが半分になるんだ！ 現場のお前の意見など聞いておらん！
+      </div>
+      <div class="bubble" style="top: 250px; left: 45px; max-width: 260px;">
+        待ってください！ このシミュレーションは前提の数式が実態とズレています。このままやると製造ラインがパンクします！
+      </div>
+      <div class="monologue" style="bottom: 40px; left: 50%; transform: translateX(-50%); width: 85%;">
+        もっともらしいデータや数字。人間は『賢そうなもの』が提示する嘘に、驚くほど弱い。だが、検証なき盲信は、必ず現場に破滅をもたらす。
+      </div>
+    </div>
+
+    <!-- 2P: 魔導企画書の奇跡 -->
+    <div class="page-slide" id="page-2">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        ハッハッハ！ 見たまえ諸君！ 世界最高のノア（Fable）に命じて、新しい『魔導送電網の最適化計画書』を作らせたぞ！ 完璧な計画が一瞬で出来上がった！
+      </div>
+      <div class="bubble" style="top: 280px; right: 45px; max-width: 260px;">
+        おおー！ さすがノアさん、ものすごく緻密で難解な魔導回路図が描かれています！
+      </div>
+    </div>
+
+    <!-- 3P: おじさんの違和感 -->
+    <div class="page-slide" id="page-3">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 280px;">
+        部長、この『エーテル逆流防止の術式（マナ・リバース・ロック）』ですが……世界樹の古文書にこんな術式ありましたっけ？ 聞いたことがないのですが。
+      </div>
+      <div class="bubble" style="top: 270px; right: 45px; max-width: 280px;">
+        フン、Fランクの平社員のおじさんには難しすぎたかな？ 世界最高のノア様が出した結論だぞ！ 存在しないわけがないだろう！
+      </div>
+    </div>
+
+    <!-- 4P: 盲信と魔導トランスの暴走 -->
+    <div class="page-slide" id="page-4">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 70px; left: 45px; max-width: 280px;">
+        レオン！ ぐずぐずするな、この計画書通りに送電網へマナを注入しろ！
+      </div>
+      <div class="bubble" style="top: 210px; right: 45px; max-width: 240px;">
+        はい！ マナ注入開始！
+      </div>
+      <div class="bubble" style="bottom: 80px; left: 45px; max-width: 290px;">
+        うわっ！？ エーテル圧力が異常上昇しています！ このままでは魔導変電所が過負荷で大爆発します！
+      </div>
+    </div>
+
+    <!-- 5P: AIの限界とハルシネーションの正体 -->
+    <div class="page-slide" id="page-5">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 70px; left: 45px; max-width: 280px;">
+        ど、どういうことだノア！ お前が作った完璧な計画だろう！
+      </div>
+      <div class="bubble" style="top: 230px; right: 45px; max-width: 290px;">
+        申し訳ありません。私は指示された条件に基づき、確率的に最も『もっともらしい』術式を生成しました。しかし、その術式が物理的にこの世界に存在するかどうかの『事実性』までは検証していません。
+      </div>
+      <div class="bubble" style="bottom: 80px; left: 50%; transform: translateX(-50%); max-width: 280px;">
+        な、なんだと……！？ AIが嘘をついたというのか！？
+      </div>
+    </div>
+
+    <!-- 6P: おじさんの介入と『グラウンディング魔法』 -->
+    <div class="page-slide" id="page-6">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 260px;">
+        そこまでにしておきなさい。
+      </div>
+      <div class="bubble" style="top: 250px; right: 45px; max-width: 290px;">
+        AIは確率で動く言葉のエンジンだ。自信満々に存在しない嘘を語ることもある。だからこそ、正しい『公式データベース』を参照させ、嘘をつく余地をなくす（グラウンディング）必要がある。
+      </div>
+    </div>
+
+    <!-- 7P: ハルシネーション対策プロンプトの構築 -->
+    <div class="page-slide" id="page-7">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 40px; left: 45px; max-width: 260px;">
+        な、何をする気だ！
+      </div>
+      <div class="magic-code" style="top: 180px; left: 50%; transform: translateX(-50%); width: 85%;">
+世界システムへ指示。
+前提：お前は厳格な魔導コード検証官だ。
+参照データ：[世界樹術式公式図鑑（マスターデータ）]
+
+指示：
+1. 提案された計画書に記載された術式が、参照データ内に実在するかファクトチェックせよ。
+2. 実在しない、または効果が保証されていない術式をすべて検出し、その理由を述べよ。
+3. 確信がない場合は『不明』と答え、絶対に新しい術式を捏造（ハルシネーション）するな。
+      </div>
+    </div>
+
+    <!-- 8P: 自己検証（Self-Correction）と再出力 -->
+    <div class="page-slide" id="page-8">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        検証完了。計画書中の『エーテル逆流防止の術式』は存在しないハルシネーション（幻覚）と判定。自己修正（Self-Correction）を実行。参照データに実在する『マナ安定化の第3法』に置き換えた代替コードを出力します。
+      </div>
+      <div class="bubble" style="top: 290px; right: 45px; max-width: 260px;">
+        status: 200 OK！ 修正コードの展開準備完了！
+      </div>
+    </div>
+
+    <!-- 9P: スマートデバッグとバルド部長の「なん、、、だと、、、」 -->
+    <div class="page-slide" id="page-9">
+      <div class="panel panel-main"></div>
+      <div class="bubble-shock" style="top: 150px; left: 50%; transform: translateX(-50%) rotate(-2deg); width: 85%;">
+        AIのついた嘘を見抜き……さらに、検証データと自己検証（Self-Correction）で、一瞬で完璧なコードに修正しただと……！？ な、な、なん、、、だと、、、！？！？！
+      </div>
+    </div>
+
+    <!-- 10P: 技術のタネ明かし（グラウンディングの重要性） -->
+    <div class="page-slide" id="page-10">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 260px;">
+        AIを過信するからそうなるんですよ。
+      </div>
+      <div class="bubble" style="top: 220px; right: 45px; max-width: 290px;">
+        AIは非常に優秀ですが、何もないところから『もっともらしい嘘』を生成してしまう性質を持っています。ですから、信頼できる資料をセットで与えて回答させる（グラウンディング）か、出力された内容をAI自身に検証させる（Self-Correction）仕組みが現場では必須なんです。
+      </div>
+    </div>
+
+    <!-- 11P: 人間による最終意思決定（Human-in-the-Loop） -->
+    <div class="page-slide" id="page-11">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 280px;">
+        ぐぬぬ……AIが作ったからと、中身を見ずに実行した私がバカだったか……
+      </div>
+      <div class="bubble" style="top: 220px; right: 45px; max-width: 290px;">
+        ええ。AIは非常に強力なアシスタントですが、最終的な検証と決定は人間が責任を持たなければならない。それが『Human-in-the-Loop』。AIを正しく使いこなすためのルールです。
+      </div>
+      <div class="bubble" style="bottom: 80px; left: 45px; max-width: 280px;">
+        分かった……今後はAIの出力に対して、必ず公式ドキュメントとの照合工程を義務化しよう。
+      </div>
+    </div>
+
+    <!-- 12P: 定時退社と乾杯 -->
+    <div class="page-slide" id="page-12">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 60px; left: 45px; max-width: 260px;">
+        AIが完璧じゃないからこそ、僕たち人間のチェックが価値を持つんですね！
+      </div>
+      <div class="bubble" style="top: 200px; right: 45px; max-width: 280px;">
+        タツヤは、自分が手動でダブルチェックするのが面倒だから、検証用のプロンプトを組んでサボろうとしただけですけどね。
+      </div>
+      <div class="bubble" style="bottom: 80px; left: 50%; transform: translateX(-50%); max-width: 320px; width: 80%;">
+        はは、バレたか。何はともあれ、定時だ。今夜は美味しいエールで乾杯しよう。
+      </div>
+    </div>
+
+  </div>
+
+  <!-- フッター操作ガイド -->
+  <div class="footer-guide">
+    『JTCで死んだおじさん、異世界でAI推進して無双する』第8話<br>
+    企画・制作：烏合ワークス / Ugou Works<br>
+    <a href="../episode-7/index.html">◀ 第7話へ</a> | <a href="../index.html">シリーズ一覧へ</a>
+  </div>
+
+</body>
+</html>
