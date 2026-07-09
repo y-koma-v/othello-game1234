@@ -24,11 +24,11 @@ window.UGOU_HOME = {
       number: "03",
       kind: "AI VIDEO",
       tone: "violet",
-      title: "プロンプトって何？",
-      summary: "同じAIでも聞き方で答えの質が変わる理由を、Ugouちゃんと60秒の縦型動画でやさしく解説します。",
-      href: "videos/prompt/index.html",
+      title: "ファインチューニングって何？",
+      summary: "AIを専門家に近づける追加学習を、Ugouちゃんと60秒の縦型動画でやさしく解説します。",
+      href: "videos/fine-tuning/index.html",
       action: "60秒動画を見る",
-      date: "2026.07.01"
+      date: "2026.07.08"
     },
     {
       number: "04",
