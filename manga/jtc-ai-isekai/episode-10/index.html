@@ -1,0 +1,431 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="ブラックボックス化したレガシーコードをAIで解析・リファクタリングし、仕様書を残して保守可能な仕組みに変える過程を描く実用ファンタジー漫画です。">
+  <link rel="canonical" href="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-10/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="烏合ワークス">
+  <meta property="og:title" content="第10話 レガシー・スパゲッティマクロ回路の自動デバッグ | JTCで死んだおじさん、異世界でAI推進して無双する">
+  <meta property="og:description" content="ブラックボックス化したレガシーコードをAIで解析・リファクタリングし、仕様書を残して保守可能な仕組みに変える過程を描きます。">
+  <meta property="og:url" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-10/index.html">
+  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/episode-10/page_1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/episode-10/page_1.jpg">
+  <script src="/assets/analytics.js"></script>
+  <title>第10話 レガシー・スパゲッティマクロ回路の自動デバッグ | JTCで死んだおじさん、異世界でAI推進して無双する | 烏合ワークス</title>
+  <style>
+    /* 共通デザインシステム（ダークテーマ） */
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      margin: 30px 0 20px 0;
+      text-align: center;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 22px;
+      margin: 0;
+      color: #00d2ff;
+      letter-spacing: 0.05em;
+    }
+
+    header p {
+      font-size: 13px;
+      margin: 8px 0 0 0;
+      color: #888;
+    }
+
+    /* 縦スクロール漫画のコンテナ */
+    .manga-scroll-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 800px;
+      background-color: #000;
+      border-left: 1px solid #333;
+      border-right: 1px solid #333;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+      padding: 20px 0;
+    }
+
+    /* 各ページスライド（縦に並ぶ） */
+    .page-slide {
+      position: relative;
+      width: 800px;
+      height: 1130px;
+      padding: 16px;
+      box-sizing: border-box;
+      display: grid;
+      gap: 12px;
+      margin-bottom: 40px;
+      border-bottom: 2px dashed #222;
+    }
+
+    .page-slide:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    /* コマの基本スタイル */
+    .panel {
+      border: 4px solid #fff;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-main {
+      grid-row: 1 / -1;
+      grid-column: 1 / -1;
+    }
+
+    /* ページごとの画像マッピング */
+    #page-1 .panel-main {
+      background-image: url('../assets/episode-10/page_1.jpg');
+    }
+    #page-2 .panel-main {
+      background-image: url('../assets/episode-10/page_2.jpg');
+    }
+    #page-3 .panel-main {
+      background-image: url('../assets/episode-10/page_3.jpg');
+    }
+    #page-4 .panel-main {
+      background-image: url('../assets/episode-10/page_4.jpg');
+    }
+    #page-5 .panel-main {
+      background-image: url('../assets/episode-10/page_5.jpg');
+    }
+    #page-6 .panel-main {
+      background-image: url('../assets/episode-10/page_6.jpg');
+    }
+    #page-7 .panel-main {
+      background-image: url('../assets/episode-10/page_7.jpg');
+    }
+    #page-8 .panel-main {
+      background-image: url('../assets/episode-10/page_8.jpg');
+    }
+    #page-9 .panel-main {
+      background-image: url('../assets/episode-10/page_9.jpg');
+    }
+    #page-10 .panel-main {
+      background-image: url('../assets/episode-10/page_10.jpg');
+    }
+    #page-11 .panel-main {
+      background-image: url('../assets/episode-10/page_11.jpg');
+    }
+    #page-12 .panel-main {
+      background-image: url('../assets/episode-10/page_12.jpg');
+    }
+
+    /* 吹き出しの基本スタイル */
+    .bubble {
+      position: absolute;
+      background-color: #fff;
+      color: #000;
+      border: 3px solid #000;
+      border-radius: 28px;
+      padding: 14px 22px;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      box-sizing: border-box;
+      max-width: 320px;
+      width: 85%;
+    }
+
+    /* モノローグ（黒背景・白文字・四角） */
+    .monologue {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.95);
+      color: #fff;
+      border: 2px solid #333;
+      padding: 10px 15px;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: bold;
+      z-index: 10;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    /* ショック（叫び吹き出し） */
+    .bubble-shock {
+      font-size: 24px;
+      font-family: 'Hiragino Mincho ProN', Georgia, serif;
+      border-width: 4px;
+      padding: 20px 35px;
+      border-radius: 30px;
+      animation: shake 0.5s infinite;
+      background-color: #fff;
+      color: #d32f2f;
+      border-color: #d32f2f;
+    }
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-2px, -2px) rotate(-1deg); }
+      40% { transform: translate(2px, 2px) rotate(1deg); }
+      60% { transform: translate(-1px, -1px) rotate(0deg); }
+      80% { transform: translate(1px, 1px) rotate(-1deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* 魔導コード・プロンプト表示用 */
+    .magic-code {
+      position: absolute;
+      background-color: rgba(10, 20, 30, 0.95);
+      color: #00ffcc;
+      border: 2px solid #00d2ff;
+      border-radius: 8px;
+      padding: 15px 20px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      z-index: 10;
+      box-shadow: 0 4px 20px rgba(0, 210, 255, 0.4);
+      box-sizing: border-box;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* 操作ガイド・フッター */
+    .footer-guide {
+      width: 800px;
+      max-width: 100%;
+      background: #1e1e1e;
+      border-top: 1px solid #333;
+      padding: 25px 20px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.6;
+      box-sizing: border-box;
+      color: #aaa;
+    }
+
+    .footer-guide a {
+      color: #00d2ff;
+      text-decoration: none;
+    }
+
+    .footer-guide a:hover {
+      text-decoration: underline;
+    }
+
+    /* モバイル・レスポンシブ対応 */
+    @media (max-width: 820px) {
+      .manga-scroll-container {
+        width: 100%;
+        padding: 10px 0;
+      }
+      .page-slide {
+        width: 100%;
+        max-width: 390px;
+        height: 550px;
+        padding: 8px;
+        margin-bottom: 30px;
+        gap: 6px;
+      }
+      .bubble {
+        font-size: 9px;
+        padding: 6px 10px;
+      }
+      .monologue {
+        font-size: 8px;
+        padding: 6px 10px;
+      }
+      .bubble-shock {
+        font-size: 13px;
+        padding: 8px 15px;
+      }
+      .magic-code {
+        font-size: 7px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>『JTCで死んだおじさん、異世界でAI推進して無双する』</h1>
+    <p>第10話：レガシー・スパゲッティマクロ回路の自動デバッグ</p>
+  </header>
+
+  <!-- 縦スクロール漫画コンテナ -->
+  <div class="manga-scroll-container">
+
+    <!-- 1P: 引き継ぎ無き暗黒（前世の回想） -->
+    <div class="page-slide" id="page-1">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 280px;">
+        宮本さん、例の『神マクロ』を作った鈴木先輩、昨日で退職しちゃいました……。ドキュメントも仕様書も一切ありません
+      </div>
+      <div class="bubble" style="top: 250px; right: 45px; max-width: 280px;">
+        マジかよ……。コメント一行すら書いてないし、変数が全部『a』とか『b』で中身が全く読めないぞ……。これを明日までに修正しろってか……？
+      </div>
+      <div class="monologue" style="bottom: 40px; left: 50%; transform: translateX(-50%); width: 85%;">
+        前任者の突然の退職、ドキュメント無しのブラックボックスシステム、そして触ると壊れる『野良マクロ』。それは、かつて数え切れないエンジニアをデスマーチに追い込んできた魔物だった。
+      </div>
+    </div>
+
+    <!-- 2P: 異世界のスパゲッティ回路 -->
+    <div class="page-slide" id="page-2">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        うう……送電回路の出力が不安定なのに、どこが原因か全く分からない……。前の担当者が辞めてから、この『秘伝の古代回路』の構造を知る人は社内に誰もいないのに……
+      </div>
+      <div class="bubble" style="top: 280px; right: 45px; max-width: 260px;">
+        レイラさん、顔色が悪いよ。もう何日徹夜してるんだ？
+      </div>
+    </div>
+
+    <!-- 3P: パワハラ部長の無茶振り -->
+    <div class="page-slide" id="page-3">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 70px; left: 45px; max-width: 280px;">
+        おい！ 送電網の出力低下の件はどうなっている！ 本日中に障害を解消せよ！ さもなければ、お前は減給処分だ！
+      </div>
+      <div class="bubble" style="top: 220px; left: 45px; max-width: 260px;">
+        で、ですが、この術式は前任者の残した複雑な構造で、解析するだけで数ヶ月は……
+      </div>
+      <div class="bubble" style="top: 350px; right: 45px; max-width: 280px;">
+        言い訳は無用！ ただし、この回路はかつての大賢者様が設計した神聖な伝統のものだ！ 伝統のコード（術式）は一行たりとも改変することは許さん！ そのまま復旧させろ！
+      </div>
+    </div>
+
+    <!-- 4P: おじさんの介入 -->
+    <div class="page-slide" id="page-4">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        部長、中身が読めないブラックボックスシステムを、構造を変えずにその場しのぎで直そうとすれば、いずれ大きな破滅（大障害）を引き起こしますよ。それに、徹夜の社員にこれ以上の残業は無意味です
+      </div>
+      <div class="bubble" style="top: 280px; right: 45px; max-width: 260px;">
+        レイラさん……？
+      </div>
+    </div>
+
+    <!-- 5P: 伝統の盾と敵の嘲笑 -->
+    <div class="page-slide" id="page-5">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 70px; left: 45px; max-width: 285px;">
+        ハッ！ 魔力Fランクのおじさん平社員が何を偉そうに！ この『大賢者の術式』は、一歩間違えれば魔導回路が大爆発を起こし、公社はおろかこの街の半分が吹き飛ぶと言われている！ 素人が下手に触れる代物ではないわ！
+      </div>
+      <div class="bubble" style="top: 270px; right: 45px; max-width: 260px;">
+        ……なるほど。まあ、爆発させずに、綺麗に中身を解きほぐせば（リファクタリングすれば）いいんですね
+      </div>
+    </div>
+
+    <!-- 6P: アリアによる高速解析（スキャン） -->
+    <div class="page-slide" id="page-6">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 280px;">
+        スキャン完了です。……はぁ、ため息が出ますね。何ですかこの回路？ 全く意味のない魔力変数が乱立していますし、無駄な呪文ループが3重に重なっています。典型的な『場当たり改修のスパゲッティコード』ですよ。大賢者が作ったというのはただの伝説で、実際は初心者レベルですね
+      </div>
+      <div class="bubble" style="top: 300px; right: 45px; max-width: 260px;">
+        えっ、大賢者様の術式が無駄だらけ……！？
+      </div>
+    </div>
+
+    <!-- 7P: AI解析魔法（プロンプト）の展開 -->
+    <div class="page-slide" id="page-7">
+      <div class="panel panel-main"></div>
+      <div class="magic-code" style="top: 100px; left: 50%; transform: translateX(-50%); width: 90%;">
+世界システムへ指示。
+以下の古代魔導術式を解析せよ。
+
+[解析指示]
+1. 術式全体の「目的（送電制御）」を人間向けに要約せよ。
+2. 術式内の「魔力変数」の対応関係を一覧化せよ。
+3. 不要な無限ループ、未使用パラメータの無駄を抽出せよ。
+
+[リファクタリング指示]
+- 機能は同一のまま、魔力消費を最小化し、可読性を極限まで高めた「新魔導術式」を作成せよ。
+- 変更点と理由を箇条書きで出力せよ。
+- 新術式の各行に、処理内容を説明する「注釈（コメント）」を付与せよ。
+      </div>
+    </div>
+
+    <!-- 8P: からみ合う術式の解きほぐし -->
+    <div class="page-slide" id="page-8">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 100px; left: 50%; transform: translateX(-50%); width: 85%;">
+        古い術式を分解！ 不要な魔力リーク回路をカットし、最適な魔力分配ロジックで再構築します！
+      </div>
+    </div>
+
+    <!-- 9P: ドキュメント（仕様書）の自動出力 -->
+    <div class="page-slide" id="page-9">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        はい、綺麗に書き直しました。これで魔力消費効率は従来比で80%改善です。ついでに、どの部分が何をしているかを分かりやすく書いた『仕様書』も出しておきましたから
+      </div>
+      <div class="bubble" style="top: 260px; right: 45px; max-width: 260px;">
+        すごい……！ 術式の各行に、何をしているかの解説（コメント）がびっしり書いてある……！ これなら私でもメンテナンスできる！
+      </div>
+    </div>
+
+    <!-- 10P: システム再起動 ＆ 「なん、、、だと、、、」 -->
+    <div class="page-slide" id="page-10">
+      <div class="panel panel-main"></div>
+      <div class="bubble bubble-shock" style="top: 150px; left: 50%; transform: translateX(-50%); width: 85%;">
+        大賢者の秘伝術式を瞬時に解剖し……無駄を削ぎ落として美しく書き換えたばかりか……完璧な仕様書（解説書）まで生み出しただと……！？ な、な、なん、、、だと、、、！！？
+      </div>
+    </div>
+
+    <!-- 11P: ドキュメントなきシステムの脆弱性 -->
+    <div class="page-slide" id="page-11">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        どんなに優れたシステムであっても、ドキュメントがなく、中身がブラックボックス化したものは『負の遺産』でしかありません。触るのを恐れて放置すれば、いつか必ず爆発する。AIを使ってそれを解きほぐし、誰もが理解できるドキュメントを残すこと。それが本当のシステム保守（管理）です
+      </div>
+      <div class="bubble" style="top: 280px; right: 45px; max-width: 260px;">
+        ドキュメントを残すことの大切さ……深く身に沁みました……！
+      </div>
+    </div>
+
+    <!-- 12P: 定時退社と美味しいエール -->
+    <div class="page-slide" id="page-12">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 280px;">
+        タツヤさん、本当にありがとうございました！ 今日は久しぶりにゆっくり眠れそうです！
+      </div>
+      <div class="bubble" style="top: 240px; right: 45px; max-width: 260px;">
+        どういたしまして。さあ、定時だから早く帰ろう。今日こそは美味しい冷えたエールをゆっくり楽しむとしよう
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-guide">
+    『JTCで死んだおじさん、異世界でAI推進して無双する』第10話<br>
+    企画・制作：烏合ワークス / Ugou Works<br>
+    <a href="../episode-9/index.html">◀ 第9話へ</a> | <a href="../index.html">シリーズ一覧へ</a>
+  </div>
+
+</body>
+</html>
