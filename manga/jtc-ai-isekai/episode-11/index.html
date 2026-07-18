@@ -1,0 +1,456 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="目的も課題もない『AIで何か面白いことを』という丸投げから、対話でボトルネックを特定し、使える要件へ変える過程を描く実用ファンタジー漫画です。">
+  <link rel="canonical" href="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-11/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="烏合ワークス">
+  <meta property="og:title" content="第11話 『AIで何か面白いことやって』と丸投げする上司と、目的を見失ったPoCの墓場">
+  <meta property="og:description" content="曖昧なAI導入を、対話による課題抽出と要件定義で、実際に役立つ仕組みへ変えていく物語です。">
+  <meta property="og:url" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-11/index.html">
+  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/episode-11/page_1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/episode-11/page_1.jpg">
+  <script src="/assets/analytics.js"></script>
+  <title>第11話 「AIで何か面白いことやって」と丸投げする上司と、目的を見失ったPoCの墓場 | JTCで死んだおじさん、異世界でAI推進して無双する | 烏合ワークス</title>
+  <style>
+    /* 共通デザインシステム（ダークテーマ） */
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      margin: 30px 0 20px 0;
+      text-align: center;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 22px;
+      margin: 0;
+      color: #00d2ff;
+      letter-spacing: 0.05em;
+    }
+
+    header p {
+      font-size: 13px;
+      margin: 8px 0 0 0;
+      color: #888;
+    }
+
+    /* 縦スクロール漫画のコンテナ */
+    .manga-scroll-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 800px;
+      background-color: #000;
+      border-left: 1px solid #333;
+      border-right: 1px solid #333;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+      padding: 20px 0;
+    }
+
+    /* 各ページスライド（縦に並ぶ） */
+    .page-slide {
+      position: relative;
+      width: 800px;
+      height: 1130px;
+      padding: 16px;
+      box-sizing: border-box;
+      display: grid;
+      gap: 12px;
+      margin-bottom: 40px;
+      border-bottom: 2px dashed #222;
+    }
+
+    .page-slide:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    /* コマの基本スタイル */
+    .panel {
+      border: 4px solid #fff;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-main {
+      grid-row: 1 / -1;
+      grid-column: 1 / -1;
+    }
+
+    /* ページごとの画像マッピング */
+    #page-1 .panel-main {
+      background-image: url('../assets/episode-11/page_1.jpg');
+    }
+    #page-2 .panel-main {
+      background-image: url('../assets/episode-11/page_2.jpg');
+    }
+    #page-3 .panel-main {
+      background-image: url('../assets/episode-11/page_3.jpg');
+    }
+    #page-4 .panel-main {
+      background-image: url('../assets/episode-11/page_4.jpg');
+    }
+    #page-5 .panel-main {
+      background-image: url('../assets/episode-11/page_5.jpg');
+    }
+    #page-6 .panel-main {
+      background-image: url('../assets/episode-11/page_6.jpg');
+    }
+    #page-7 .panel-main {
+      background-image: url('../assets/episode-11/page_7.jpg');
+    }
+    #page-8 .panel-main {
+      background-image: url('../assets/episode-11/page_8.jpg');
+    }
+    #page-9 .panel-main {
+      background-image: url('../assets/episode-11/page_9.jpg');
+    }
+    #page-10 .panel-main {
+      background-image: url('../assets/episode-11/page_10.jpg');
+    }
+    #page-11 .panel-main {
+      background-image: url('../assets/episode-11/page_11.jpg');
+    }
+    #page-12 .panel-main {
+      background-image: url('../assets/episode-11/page_12.jpg');
+    }
+
+    /* 吹き出しの基本スタイル */
+    .bubble {
+      position: absolute;
+      background-color: #fff;
+      color: #000;
+      border: 3px solid #000;
+      border-radius: 28px;
+      padding: 14px 22px;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      box-sizing: border-box;
+      max-width: 320px;
+      width: 85%;
+    }
+
+    /* モノローグ（黒背景・白文字・四角） */
+    .monologue {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.95);
+      color: #fff;
+      border: 2px solid #333;
+      padding: 10px 15px;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: bold;
+      z-index: 10;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    /* ショック（叫び吹き出し） */
+    .bubble-shock {
+      font-size: 24px;
+      font-family: 'Hiragino Mincho ProN', Georgia, serif;
+      border-width: 4px;
+      padding: 20px 35px;
+      border-radius: 30px;
+      animation: shake 0.5s infinite;
+      background-color: #fff;
+      color: #d32f2f;
+      border-color: #d32f2f;
+    }
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-2px, -2px) rotate(-1deg); }
+      40% { transform: translate(2px, 2px) rotate(1deg); }
+      60% { transform: translate(-1px, -1px) rotate(0deg); }
+      80% { transform: translate(1px, 1px) rotate(-1deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* 魔導コード・プロンプト表示用 */
+    .magic-code {
+      position: absolute;
+      background-color: rgba(10, 20, 30, 0.95);
+      color: #00ffcc;
+      border: 2px solid #00d2ff;
+      border-radius: 8px;
+      padding: 15px 20px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      z-index: 10;
+      box-shadow: 0 4px 20px rgba(0, 210, 255, 0.4);
+      box-sizing: border-box;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* 操作ガイド・フッター */
+    .footer-guide {
+      width: 800px;
+      max-width: 100%;
+      background: #1e1e1e;
+      border-top: 1px solid #333;
+      padding: 25px 20px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.6;
+      box-sizing: border-box;
+      color: #aaa;
+    }
+
+    .footer-guide a {
+      color: #00d2ff;
+      text-decoration: none;
+    }
+
+    .footer-guide a:hover {
+      text-decoration: underline;
+    }
+
+    /* モバイル・レスポンシブ対応 */
+    @media (max-width: 820px) {
+      .manga-scroll-container {
+        width: 100%;
+        padding: 10px 0;
+      }
+      .page-slide {
+        width: 100%;
+        max-width: 390px;
+        height: 550px;
+        padding: 8px;
+        margin-bottom: 30px;
+        gap: 6px;
+      }
+      .bubble {
+        font-size: 9px;
+        padding: 6px 10px;
+      }
+      .monologue {
+        font-size: 8px;
+        padding: 6px 10px;
+      }
+      .bubble-shock {
+        font-size: 13px;
+        padding: 8px 15px;
+      }
+      .magic-code {
+        font-size: 7px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>『JTCで死んだおじさん、異世界でAI推進して無双する』</h1>
+    <p>第11話：「AIで何か面白いことやって」と丸投げする上司と、目的を見失ったPoCの墓場</p>
+  </header>
+
+  <!-- 縦スクロール漫画コンテナ -->
+  <div class="manga-scroll-container">
+
+    <!-- 1P: 目的なきPoCの闇（前世の回想） -->
+    <div class="page-slide" id="page-1">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 280px;">
+        宮本くん、今流行りの『AI』を使って、何かうちの業務がドカンと変わる面白いシステム、今週中に作ってよ
+      </div>
+      <div class="bubble" style="top: 250px; right: 45px; max-width: 280px;">
+        具体的にどの業務をどう変えるんですか？ 目的や課題は……？<br><br>
+        <strong>上司：</strong>それを考えるのがエンジニアの仕事だろ！ とりあえず作ってみて！
+      </div>
+      <div class="monologue" style="bottom: 40px; left: 50%; transform: translateX(-50%); width: 85%;">
+        『とりあえずAIで何かやって』。その言葉は、目的も課題も曖昧なまま、動作するだけのガラクタを量産し、最後には誰にも使われずに放置される『PoC（概念実証）の墓場』を作り出す魔法の呪文だった。
+      </div>
+    </div>
+
+    <!-- 2P: 異世界のPoCの墓場 -->
+    <div class="page-slide" id="page-2">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        うう……また却下された……。これで10個目の試作魔導具なのに……
+      </div>
+      <div class="bubble" style="top: 280px; right: 45px; max-width: 280px;">
+        レオンくん、どうしたんだ？ その机の上のガラクタの山は？<br><br>
+        <strong>レオン：</strong>タツヤさん……！ 実はバルド部長から『AI魔法を使って、魔導システム課の業務を劇的に変える凄いツールを今週中に作れ』と言われて、色々作っているんですが……
+      </div>
+    </div>
+
+    <!-- 3P: パワハラ部長の『何か凄いもの』 -->
+    <div class="page-slide" id="page-3">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 70px; left: 45px; max-width: 280px;">
+        おい！ さっきの『天気予報を自動でスクロールする魔導具』は何だ！ 全く凄さがわからん！ 我が社の魔導インフラにどう役に立つというのだ！
+      </div>
+      <div class="bubble" style="top: 220px; left: 45px; max-width: 260px;">
+        えっ、でも『何か面白いものを』とおっしゃったので……。では、こちらの『魔導システム課の室温をAIで微調整する魔導具』は……
+      </div>
+      <div class="bubble" style="top: 350px; right: 45px; max-width: 280px;">
+        こんなものに予算を割けるか！ 私が求めているのは、我が部の業務が劇的に効率化する、見た瞬間に誰もが驚く『凄いAI魔法』だ！ 役に立たないガラクタばかり作りおって、無能めが！
+      </div>
+    </div>
+
+    <!-- 4P: おじさんの介入 -->
+    <div class="page-slide" id="page-4">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 295px;">
+        部長、目的も要件も定義されていない状態で『何か凄いもの』を作ろうとすれば、どんなに優秀な魔導師でもガラクタしか作れません。現場の本当の課題を分析せずにAI魔法を導入しても、それは単なる『PoCの墓場』を広げるだけです
+      </div>
+      <div class="bubble" style="top: 280px; right: 45px; max-width: 280px;">
+        ふん、Fランクのタツヤか。御託はいい！ ならばお前が、私を満足させる『凄いAI魔法』を今すぐ作ってみせろ！ 作れなければ、お前もレオンもクビだ！
+      </div>
+    </div>
+
+    <!-- 5P: AI丸投げの嘲笑 -->
+    <div class="page-slide" id="page-5">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 70px; left: 45px; max-width: 285px;">
+        ハッ！ AI魔法など、アリアという精霊に『凄くて便利なものを作れ』と命令すれば、一瞬で解決するはずだろう！ なぜそれができん！ 結局は現場の怠慢だ！
+      </div>
+      <div class="bubble" style="top: 270px; right: 45px; max-width: 290px;">
+        ……なるほど。部長は『AI魔法』を魔法の杖か何かと勘違いしているようですね。AIへの命令（プロンプト）は、何をしてほしいかの『要件定義』そのものです。前提条件や解決すべき課題を明確にしないと、AIもまともな答えを返せません
+      </div>
+    </div>
+
+    <!-- 6P: アリアによるデバッグ（壁打ち）の提案 -->
+    <div class="page-slide" id="page-6">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        まったく、また主語の大きい丸投げおじさんですか。タツヤ、この人の頭の中の『ふわっとした妄想』をデバッグして、何に困っているのか要件定義してあげましょうか？ 私の『対話型課題抽出プロンプト』を使えば、この人の貧弱な脳内ソースコードも少しは整理されるでしょう
+      </div>
+      <div class="bubble" style="top: 300px; right: 45px; max-width: 260px;">
+        な、何だとこの生意気な精霊め！ 私の脳内を整理するだと！？
+      </div>
+    </div>
+
+    <!-- 7P: AIインタビュー魔法（プロンプト）の展開 -->
+    <div class="page-slide" id="page-7">
+      <div class="panel panel-main"></div>
+      <div class="magic-code" style="top: 100px; left: 50%; transform: translateX(-50%); width: 90%;">
+世界システムへ指示。
+対話型ビジネスアナリストとして機能せよ。
+
+[役割]
+目の前のユーザー（バルド部長）から、具体的な課題とゴールをインタビューにより引き出すこと。
+
+[対話プロセス]
+1. 一度に複数の質問をせず、必ず「1回につき1つの質問」を行え。
+2. ユーザーの回答が抽象的（例：「凄いもの」「効率化」）な場合は、具体的な作業内容（いつ、誰が、何をしているか）を深掘りせよ。
+3. 以下の項目を順次明らかにせよ：
+   - 現在、最も時間や手間がかかっている「具体的な業務」
+   - その業務で発生している「ボトルネック（手作業、ミス、遅延など）」
+   - 解決によって得たい「理想的なゴール」
+4. 情報が揃った段階で、AIで自動化・解決可能な「具体的な魔導要件」をまとめ、提示せよ。
+      </div>
+    </div>
+
+    <!-- 8P: バルド部長へのインタビュー -->
+    <div class="page-slide" id="page-8">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 280px;">
+        バルド部長。あなたが魔導監査部で『一番面倒で、時間がかかっている具体的な作業』は何ですか？
+      </div>
+      <div class="bubble" style="top: 200px; right: 45px; max-width: 270px;">
+        えっ？ そ、それは……各部署から送られてくる膨大な『魔導経費申請書』の監査だ！
+      </div>
+      <div class="bubble" style="top: 320px; left: 45px; max-width: 280px;">
+        その監査作業の、どの部分に最も時間とストレスを感じていますか？
+      </div>
+      <div class="bubble" style="top: 450px; right: 45px; max-width: 290px;">
+        ……実は、同じ申請が二重に提出されていたり、昨日の申請と今日の申請で金額が矛盾していたりするのを、何百枚もの紙の束から手作業で見つけ出さねばならんのだ！ 目がチカチカする！
+      </div>
+    </div>
+
+    <!-- 9P: ボトルネックの特定と要件定義の完了 -->
+    <div class="page-slide" id="page-9">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        課題特定完了。ボトルネックは『複数文書間にまたがるデータの重複・矛盾の手動チェック』です。ゴールは『監査作業の自動化および不正・重複の即時検知』。これを解決するAI魔法の仕様を定義しました
+      </div>
+      <div class="bubble" style="top: 260px; right: 45px; max-width: 270px;">
+        な、何だこれは……！ 私の言った愚痴が、綺麗に整理されて『システム要件』になっている……！？
+      </div>
+      <div class="bubble" style="bottom: 80px; left: 45px; max-width: 280px;">
+        課題が定義できれば、解決策を作るのは一瞬です。アリア、この要件に沿って『経費監査デバッグ魔法』を実行してくれ
+      </div>
+    </div>
+
+    <!-- 10P: 監査デバッグ魔法の発動 ＆ 「なん、、、だと、、、」 -->
+    <div class="page-slide" id="page-10">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        スキャン終了。こちらの3通は、先週提出されたものと『申請者』『金額』『魔導術式コード』が完全に重複しています。二重請求の疑いありとして検知しました
+      </div>
+      <div class="bubble bubble-shock" style="top: 260px; left: 50%; transform: translateX(-50%); width: 85%;">
+        私が丸一日かけても時々見落とす『二重請求の不正』を……アリアに要件を定義しただけで、たった数秒で完璧に検知しただと……！？ な、な、なん、、、だと、、、！！？
+      </div>
+    </div>
+
+    <!-- 11P: 目的のないツールの無意味さ -->
+    <div class="page-slide" id="page-11">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        どれほど強力なAI魔法であっても、『何を解決したいか』という目的がなければ、ただの飾りです。道具が凄いのではない。道具を『何の課題に使うか』を定義する人間の要件定義こそが、最も価値があるのです
+      </div>
+      <div class="bubble" style="top: 280px; right: 45px; max-width: 280px;">
+        そうか……僕は部長の『何か凄いものを』という曖昧な言葉に振り回されて、目的のないツールばかり作っていたんだ……！
+      </div>
+      <div class="bubble" style="bottom: 80px; left: 45px; max-width: 280px;">
+        ぐ、ぐぬぬ……要件定義……目的の設定……。AI魔法とは、こうして使うものだったのか……
+      </div>
+    </div>
+
+    <!-- 12P: 定時退社とPoCの片付け -->
+    <div class="page-slide" id="page-12">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 280px;">
+        タツヤさん、ありがとうございました！ 次からは部長から丸投げされても、まずは『要件定義』の壁打ちから始めるようにします！
+      </div>
+      <div class="bubble" style="top: 230px; right: 45px; max-width: 280px;">
+        その意気だ。さあ、課題も片付いたし、定時だから帰ろう。今日は冷えたエールをゆっくり楽しもう
+      </div>
+      <div class="bubble" style="bottom: 80px; left: 45px; max-width: 280px;">
+        タツヤ、要件定義のインタビューなら、いつでも手伝ってあげますよ。まあ、お礼に美味しいエールを一杯奢ってくれるなら、ですけどね？
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-guide">
+    『JTCで死んだおじさん、異世界でAI推進して無双する』第11話<br>
+    企画・制作：烏合ワークス / Ugou Works<br>
+    <a href="../episode-10/index.html">◀ 第10話へ</a> | <a href="../index.html">シリーズ一覧へ</a>
+  </div>
+
+</body>
+</html>
