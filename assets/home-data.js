@@ -4,11 +4,11 @@
       number: "01",
       kind: "ARTICLE",
       tone: "amber",
-      title: "生成AIで作った素材、公開前に確認すべき5つのチェックポイント",
-      summary: "AIイラスト・AI音楽・AI生成文章を公開前にどう確認するか。商用利用、権利、第三者素材の実務チェック。",
-      href: "articles/ai-generated-assets-rights-checklist/index.html",
+      title: "サイトを更新したのに変わらない——CDNキャッシュでハマった話",
+      summary: "公開は成功しているのに古いページが見える。原因の切り分けと、追加費用なく組み込んだ再発防止策。",
+      href: "articles/cdn-cache-not-updating-lesson/index.html",
       action: "記事を読む",
-      date: "2026.07.05"
+      date: "2026.07.18"
     },
     {
       number: "02",

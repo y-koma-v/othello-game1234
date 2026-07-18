@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>サイトを更新したのに変わらない——CDNキャッシュでハマった話と再発防止 | 烏合ワークス</title>
+  <meta name="description" content="サイトを更新したのにブラウザでは古いまま。CDNキャッシュが原因と分かるまでの切り分けと、追加費用なく自動化した再発防止策を紹介します。">
+  <link rel="canonical" href="https://works.ugounosyu-aiblog.com/articles/cdn-cache-not-updating-lesson/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="烏合ワークス">
+  <meta property="og:title" content="サイトを更新したのに変わらない——CDNキャッシュでハマった話と再発防止">
+  <meta property="og:description" content="サイトを更新したのにブラウザでは古いまま。CDNキャッシュが原因と分かるまでの切り分けと、追加費用なく自動化した再発防止策を紹介します。">
+  <meta property="og:url" content="https://works.ugounosyu-aiblog.com/articles/cdn-cache-not-updating-lesson/index.html">
+  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/assets/brand/ugou-works-common-ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://works.ugounosyu-aiblog.com/assets/brand/ugou-works-common-ogp.png">
+  <link rel="stylesheet" href="../../works-hub.css">
+  <style>
+    .article-body{max-width:760px}.article-body h2{margin-top:2.6rem;font-size:1.35rem}.article-body h3{margin-top:1.6rem;font-size:1.08rem}
+    .article-body p{line-height:1.95;margin:1rem 0}.article-body ul,.article-body ol{line-height:1.9;margin:1rem 0;padding-left:1.3rem}
+    .article-body li{margin:.35rem 0}.article-meta{font-size:.85rem;opacity:.7;margin-bottom:1.5rem}
+    .article-note{background:rgba(255,255,255,.06);border-left:3px solid currentColor;padding:.9rem 1rem;font-size:.92rem;opacity:.88;border-radius:6px}
+    .code{overflow-x:auto;background:rgba(0,0,0,.3);padding:1rem;border-radius:6px;white-space:pre-wrap}
+    .related-links{margin-top:3rem;padding:1.2rem;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.04)}
+    .related-links h2{margin-top:0}.article-foot{margin-top:3rem;font-size:.9rem;opacity:.82}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"サイトを更新したのに変わらない——CDNキャッシュでハマった話と再発防止","description":"サイトを更新したのにブラウザでは古いまま。CDNキャッシュが原因と分かるまでの切り分けと、追加費用なく自動化した再発防止策を紹介します。","author":{"@type":"Organization","name":"烏合ワークス"},"publisher":{"@type":"Organization","name":"烏合ワークス"},"datePublished":"2026-07-18","dateModified":"2026-07-18","mainEntityOfPage":"https://works.ugounosyu-aiblog.com/articles/cdn-cache-not-updating-lesson/index.html","inLanguage":"ja"}</script>
+  <script src="/assets/analytics.js"></script>
+</head>
+<body>
+  <main class="page-shell article-body">
+    <a class="back-link" href="../index.html">← 記事一覧へ</a>
+    <p class="eyebrow">Articles / Site operations</p>
+    <h1>サイトを更新したのに変わらない——CDNキャッシュでハマった話と再発防止</h1>
+    <p class="article-meta">烏合ワークス ・ 2026-07-18</p>
+
+    <p>「公開処理は終わったのに、サイトを開くと前のまま」。自分たちの静的サイトで、実際にこの状況へ遭遇しました。</p>
+    <p>ファイルはクラウドストレージ上で新しくなっているのに、公開URLでは古いページが表示されます。原因は公開失敗ではなく、CDN（コンテンツ配信ネットワーク）に残ったキャッシュでした。</p>
+    <p>この記事では、原因をどう切り分けたか、更新フローへどんな再発防止を加えたかを紹介します。</p>
+
+    <h2>ストレージは新しいのに、公開URLは古かった</h2>
+    <p>サイトは、静的ファイルをクラウドストレージへ置き、その手前のCDNから配信する構成です。更新ファイルの同期は正常に終わり、ストレージ上の内容も新しくなっていました。それでもブラウザには古いページが出続けました。</p>
+    <p>シークレットウィンドウや別回線でも変わらなかったため、ブラウザだけのキャッシュではないと考え、HTTPレスポンスヘッダーを確認しました。</p>
+    <pre class="code"><code>curl -I https://example.com/</code></pre>
+    <p>CDNによってヘッダー名は異なりますが、CloudFrontなら <code>Age</code> や <code>X-Cache</code> が切り分けの手がかりになります。確認の結果、CDN側に保持された古い応答が配信されていると分かりました。</p>
+
+    <h2>ファイル更新とキャッシュ更新は別工程</h2>
+    <p>CDNは配信を速くするため、一度取得したファイルを一定時間保持します。そのため、配信元のファイルを更新しても、CDNのキャッシュがすぐ入れ替わるとは限りません。</p>
+    <p>自分たちの更新フローはストレージへの同期で終わっており、CDNへ古いキャッシュの破棄を依頼する工程がありませんでした。「ファイルを更新すれば表示も更新される」という思い込みが、手順漏れにつながりました。</p>
+
+    <h2>更新フローへインバリデーションを追加した</h2>
+    <p>CloudFrontには、指定したパスのキャッシュを無効化するインバリデーション機能があります。これを手作業ではなく、公開フローへ組み込みました。</p>
+    <ul>
+      <li>ストレージへの同期が成功した後に、CloudFrontのキャッシュを無効化する</li>
+      <li>自動化に与える権限を、対象のCloudFrontディストリビューションだけに絞る</li>
+      <li>無効化が失敗した場合は、公開処理全体で把握できるようにする</li>
+    </ul>
+    <p>導入後は、更新のたびにキャッシュ破棄が走るため、「公開は成功しているのに古いページが見える」という状態を避けられるようになりました。</p>
+
+    <h2>費用は「リクエスト数」ではなく「パス数」で見る</h2>
+    <p>AWS公式ドキュメントによると、CloudFrontのインバリデーションは、1つのAWSアカウント全体で毎月最初の1,000パスまで追加料金がかかりません。1,000パスを超えた分は課金対象です。また、ワイルドカードの <code>/*</code> は多数のファイルに一致しても1パスとして数えられます。</p>
+    <p>自分たちの更新頻度ではこの範囲に収まり、今回の変更による追加費用は発生しませんでした。ただし、無料なのは無制限ではありません。導入前にアカウント全体の利用量と更新頻度を確認する必要があります。</p>
+
+    <h2>同じ問題に遭遇したときのチェックリスト</h2>
+    <ol>
+      <li><strong>配信元のファイルが本当に更新されているか確認する。</strong> 更新されていなければアップロード工程の問題です。</li>
+      <li><strong>別ブラウザや別回線で確認する。</strong> ブラウザキャッシュだけの問題かを切り分けます。</li>
+      <li><strong>レスポンスヘッダーを見る。</strong> CDNキャッシュの命中状況や経過時間を確認します。</li>
+      <li><strong>TTLとインバリデーション設定を確認する。</strong> 古いキャッシュが仕様どおり残っている可能性があります。</li>
+      <li><strong>公開フローへキャッシュ更新を組み込む。</strong> 手作業に依存すると、次の更新でまた忘れます。</li>
+      <li><strong>権限と費用上限を確認する。</strong> 自動化には必要最小限の権限だけを与え、無料枠を超える可能性も把握します。</li>
+    </ol>
+
+    <h2>インバリデーションだけが正解ではない</h2>
+    <p>更新頻度が高い静的ファイルでは、ファイル名へバージョンを付ける方法や、適切なCache-Controlを設定する方法もあります。AWSも、頻繁に更新することが事前に分かっているファイルでは、バージョニングや短い有効期限を検討するよう案内しています。</p>
+    <p>今回のサイトでは規模と更新頻度を踏まえ、公開時のインバリデーションを採用しました。運用規模が大きくなれば、HTMLと画像・CSS・JavaScriptでキャッシュ戦略を分ける方が効率的です。</p>
+
+    <h2>まとめ</h2>
+    <p>CDNを使う静的サイトでは、「配信元の更新」と「閲覧者に届く表示の更新」は別工程です。更新したのに変わらないとき、すぐに公開失敗と決めつけず、ストレージ、ブラウザ、CDNの順に切り分けると原因へ早くたどり着けます。</p>
+    <p>そして原因がキャッシュなら、毎回の手作業ではなく、権限と費用を確認したうえで公開フローへ組み込むのが再発防止になります。</p>
+
+    <p class="article-note">参考：AWS公式ドキュメント「<a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/Invalidation_Requests.html" target="_blank" rel="noopener">Invalidate files</a>」「<a href="https://docs.aws.amazon.com/AmazonCloudFront/latest/DeveloperGuide/PayingForInvalidation.html" target="_blank" rel="noopener">Pay for file invalidation</a>」（2026年7月18日確認）。料金・無料枠は変更される可能性があるため、導入時に最新情報をご確認ください。</p>
+
+    <section class="related-links">
+      <h2>関連記事</h2>
+      <ul>
+        <li><a href="../ai-generated-assets-rights-checklist/index.html">生成AIで作った素材、公開前に確認すべき5つのチェックポイント</a></li>
+        <li><a href="../3-things-i-noticed-delegating-to-ai/index.html">AIに仕事を任せはじめて、気づいた3つのこと</a></li>
+      </ul>
+    </section>
+    <p class="article-foot">烏合ワークスは、AIと一緒に絵本・音楽・ゲーム・ツールを少しずつ作っている小さな会社です。<br><a class="primary-link" href="../../index.html">烏合ワークス トップへ →</a></p>
+  </main>
+</body>
+</html>
