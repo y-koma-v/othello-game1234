@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="「AI導入で仕事が奪われる」と反発が広がった魔導公社で、作業と仕事の違いをAIによる業務仕分けで可視化し、リスキリングとAI共存への道を描くシーズン1完結話です。">
+  <link rel="canonical" href="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-12/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="烏合ワークス">
+  <meta property="og:title" content="第12話 「AIに仕事が奪われる」全社パニック vs 最後に残る人間の役割（リスキリングとAI共存）">
+  <meta property="og:description" content="仕事を奪われる不安に揺れる職場を、業務の棚卸しとリスキリングで立て直す物語です。">
+  <meta property="og:url" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-12/index.html">
+  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/episode-12/page_1.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/assets/episode-12/page_1.jpg">
+  <script src="/assets/analytics.js"></script>
+  <title>第12話 「AIに仕事が奪われる」全社パニック vs 最後に残る人間の役割（リスキリングとAI共存） | JTCで死んだおじさん、異世界でAI推進して無双する | 烏合ワークス</title>
+  <style>
+    /* 共通デザインシステム（ダークテーマ） */
+    body {
+      background-color: #121212;
+      color: #e0e0e0;
+      font-family: 'Helvetica Neue', Arial, 'Hiragino Kaku Gothic ProN', Meiryo, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+
+    header {
+      margin: 30px 0 20px 0;
+      text-align: center;
+      z-index: 10;
+    }
+
+    header h1 {
+      font-size: 22px;
+      margin: 0;
+      color: #00d2ff;
+      letter-spacing: 0.05em;
+    }
+
+    header p {
+      font-size: 13px;
+      margin: 8px 0 0 0;
+      color: #888;
+    }
+
+    /* 縦スクロール漫画のコンテナ */
+    .manga-scroll-container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      width: 800px;
+      background-color: #000;
+      border-left: 1px solid #333;
+      border-right: 1px solid #333;
+      box-shadow: 0 0 50px rgba(0, 0, 0, 0.9);
+      padding: 20px 0;
+    }
+
+    /* 各ページスライド（縦に並ぶ） */
+    .page-slide {
+      position: relative;
+      width: 800px;
+      height: 1130px;
+      padding: 16px;
+      box-sizing: border-box;
+      display: grid;
+      gap: 12px;
+      margin-bottom: 40px;
+      border-bottom: 2px dashed #222;
+    }
+
+    .page-slide:last-child {
+      margin-bottom: 0;
+      border-bottom: none;
+    }
+
+    /* コマの基本スタイル */
+    .panel {
+      border: 4px solid #fff;
+      border-radius: 8px;
+      background-size: cover;
+      background-position: center;
+      box-shadow: inset 0 0 20px rgba(0,0,0,0.8);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .panel-main {
+      grid-row: 1 / -1;
+      grid-column: 1 / -1;
+    }
+
+    /* ページごとの画像マッピング */
+    #page-1 .panel-main {
+      background-image: url('../assets/episode-12/page_1.jpg');
+    }
+    #page-2 .panel-main {
+      background-image: url('../assets/episode-12/page_2.jpg');
+    }
+    #page-3 .panel-main {
+      background-image: url('../assets/episode-12/page_3.jpg');
+    }
+    #page-4 .panel-main {
+      background-image: url('../assets/episode-12/page_4.jpg');
+    }
+    #page-5 .panel-main {
+      background-image: url('../assets/episode-12/page_5.jpg');
+    }
+    #page-6 .panel-main {
+      background-image: url('../assets/episode-12/page_6.jpg');
+    }
+    #page-7 .panel-main {
+      background-image: url('../assets/episode-12/page_7.jpg');
+    }
+    #page-8 .panel-main {
+      background-image: url('../assets/episode-12/page_8.jpg');
+    }
+    #page-9 .panel-main {
+      background-image: url('../assets/episode-12/page_9.jpg');
+    }
+    #page-10 .panel-main {
+      background-image: url('../assets/episode-12/page_10.jpg');
+    }
+    #page-11 .panel-main {
+      background-image: url('../assets/episode-12/page_11.jpg');
+    }
+    #page-12 .panel-main {
+      background-image: url('../assets/episode-12/page_12.jpg');
+    }
+
+    /* 吹き出しの基本スタイル */
+    .bubble {
+      position: absolute;
+      background-color: #fff;
+      color: #000;
+      border: 3px solid #000;
+      border-radius: 28px;
+      padding: 14px 22px;
+      font-size: 14px;
+      font-weight: bold;
+      line-height: 1.4;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 10;
+      word-break: break-all;
+      overflow-wrap: break-word;
+      box-sizing: border-box;
+      max-width: 320px;
+      width: 85%;
+    }
+
+    /* モノローグ（黒背景・白文字・四角） */
+    .monologue {
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.95);
+      color: #fff;
+      border: 2px solid #333;
+      padding: 10px 15px;
+      font-size: 13px;
+      line-height: 1.5;
+      font-weight: bold;
+      z-index: 10;
+      border-radius: 4px;
+      box-sizing: border-box;
+    }
+
+    /* ショック（叫び吹き出し） */
+    .bubble-shock {
+      font-size: 24px;
+      font-family: 'Hiragino Mincho ProN', Georgia, serif;
+      border-width: 4px;
+      padding: 20px 35px;
+      border-radius: 30px;
+      animation: shake 0.5s infinite;
+      background-color: #fff;
+      color: #d32f2f;
+      border-color: #d32f2f;
+    }
+    @keyframes shake {
+      0% { transform: translate(0, 0) rotate(0deg); }
+      20% { transform: translate(-2px, -2px) rotate(-1deg); }
+      40% { transform: translate(2px, 2px) rotate(1deg); }
+      60% { transform: translate(-1px, -1px) rotate(0deg); }
+      80% { transform: translate(1px, 1px) rotate(-1deg); }
+      100% { transform: translate(0, 0) rotate(0deg); }
+    }
+
+    /* 魔導コード・プロンプト表示用 */
+    .magic-code {
+      position: absolute;
+      background-color: rgba(10, 20, 30, 0.95);
+      color: #00ffcc;
+      border: 2px solid #00d2ff;
+      border-radius: 8px;
+      padding: 15px 20px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 12px;
+      line-height: 1.5;
+      z-index: 10;
+      box-shadow: 0 4px 20px rgba(0, 210, 255, 0.4);
+      box-sizing: border-box;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* 操作ガイド・フッター */
+    .footer-guide {
+      width: 800px;
+      max-width: 100%;
+      background: #1e1e1e;
+      border-top: 1px solid #333;
+      padding: 25px 20px;
+      text-align: center;
+      font-size: 13px;
+      line-height: 1.6;
+      box-sizing: border-box;
+      color: #aaa;
+    }
+
+    .footer-guide a {
+      color: #00d2ff;
+      text-decoration: none;
+    }
+
+    .footer-guide a:hover {
+      text-decoration: underline;
+    }
+
+    /* モバイル・レスポンシブ対応 */
+    @media (max-width: 820px) {
+      .manga-scroll-container {
+        width: 100%;
+        padding: 10px 0;
+      }
+      .page-slide {
+        width: 100%;
+        max-width: 390px;
+        height: 550px;
+        padding: 8px;
+        margin-bottom: 30px;
+        gap: 6px;
+      }
+      .bubble {
+        font-size: 9px;
+        padding: 6px 10px;
+      }
+      .monologue {
+        font-size: 8px;
+        padding: 6px 10px;
+      }
+      .bubble-shock {
+        font-size: 13px;
+        padding: 8px 15px;
+      }
+      .magic-code {
+        font-size: 7px;
+        padding: 6px 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <h1>『JTCで死んだおじさん、異世界でAI推進して無双する』</h1>
+    <p>第12話：「AIに仕事が奪われる」全社パニック vs 最後に残る人間の役割（リスキリングとAI共存）</p>
+  </header>
+
+  <!-- 縦スクロール漫画コンテナ -->
+  <div class="manga-scroll-container">
+
+    <!-- 1P: 合理化の嵐と消えゆく仕事（前世の回想） -->
+    <div class="page-slide" id="page-1">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 280px;">
+        おい、今度のRPAとAI導入で、俺たちの部署のデータ入力作業が全部自動化されるらしいぞ……
+      </div>
+      <div class="bubble" style="top: 220px; right: 45px; max-width: 280px;">
+        俺たち、別の部署に飛ばされるのか？ 最悪、リストラか……？
+      </div>
+      <div class="monologue" style="bottom: 40px; left: 50%; transform: translateX(-50%); width: 85%;">
+        業務の自動化やAI推進の裏には、常に『人間の仕事が奪われる』という恐怖がつきまとう。目的を共有せず、ただツールを導入すれば、現場は自己防衛のために抵抗し、対立が生まれる。それは前世でも、そしてこの世界でも同じだった。
+      </div>
+    </div>
+
+    <!-- 2P: 魔導システム課への襲撃 -->
+    <div class="page-slide" id="page-2">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 70px; left: 45px; max-width: 290px;">
+        おい！ 魔導システム課！ いい加減にしろ！<br><br>
+        お前たちが『AI魔法』とかいう怪しい自動化を進めたせいで、俺たちが毎日やっていた魔導巻物の書き写しや、データ整合性の目視チェックの仕事が全部なくなっちまったぞ！
+      </div>
+      <div class="bubble" style="top: 320px; right: 45px; max-width: 280px;">
+        えっ、でも、あれで残業が減って楽になったはずでは……？<br><br>
+        <strong>他部署社員A：</strong>楽になったんじゃない！ 仕事を取り上げられたんだ！ このままじゃ俺たちは『不要な存在』として公社をクビになる！
+      </div>
+    </div>
+
+    <!-- 3P: 揺れるバルド部長 -->
+    <div class="page-slide" id="page-3">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 280px;">
+        バルド部長！ あなたがAI推進を主導しているそうですね！ 我々の仕事を奪ってどうするつもりですか！？
+      </div>
+      <div class="bubble" style="top: 240px; left: 45px; max-width: 260px;">
+        ぐ、ぐぬぬ……。わ、私はただ、業務を効率化しようと……
+      </div>
+      <div class="bubble" style="top: 380px; right: 45px; max-width: 280px;">
+        おい、タツヤ……！ 実は私も不安なのだ。彼らの言う通り、全ての業務がAI魔法で自動化されたら、部下を管理するだけの私の『管理職』という仕事もなくなるのではないか……？
+      </div>
+    </div>
+
+    <!-- 4P: おじさんの介入 -->
+    <div class="page-slide" id="page-4">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 295px;">
+        皆さん、不安になる気持ちは分かります。前例のない変化を前にすれば、誰だって自分の居場所を失う恐怖を感じるものです
+      </div>
+      <div class="bubble" style="top: 280px; right: 45px; max-width: 285px;">
+        魔力Fランクのお前は、AI魔法とやらがあるから気楽でいいよな！ 俺たちは必死なんだ！<br><br>
+        <strong>タツヤ：</strong>ですが、AI魔法は皆さんの『存在価値』を奪うものではありません。むしろ、皆さんを『本当の仕事』へ解放するための道具なんです
+      </div>
+    </div>
+
+    <!-- 5P: 作業と仕事の混同 -->
+    <div class="page-slide" id="page-5">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 70px; left: 45px; max-width: 285px;">
+        綺麗事を言うな！ 巻物の転記や整合性のチェックがなくなったら、俺たちに何ができる！？ それが俺たちの『仕事』だったんだ！
+      </div>
+      <div class="bubble" style="top: 260px; right: 45px; max-width: 290px;">
+        いいえ、それは『作業』であって、皆さんの本質的な『仕事』ではありません。AI魔法は作業を代わりにやっているだけです。アリア、この人たちの業務データをスキャンして、AIと人間の『役割分担』を整理して見せてあげてくれ
+      </div>
+      <div class="bubble" style="bottom: 80px; left: 45px; max-width: 280px;">
+        はいはい、お安い御用です。要するに『私はこれから何をすればいいの？』と迷子になっているのですね。私の『魔導リスキリング・マッピング魔法』で、脳内の仕事の定義をリファクタリングしてあげましょう
+      </div>
+    </div>
+
+    <!-- 6P: アリアの業務スキャン -->
+    <div class="page-slide" id="page-6">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 100px; left: 50%; transform: translateX(-50%); max-width: 320px;">
+        業務ログの収集・解析を開始。定型タスクと非定型タスクを抽出し、AIと人間の親和性に基づいてマッピングします！
+      </div>
+    </div>
+
+    <!-- 7P: AI共存マップ（プロンプト）の展開 -->
+    <div class="page-slide" id="page-7">
+      <div class="panel panel-main"></div>
+      <div class="magic-code" style="top: 80px; left: 50%; transform: translateX(-50%); width: 90%;">
+世界システムへ指示。
+対話型業務アナリストおよびリスキリングアドバイザーとして機能せよ。
+
+[目的]
+対象者（社員）の現在の業務を分解し、AIとの最適な共存マップを作成した上で、人間がより付加価値の高い創造的業務にシフトするための「リスキリングプラン」を策定する。
+
+[入力データ]
+- 対象者の役職/部署
+- 現在の日々の主な業務タスク（箇条書き）
+※入力データが提示されていない場合は、分析を始める前に上記2点を質問して聞き出せ。
+
+[処理プロセス]
+1. 入力された業務タスクを以下の3つのカテゴリに明確に分類せよ。
+   - 【AI代替タスク】: 定型処理、データ転記、定型文書チェックなど、AIが自動化すべき単純作業。
+   - 【AI協調タスク】: 下書き作成、データ分析、情報収集など、AIをアシスタントとして人間が最終調整・判断する作業。
+   - 【人間専任タスク】: 要件定義、ステークホルダー調整、意思決定、クリエイティブな企画、感情的なサポートなど、人間にしかできない非定型作業。
+2. それぞれのタスクの分類理由を簡潔に述べよ。
+3. 【AI代替タスク】の自動化で削減できる時間を、業務全体に占める割合（％）の目安として提示せよ。
+4. 浮いた時間で注力すべき【人間専任タスク】の具体例と、そのために新たに学ぶべきスキル・知識・マインドセット（リスキリング）を、3つの具体的なアクションプランとして提案せよ。
+
+[出力形式]
+分類結果は表形式で提示し、アクションプランは番号付きリストで示せ。
+      </div>
+    </div>
+
+    <!-- 8P: 視覚化される「人間が輝く領域」 -->
+    <div class="page-slide" id="page-8">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        な、なんだこれは……？ 俺の仕事の8割を占めていた転記作業が消えて……余った時間で『住民の魔導トラブルの相談に乗る』ことになってる……？
+      </div>
+      <div class="bubble" style="top: 300px; right: 45px; max-width: 290px;">
+        そうです。あなたが本当にやるべきだったのは、冷たい紙の転記ではなく、困っている住民の声を直接聞き、どんな魔導が必要か考えることだったはずだ
+      </div>
+    </div>
+
+    <!-- 9P: バルド部長の開眼と大演説 -->
+    <div class="page-slide" id="page-9">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        そ、そうか……！ 私は今まで、部下が持ってきた書類の『ハンコ押し』と『誤字脱字の指摘』ばかりをやって、それを自分の管理職としての『仕事』だと思い込んでいた……！ だが、そんなものはアリアが瞬時にやってくれる！
+      </div>
+      <div class="bubble" style="top: 320px; right: 45px; max-width: 290px;">
+        お前たち、よく聞け！ 我々はAIに仕事を奪われたのではない！ つまらん単純作業をAIに押し付ける『権利』を手に入れたのだ！ この私が言うのだから間違いない！ 何せ私は昨日まで、ハンコ押しこそ管理職の仕事だと信じ込んでいた男だからな！ 浮いた時間でやるべきは『魔法インフラをどう使って人々を豊かにするか』を考えること――ここからが、我々人間の本当の力の見せ所ではないか！
+      </div>
+    </div>
+
+    <!-- 10P: 社員たちの納得 ＆ 「なん、、、だと、、、」の変奏 -->
+    <div class="page-slide" id="page-10">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 280px;">
+        確かに……。あの転記作業、毎日目が疲れて嫌だったんだ。住民の相談に乗る方が、よっぽどやりがいがある……！
+      </div>
+      <div class="bubble" style="top: 190px; right: 45px; max-width: 290px;">
+        だが……この歳から、新しいことなんて学べるのか……？<br><br>
+        <strong>バルド：</strong>学べるとも！ 現場を知り尽くしたお前たちの経験は、AIには真似できん最大の武器だ！ なに、心配するな。昨日まで万年ハンコ職人だった私でも変われたのだからな！
+      </div>
+      <div class="bubble-shock" style="top: 460px; right: 45px; max-width: 300px;">
+        労働者の反発を利用してAI導入を阻止するはずが……単純作業から解放された彼らが、自ら『より付加価値の高い創造的な業務へシフトする（リスキリングする）』ことに歓喜しているだと……！？ な、な、なん、、、だと、、、！！？
+      </div>
+    </div>
+
+    <!-- 11P: AIは敵ではなく、隣に立つ相棒 -->
+    <div class="page-slide" id="page-11">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 290px;">
+        人は誰しも、作業の奴隷になるために生まれてきたわけではありません。AI魔法は、人間から作業を奪うのではなく、人間を『人間らしい創造性』に立ち返らせるためのものです。これからは、人間が『問い（要件）』を立て、AIが『答え（実行）』を出す。その共存こそが、DXの本質です
+      </div>
+      <div class="bubble" style="top: 340px; right: 45px; max-width: 280px;">
+        うむ！ タツヤ、よく言った！ これからは魔導システム課だけでなく、全社を挙げて『リスキリング』の魔法講習会を開くぞ！ 私が自ら講師となって、要件定義のイロハを教えてやる！
+      </div>
+      <div class="bubble" style="bottom: 80px; left: 45px; max-width: 270px;">
+        （バルド部長、すっかりDX推進のリーダーですね……！）
+      </div>
+    </div>
+
+    <!-- 12P: 定時退社と新たな始まり -->
+    <div class="page-slide" id="page-12">
+      <div class="panel panel-main"></div>
+      <div class="bubble" style="top: 80px; left: 45px; max-width: 280px;">
+        タツヤさん、本当に素晴らしい結末でした。AIと人間が手を取り合う未来、ワクワクします！
+      </div>
+      <div class="bubble" style="top: 220px; right: 45px; max-width: 280px;">
+        ああ。さあ、大きな課題も解決したし、何より定時だ。早く帰ろう
+      </div>
+      <div class="bubble" style="top: 360px; left: 45px; max-width: 280px;">
+        タツヤ、私もあなたの『問い』に答える準備はいつでもできていますよ。ただし、美味しい冷えたエールを奢ってくれるという『前提要件』が満たされていれば、の話ですけどね？
+      </div>
+      <div class="bubble" style="top: 500px; right: 45px; max-width: 250px;">
+        ふっ、要件定義はバッチリだな。行こうか
+      </div>
+      <div class="monologue" style="bottom: 40px; left: 50%; transform: translateX(-50%); width: 85%;">
+        （第12話・完 / シーズン1完結）
+      </div>
+    </div>
+
+  </div>
+
+  <div class="footer-guide">
+    『JTCで死んだおじさん、異世界でAI推進して無双する』第12話（シーズン1完結）<br>
+    企画・制作：烏合ワークス / Ugou Works<br>
+    <a href="../episode-11/index.html">◀ 第11話へ</a> | <a href="../index.html">シリーズ一覧へ</a>
+  </div>
+
+</body>
+</html>
