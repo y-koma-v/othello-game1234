@@ -24,11 +24,11 @@
       number: "03",
       kind: "AI VIDEO",
       tone: "violet",
-      title: "ファインチューニングって何？",
-      summary: "AIを専門家に近づける追加学習を、Ugouちゃんと60秒の縦型動画でやさしく解説します。",
-      href: "videos/fine-tuning/index.html",
+      title: "ハルシネーションって何？",
+      summary: "AIが生む「もっともらしい間違い」と、回答を安全に使うための確認ポイントをUgouちゃんと60秒で解説します。",
+      href: "videos/hallucination/index.html",
       action: "60秒動画を見る",
-      date: "2026.07.08"
+      date: "2026.07.22"
     },
     {
       number: "04",

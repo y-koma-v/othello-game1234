@@ -66,8 +66,13 @@
   <!-- Videos -->
   <url>
     <loc>https://works.ugounosyu-aiblog.com/videos/index.html</loc>
-    <lastmod>2026-07-02</lastmod>
+    <lastmod>2026-07-22</lastmod>
     <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/videos/hallucination/index.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://works.ugounosyu-aiblog.com/videos/fine-tuning/index.html</loc>
