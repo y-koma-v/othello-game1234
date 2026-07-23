@@ -66,7 +66,7 @@
   <!-- Videos -->
   <url>
     <loc>https://works.ugounosyu-aiblog.com/videos/index.html</loc>
-    <lastmod>2026-07-22</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <priority>0.7</priority>
   </url>
   <url>
@@ -224,6 +224,23 @@
   <url>
     <loc>https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-12/index.html</loc>
     <lastmod>2026-07-20</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/manga/jtc-ai-isekai/episode-13/index.html</loc>
+    <lastmod>2026-07-23</lastmod>
+    <priority>0.8</priority>
+  </url>
+
+  <!-- Games -->
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/saishuu-taikansha/index.html</loc>
+    <lastmod>2026-07-22</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/videos/multimodal/index.html</loc>
+    <lastmod>2026-07-23</lastmod>
     <priority>0.8</priority>
   </url>
 </urlset>
