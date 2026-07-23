@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>「逃げ切れない」と言われて分かった、ゲームバランスの原因をAIと一緒に切り分ける手順 | 烏合ワークス</title>
+  <meta name="description" content="「逃げ切れない」という実機テストの一言から、ゲームバランスの原因を2つの仮説に絞り込み、AIとの分業で修正・検証まで進めた実例を紹介します。">
+  <link rel="canonical" href="https://works.ugounosyu-aiblog.com/articles/game-balance-root-cause-with-ai/index.html">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="烏合ワークス">
+  <meta property="og:title" content="ゲームバランスの原因をAIと一緒に切り分ける手順">
+  <meta property="og:description" content="「逃げ切れない」という感想を、修正・検証できる2つの仮説へ分解した実例です。">
+  <meta property="og:url" content="https://works.ugounosyu-aiblog.com/articles/game-balance-root-cause-with-ai/index.html">
+  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/assets/brand/ugou-works-common-ogp.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://works.ugounosyu-aiblog.com/assets/brand/ugou-works-common-ogp.png">
+  <link rel="stylesheet" href="../../works-hub.css">
+  <style>
+    .article-body{max-width:760px}.article-body h2{margin-top:2.6rem;font-size:1.35rem}.article-body h3{margin-top:1.6rem;font-size:1.08rem}
+    .article-body p{line-height:1.95;margin:1rem 0}.article-body ul,.article-body ol{line-height:1.9;margin:1rem 0;padding-left:1.3rem}
+    .article-body li{margin:.45rem 0}.article-meta{font-size:.85rem;opacity:.7;margin-bottom:1.5rem}
+    .hypothesis{margin:1rem 0;padding:1rem 1.1rem;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.04)}
+    .hypothesis h3{margin:.1rem 0 .5rem}.related-links{margin-top:3rem;padding:1.2rem;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.04)}
+    .related-links h2{margin-top:0}.article-foot{margin-top:3rem;font-size:.9rem;opacity:.82}
+  </style>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"「逃げ切れない」と言われて分かった、ゲームバランスの原因をAIと一緒に切り分ける手順","description":"「逃げ切れない」という実機テストの一言から、ゲームバランスの原因を2つの仮説に絞り込み、AIとの分業で修正・検証まで進めた実例を紹介します。","author":{"@type":"Organization","name":"烏合ワークス"},"publisher":{"@type":"Organization","name":"烏合ワークス"},"datePublished":"2026-07-23","dateModified":"2026-07-23","mainEntityOfPage":"https://works.ugounosyu-aiblog.com/articles/game-balance-root-cause-with-ai/index.html","inLanguage":"ja"}</script>
+  <script src="/assets/analytics.js"></script>
+</head>
+<body>
+  <main class="page-shell article-body">
+    <a class="back-link" href="../index.html">← 記事一覧へ</a>
+    <p class="eyebrow">Articles / Game development</p>
+    <h1>「逃げ切れない」と言われて分かった、ゲームバランスの原因をAIと一緒に切り分ける手順</h1>
+    <p class="article-meta">烏合ワークス ・ 2026-07-23</p>
+
+    <p>「これ、絶対に逃げ切れないんだけど」</p>
+    <p>一人称ステルス探索ゲーム「最終退館者」を開発していたとき、実機テストで返ってきた率直な感想です。敵に見つかって追いかけられるパートがあるゲームなのですが、テストプレイの結果は「見つかったら最後、ほぼ確実に捕まる」というものでした。</p>
+    <p>「バランスが悪い」というフィードバックから具体的な修正へ進むには、原因を仮説として言語化し、検証できる形に落とす必要があります。この記事では、その切り分けと修正、AIとの分業を実際の経緯に沿って紹介します。</p>
+
+    <h2>「逃げ切れない」だけでは直せない</h2>
+    <p>最初に手元にあった情報は「逃げ切れない」という一言だけでした。具体的な感想ではありますが、そのままでは修正指示として使えません。</p>
+    <p>そこで「逃げ切れない」を構成する要素として、次の3つを疑いました。</p>
+    <ol>
+      <li>敵の移動速度そのものが速すぎる</li>
+      <li>視線を切ってから見失うまでの条件が厳しすぎる</li>
+      <li>プレイヤー側の操作に、見た目では分からない不利な仕様がある</li>
+    </ol>
+
+    <h2>原因を2つの仮説へ絞り込む</h2>
+    <p>このゲームは、1手ごとにプレイヤーと敵が移動するグリッドベースの仕組みです。「1手」という単位に注目して実装を見直すと、2つの仮説にたどり着きました。</p>
+    <section class="hypothesis">
+      <h3>仮説A：方向転換にかかる手数が非対称</h3>
+      <p>プレイヤーが振り返ると、その1手は方向転換だけに使われて移動しません。一方、敵は方向転換と接近を同じ1手で処理していました。プレイヤーが振り返るたび、実質的に敵との距離だけが縮まる状態です。</p>
+    </section>
+    <section class="hypothesis">
+      <h3>仮説B：視線を切った後も現在地を追っている</h3>
+      <p>角を曲がって視線を切れば逃げられる設計のはずが、敵は最後に見えた地点ではなく、壁越しにプレイヤーの現在地を追っていました。これでは角を曲がる行動が逃走手段として機能しません。</p>
+    </section>
+    <p>テストプレイヤーの体感と実装ロジックを突き合わせたことで、「実効速度の非対称」と「壁越しの現在地追跡」という修正可能な原因に分解できました。</p>
+
+    <h2>AIとの分業で修正・検証する</h2>
+    <p>仮説を立てた後は、次のように役割を分けました。</p>
+    <ul>
+      <li><strong>原因の仮説立てと修正方針：</strong>人と設計担当AIが、何をどの条件で変えるかを仕様化する</li>
+      <li><strong>実装：</strong>実装担当AIが仕様に沿ってロジックを修正する</li>
+      <li><strong>検証：</strong>問題が起きた一連の流れを自動テストで再現する</li>
+    </ul>
+    <p>具体的には、敵の追跡目標を「最後に見えた地点」に固定し、追跡中は4手ごとに1手停止させ、暗い区画では視認距離を短くしました。</p>
+    <p>重要だったのは、「速くする・遅くする」という曖昧な指示ではなく、「何を」「どの条件で」「どう変えるか」まで仕様として固定してから実装へ渡したことです。</p>
+
+    <h2>修正後に確認できたこと</h2>
+    <ul>
+      <li>角を曲がって視線を切ると、敵は数手のうちに見失って巡回へ戻る</li>
+      <li>敵は追跡中に4手ごとに1手停止するため、プレイヤーが方向転換しても一方的に距離を詰められにくくなった</li>
+      <li>暗い区画では再発見される距離が短くなり、消灯が逃走手段として機能する</li>
+    </ul>
+    <p>原因は、単一の派手なバグではありませんでした。1手あたりのコストがプレイヤーと敵で微妙にずれていたことと、見失う設計が実装へ正しく反映されていなかったこと。この2つの積み重ねが「絶対に逃げ切れない」という体感を作っていました。</p>
+
+    <h2>ゲームバランスを切り分けるチェックリスト</h2>
+    <ol>
+      <li><strong>感想を、確認可能な仮説へ分解する。</strong>「速度」「見失う条件」「操作上の不利」など、調べられる単位へ翻訳します。</li>
+      <li><strong>1手あたりのコストを比較する。</strong>方向転換や停止が、片方だけ無料になっていないか確認します。</li>
+      <li><strong>設計と実装を突き合わせる。</strong>「角を曲がれば逃げられる」つもりでも、現在地追跡なら意図どおりに動きません。</li>
+      <li><strong>修正前に仕様を固定する。</strong>何を、どの条件で、どう変えるかを決めてから実装します。</li>
+      <li><strong>問題が起きた手順をそのまま再現する。</strong>「発見→視線を切る→見失う」のように、感覚ではなくシナリオで確認します。</li>
+    </ol>
+
+    <h2>まとめ：バランスの不満は、感想のままでは直せない</h2>
+    <p>「逃げ切れない」「バランスが悪い」というフィードバックを、闇雲な数値調整や無視で処理せず、確認可能な仮説へ分解する。それを仕様として言語化してから実装・検証へ渡すことで、AIと分業する開発でも手戻りを減らせます。</p>
+    <p>同じように「感想はもらったが、何を直せばよいか分からない」ときは、感想を複数の仮説へ分け、それぞれを実装ロジックと突き合わせてみてください。</p>
+    <p>今回の改善を反映したゲームは、公式サイトの<a href="../../saishuu-taikansha/index.html">「最終退館者」</a>で遊べます。</p>
+
+    <section class="related-links">
+      <h2>関連記事・作品</h2>
+      <ul>
+        <li><a href="../3-things-i-noticed-delegating-to-ai/index.html">AIに仕事を任せはじめて、気づいた3つのこと</a></li>
+        <li><a href="../../saishuu-taikansha/index.html">ゲーム「最終退館者」を遊ぶ</a></li>
+      </ul>
+    </section>
+    <p class="article-foot">烏合ワークスは、AIと一緒に絵本・音楽・ゲーム・ツールを少しずつ作っている小さな会社です。<br><a class="primary-link" href="../../index.html">烏合ワークス トップへ →</a></p>
+  </main>
+</body>
+</html>

@@ -10,7 +10,7 @@
   <!-- Articles -->
   <url>
     <loc>https://works.ugounosyu-aiblog.com/articles/index.html</loc>
-    <lastmod>2026-07-05</lastmod>
+    <lastmod>2026-07-23</lastmod>
     <priority>0.8</priority>
   </url>
   <url>
@@ -171,6 +171,11 @@
   <url>
     <loc>https://works.ugounosyu-aiblog.com/articles/cdn-cache-not-updating-lesson/index.html</loc>
     <lastmod>2026-07-18</lastmod>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://works.ugounosyu-aiblog.com/articles/game-balance-root-cause-with-ai/index.html</loc>
+    <lastmod>2026-07-23</lastmod>
     <priority>0.8</priority>
   </url>
 

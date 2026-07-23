@@ -4,11 +4,11 @@ window.UGOU_HOME = {
       number: "01",
       kind: "ARTICLE",
       tone: "amber",
-      title: "サイトを更新したのに変わらない——CDNキャッシュでハマった話",
-      summary: "公開は成功しているのに古いページが見える。原因の切り分けと、追加費用なく組み込んだ再発防止策。",
-      href: "articles/cdn-cache-not-updating-lesson/index.html",
+      title: "ゲームバランスの原因をAIと一緒に切り分ける手順",
+      summary: "「逃げ切れない」という実機テストの一言を、修正・検証できる2つの仮説へ分解した開発記録。",
+      href: "articles/game-balance-root-cause-with-ai/index.html",
       action: "記事を読む",
-      date: "2026.07.18"
+      date: "2026.07.23"
     },
     {
       number: "02",
