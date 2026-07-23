@@ -11,21 +11,22 @@
   <meta property="og:title" content="ゲームバランスの原因をAIと一緒に切り分ける手順">
   <meta property="og:description" content="「逃げ切れない」という感想を、修正・検証できる2つの仮説へ分解した実例です。">
   <meta property="og:url" content="https://works.ugounosyu-aiblog.com/articles/game-balance-root-cause-with-ai/index.html">
-  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/assets/brand/ugou-works-common-ogp.png">
+  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/articles/game-balance-root-cause-with-ai/header.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://works.ugounosyu-aiblog.com/assets/brand/ugou-works-common-ogp.png">
+  <meta name="twitter:image" content="https://works.ugounosyu-aiblog.com/articles/game-balance-root-cause-with-ai/header.png">
   <link rel="stylesheet" href="../../works-hub.css">
   <style>
     .article-body{max-width:760px}.article-body h2{margin-top:2.6rem;font-size:1.35rem}.article-body h3{margin-top:1.6rem;font-size:1.08rem}
     .article-body p{line-height:1.95;margin:1rem 0}.article-body ul,.article-body ol{line-height:1.9;margin:1rem 0;padding-left:1.3rem}
     .article-body li{margin:.45rem 0}.article-meta{font-size:.85rem;opacity:.7;margin-bottom:1.5rem}
+    .article-header-image{display:block;width:100%;height:auto;margin:0 0 2rem;border-radius:12px}
     .hypothesis{margin:1rem 0;padding:1rem 1.1rem;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.04)}
     .hypothesis h3{margin:.1rem 0 .5rem}.related-links{margin-top:3rem;padding:1.2rem;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.04)}
     .related-links h2{margin-top:0}.article-foot{margin-top:3rem;font-size:.9rem;opacity:.82}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"「逃げ切れない」と言われて分かった、ゲームバランスの原因をAIと一緒に切り分ける手順","description":"「逃げ切れない」という実機テストの一言から、ゲームバランスの原因を2つの仮説に絞り込み、AIとの分業で修正・検証まで進めた実例を紹介します。","author":{"@type":"Organization","name":"烏合ワークス"},"publisher":{"@type":"Organization","name":"烏合ワークス"},"datePublished":"2026-07-23","dateModified":"2026-07-23","mainEntityOfPage":"https://works.ugounosyu-aiblog.com/articles/game-balance-root-cause-with-ai/index.html","inLanguage":"ja"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"「逃げ切れない」と言われて分かった、ゲームバランスの原因をAIと一緒に切り分ける手順","description":"「逃げ切れない」という実機テストの一言から、ゲームバランスの原因を2つの仮説に絞り込み、AIとの分業で修正・検証まで進めた実例を紹介します。","image":"https://works.ugounosyu-aiblog.com/articles/game-balance-root-cause-with-ai/header.png","author":{"@type":"Organization","name":"烏合ワークス"},"publisher":{"@type":"Organization","name":"烏合ワークス"},"datePublished":"2026-07-23","dateModified":"2026-07-23","mainEntityOfPage":"https://works.ugounosyu-aiblog.com/articles/game-balance-root-cause-with-ai/index.html","inLanguage":"ja"}</script>
   <script src="/assets/analytics.js"></script>
 </head>
 <body>
@@ -34,6 +35,7 @@
     <p class="eyebrow">Articles / Game development</p>
     <h1>「逃げ切れない」と言われて分かった、ゲームバランスの原因をAIと一緒に切り分ける手順</h1>
     <p class="article-meta">烏合ワークス ・ 2026-07-23</p>
+    <img class="article-header-image" src="header.png" width="1200" height="630" alt="オフィスのグリッド上で逃走経路と敵の追跡バランスを分析するイメージ">
 
     <p>「これ、絶対に逃げ切れないんだけど」</p>
     <p>一人称ステルス探索ゲーム「最終退館者」を開発していたとき、実機テストで返ってきた率直な感想です。敵に見つかって追いかけられるパートがあるゲームなのですが、テストプレイの結果は「見つかったら最後、ほぼ確実に捕まる」というものでした。</p>

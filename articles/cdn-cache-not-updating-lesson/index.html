@@ -11,22 +11,23 @@
   <meta property="og:title" content="サイトを更新したのに変わらない——CDNキャッシュでハマった話と再発防止">
   <meta property="og:description" content="サイトを更新したのにブラウザでは古いまま。CDNキャッシュが原因と分かるまでの切り分けと、追加費用なく自動化した再発防止策を紹介します。">
   <meta property="og:url" content="https://works.ugounosyu-aiblog.com/articles/cdn-cache-not-updating-lesson/index.html">
-  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/assets/brand/ugou-works-common-ogp.png">
+  <meta property="og:image" content="https://works.ugounosyu-aiblog.com/articles/cdn-cache-not-updating-lesson/header.png">
   <meta property="og:image:width" content="1200">
   <meta property="og:image:height" content="630">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://works.ugounosyu-aiblog.com/assets/brand/ugou-works-common-ogp.png">
+  <meta name="twitter:image" content="https://works.ugounosyu-aiblog.com/articles/cdn-cache-not-updating-lesson/header.png">
   <link rel="stylesheet" href="../../works-hub.css">
   <style>
     .article-body{max-width:760px}.article-body h2{margin-top:2.6rem;font-size:1.35rem}.article-body h3{margin-top:1.6rem;font-size:1.08rem}
     .article-body p{line-height:1.95;margin:1rem 0}.article-body ul,.article-body ol{line-height:1.9;margin:1rem 0;padding-left:1.3rem}
     .article-body li{margin:.35rem 0}.article-meta{font-size:.85rem;opacity:.7;margin-bottom:1.5rem}
+    .article-header-image{display:block;width:100%;height:auto;margin:0 0 2rem;border-radius:12px}
     .article-note{background:rgba(255,255,255,.06);border-left:3px solid currentColor;padding:.9rem 1rem;font-size:.92rem;opacity:.88;border-radius:6px}
     .code{overflow-x:auto;background:rgba(0,0,0,.3);padding:1rem;border-radius:6px;white-space:pre-wrap}
     .related-links{margin-top:3rem;padding:1.2rem;border:1px solid rgba(255,255,255,.14);border-radius:8px;background:rgba(255,255,255,.04)}
     .related-links h2{margin-top:0}.article-foot{margin-top:3rem;font-size:.9rem;opacity:.82}
   </style>
-  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"サイトを更新したのに変わらない——CDNキャッシュでハマった話と再発防止","description":"サイトを更新したのにブラウザでは古いまま。CDNキャッシュが原因と分かるまでの切り分けと、追加費用なく自動化した再発防止策を紹介します。","author":{"@type":"Organization","name":"烏合ワークス"},"publisher":{"@type":"Organization","name":"烏合ワークス"},"datePublished":"2026-07-18","dateModified":"2026-07-18","mainEntityOfPage":"https://works.ugounosyu-aiblog.com/articles/cdn-cache-not-updating-lesson/index.html","inLanguage":"ja"}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"サイトを更新したのに変わらない——CDNキャッシュでハマった話と再発防止","description":"サイトを更新したのにブラウザでは古いまま。CDNキャッシュが原因と分かるまでの切り分けと、追加費用なく自動化した再発防止策を紹介します。","image":"https://works.ugounosyu-aiblog.com/articles/cdn-cache-not-updating-lesson/header.png","author":{"@type":"Organization","name":"烏合ワークス"},"publisher":{"@type":"Organization","name":"烏合ワークス"},"datePublished":"2026-07-18","dateModified":"2026-07-23","mainEntityOfPage":"https://works.ugounosyu-aiblog.com/articles/cdn-cache-not-updating-lesson/index.html","inLanguage":"ja"}</script>
   <script src="/assets/analytics.js"></script>
 </head>
 <body>
@@ -35,6 +36,7 @@
     <p class="eyebrow">Articles / Site operations</p>
     <h1>サイトを更新したのに変わらない——CDNキャッシュでハマった話と再発防止</h1>
     <p class="article-meta">烏合ワークス ・ 2026-07-18</p>
+    <img class="article-header-image" src="header.png" width="1200" height="630" alt="配信元とブラウザの間に残った古いCDNキャッシュを更新するイメージ">
 
     <p>「公開処理は終わったのに、サイトを開くと前のまま」。自分たちの静的サイトで、実際にこの状況へ遭遇しました。</p>
     <p>ファイルはクラウドストレージ上で新しくなっているのに、公開URLでは古いページが表示されます。原因は公開失敗ではなく、CDN（コンテンツ配信ネットワーク）に残ったキャッシュでした。</p>
